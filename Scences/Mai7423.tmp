@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlue7lxuy1gh8"]
+
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
+[ext_resource type="Script" path="res://Scripts/dead_glider.gd" id="1_ddhir"]
+[ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
+[ext_resource type="Texture2D" uid="uid://dfpil2uoav4u6" path="res://Assets/glider.png" id="2_48kly"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_2ayxk")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(669, 412)
+script = ExtResource("1_ddhir")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_48kly")
+flip_h = true
+region_enabled = true
+region_rect = Rect2(118.865, 0, 222.34, 80)
+
+[node name="Glider" parent="." instance=ExtResource("1_mtst1")]
+position = Vector2(670, 398)
+
+[node name="Camera2D" type="Camera2D" parent="Glider"]
+position = Vector2(-658, -1681)
+offset = Vector2(2000, 2000)
+zoom = Vector2(0.15, 0.15)
+position_smoothing_speed = 20.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="x" type="Label" parent="CanvasLayer"]
+offset_right = 740.0
+offset_bottom = 396.0
+text = "number
+"
+
+[node name="y" type="Label" parent="CanvasLayer"]
+offset_right = 740.0
+offset_bottom = 396.0
+text = "number
+"
+horizontal_alignment = 2

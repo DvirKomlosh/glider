@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://ryby62sdmkgt"]
+
+[ext_resource type="Texture2D" uid="uid://cjps34wyoyujf" path="res://Assets/hoop.png" id="1_hybc7"]
+[ext_resource type="Script" path="res://Ring.gd" id="1_sas4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8l7c"]
+size = Vector2(8, 142)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4shaa"]
+size = Vector2(30.3425, 7)
+
+[node name="Ring" type="Node2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_sas4b")
+
+[node name="Back" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-22.5, 0)
+texture = ExtResource("1_hybc7")
+region_enabled = true
+region_rect = Rect2(60, 0, 45, 165)
+
+[node name="Front" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(22.5, 0)
+texture = ExtResource("1_hybc7")
+region_enabled = true
+region_rect = Rect2(105, 0, 45, 165)
+
+[node name="Middle" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Middle"]
+shape = SubResource("RectangleShape2D_s8l7c")
+
+[node name="RingCollidors" type="StaticBody2D" parent="."]
+
+[node name="Top" type="CollisionShape2D" parent="RingCollidors"]
+position = Vector2(0, -75)
+shape = SubResource("RectangleShape2D_4shaa")
+
+[node name="Bottom" type="CollisionShape2D" parent="RingCollidors"]
+position = Vector2(0, 75)
+shape = SubResource("RectangleShape2D_4shaa")
+
+[connection signal="body_entered" from="Middle" to="." method="_on_in_loop"]

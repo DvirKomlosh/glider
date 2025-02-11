@@ -8,22 +8,25 @@ func _ready():
 
 
 func _in_hoop():
-	print("adding")
 	$Glider.in_hoop()
 	var camera_tween = create_tween()
-	camera_tween.tween_property($Glider/Camera2D, "Zoom", 0.5, 1)
-	
-
+	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.11,0.11) , 0.6)
+	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.1,0.1) , 1)
+	print("1")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
+	# set glider UI position
 	$CanvasLayer/x.text = str(int($Glider.position.x/1000))
 	$CanvasLayer/y.text = str(int($Glider.position.y/1000))
 	
+	# kill glider if too low, temporary:
 	if int($Glider.position.y) >= 10000:
 		get_tree().paused = true
 
 func _draw():
+	
+	# draw grid, temporary:
 	var min_x = 0
 	var min_y = 0
 	var max_x = 1000000

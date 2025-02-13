@@ -12,7 +12,8 @@ func _in_hoop():
 	var camera_tween = create_tween()
 	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.11,0.11) , 0.6)
 	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.1,0.1) , 1)
-	print("1")
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	

@@ -33,26 +33,25 @@ text = "number
 horizontal_alignment = 2
 
 [node name="Rings" type="Node2D" parent="."]
-position = Vector2(3281, 1230)
 scale = Vector2(3, 3)
 script = ExtResource("3_n4ehn")
 
 [node name="Ring3" parent="Rings" instance=ExtResource("5_qcl5h")]
-position = Vector2(9404.67, 1953)
-scale = Vector2(2, 2)
+visible = false
+position = Vector2(9404.67, 1227.67)
 
 [node name="Ring2" parent="Rings" instance=ExtResource("5_qcl5h")]
-position = Vector2(7359.33, 1833.33)
-scale = Vector2(2, 2)
+visible = false
+position = Vector2(7359.33, 1193.33)
 
 [node name="Ring" parent="Rings" instance=ExtResource("5_qcl5h")]
-position = Vector2(5742.33, 1639.67)
-scale = Vector2(2, 2)
+visible = false
+position = Vector2(5571.67, 1341)
 
 [node name="Ring4" parent="Rings" instance=ExtResource("5_qcl5h")]
-position = Vector2(26021.7, 1867.67)
-scale = Vector2(2, 2)
+visible = false
+position = Vector2(17915, 1185)
 
 [node name="Ring5" parent="Rings" instance=ExtResource("5_qcl5h")]
-position = Vector2(18792, 2081.33)
-scale = Vector2(2, 2)
+visible = false
+position = Vector2(14440, 1228)

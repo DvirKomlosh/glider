@@ -13,7 +13,7 @@ var debug_mode = true
 
 
 func _ready():
-	pass
+	rotation = 0
 
 func _process(delta):
 		
@@ -87,7 +87,6 @@ func _physics_process(delta):
 	queue_redraw()
 
 func _draw():
-	pass
 	if debug_mode:
 		#draw_line(Vector2(0,0),Vector2(1,0) * 500,Color.AQUA, 10)
 		#draw_line(Vector2(0,0),Vector2(0,-1) * 500,Color.AQUA, 10)

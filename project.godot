@@ -17,9 +17,9 @@ config/icon="res://Assets/icon.svg"
 
 [display]
 
-window/size/viewport_width=1080
-window/size/viewport_height=720
+window/stretch/mode="canvas_items"
 
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

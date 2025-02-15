@@ -23,7 +23,9 @@ func _process(delta):
 	
 	# kill glider if too low, temporary:
 	if int($Glider.position.y) >= 10000:
-		get_tree().paused = true
+		#get_tree().paused = true
+		var current_scene = get_tree().current_scene.scene_file_path
+		get_tree().change_scene_to_file(current_scene)
 
 func _draw():
 	

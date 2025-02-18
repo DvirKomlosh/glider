@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ryby62sdmkgt"]
+[gd_scene load_steps=6 format=3 uid="uid://ryby62sdmkgt"]
 
 [ext_resource type="Texture2D" uid="uid://cjps34wyoyujf" path="res://Assets/hoop.png" id="1_hybc7"]
 [ext_resource type="Script" path="res://Scripts/Ring.gd" id="1_sas4b"]
+[ext_resource type="Script" path="res://Scences/ring_indicator.gd" id="3_07uct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8l7c"]
 size = Vector2(8, 142)
@@ -41,5 +42,25 @@ shape = SubResource("RectangleShape2D_4shaa")
 [node name="Bottom" type="CollisionShape2D" parent="RingCollidors"]
 position = Vector2(0, 75)
 shape = SubResource("RectangleShape2D_4shaa")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="RingIndicator" type="ColorRect" parent="CanvasLayer"]
+offset_left = -233.0
+offset_top = -25.0
+offset_right = -173.0
+offset_bottom = 13.0
+color = Color(1, 0.25, 0.25, 1)
+script = ExtResource("3_07uct")
+
+[node name="RingDistance" type="Label" parent="CanvasLayer/RingIndicator"]
+layout_mode = 0
+offset_left = 11.5
+offset_top = 6.5
+offset_right = 51.5
+offset_bottom = 29.5
+text = "200"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Middle" to="." method="_on_in_loop"]

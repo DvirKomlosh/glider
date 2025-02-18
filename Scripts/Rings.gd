@@ -2,8 +2,6 @@ extends Node2D
 
 signal in_hoop
 
-
-
 var ring_scene = preload("res://Scences/Ring.tscn")
 var last_update_position = 0
 var next_ring_update = 100
@@ -26,25 +24,15 @@ func _process(delta):
 		if len(get_children()) == 0:
 			next_ring_update += ring_distance
 			ring_distance += 2000
-			print("instans", next_ring_update, glider_position.x)
-			_instentiate_ring(Vector2(next_ring_update, 1800 + 1 * randf_range(-500, 500)))
+			_instentiate_ring(Vector2(next_ring_update, 1800 + 1 * randf_range(-1000, 1000)))
 	
 	var rings = get_children()
 		
 		
 	if len(rings) > 0:
-		var min = rings[0].global_position
-		var min_local = rings[0].position 
-		for ring in rings:
-			var pos = ring.global_position
-			if min.x > pos.x and pos.x > $"../Glider".global_position.x:
-				min = pos
-				min_local = ring.position
-				
-				
-
-		var screen_coord = get_viewport().get_screen_transform() * get_global_transform_with_canvas() * min_local
-		$"../CanvasLayer/ColorRect".position.y = screen_coord.y
+		rings[0].set_indicator(glider_position)
+		
+		
 
 
 func _instentiate_ring(new_pos: Vector2):

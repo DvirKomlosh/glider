@@ -19,9 +19,7 @@ func _process(delta):
 		
 	var screen_height = 5040.0
 	if alive:
-		#look_at(get_global_mouse_position())
-		#rotation = - ($"../CanvasLayer/VSlider".value  * PI) / 180
-		rotation = asin( - $"../CanvasLayer/VSlider".value/90)
+		rotation = asin( - $"../CanvasLayer/Controller".value/90)
 	
 	# clamp rotation:
 	rotation = max(rotation,-PI/2)

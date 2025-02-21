@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjbsd"]
 size = Vector2(190, 73)
 
-[node name="Glider" type="CharacterBody2D"]
+[node name="Glider" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_353v6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

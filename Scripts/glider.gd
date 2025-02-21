@@ -8,7 +8,7 @@ var acc
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-var alive = true
+var is_alive = true
 var debug_mode = false
 
 
@@ -18,7 +18,7 @@ func _ready():
 func _process(delta):
 		
 	var screen_height = 5040.0
-	if alive:
+	if is_alive:
 		rotation = asin( - $"../CanvasLayer/Controller".value/90)
 	
 	# clamp rotation:
@@ -69,7 +69,7 @@ func _physics_process(delta):
 	
 	# boost:
 	if Input.is_key_pressed(KEY_SPACE):
-		acc += forward_dir * 10
+		velocity += forward_dir * 100
 	
 	acc *= ACC_MULT
 	velocity += acc 
@@ -80,7 +80,7 @@ func _physics_process(delta):
 	
 	var collided = move_and_slide()
 	if collided:
-		alive = false
+		is_alive = false
 		create_tween().tween_property($".", "rotation", -PI/2, 1)
 		
 		

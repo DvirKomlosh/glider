@@ -1,8 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://ryby62sdmkgt"]
+[gd_scene load_steps=8 format=3 uid="uid://ryby62sdmkgt"]
 
 [ext_resource type="Texture2D" uid="uid://cjps34wyoyujf" path="res://Assets/hoop.png" id="1_hybc7"]
 [ext_resource type="Script" path="res://Scripts/Ring.gd" id="1_sas4b"]
 [ext_resource type="Script" path="res://Scences/ring_indicator.gd" id="3_07uct"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lefqb"]
+b = Vector2(0, -10000)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_owivs"]
+b = Vector2(0, 10000)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8l7c"]
 size = Vector2(8, 142)
@@ -11,7 +17,7 @@ size = Vector2(8, 142)
 size = Vector2(30.3425, 7)
 
 [node name="Ring" type="Node2D"]
-scale = Vector2(2, 2)
+scale = Vector2(6, 6)
 script = ExtResource("1_sas4b")
 
 [node name="Back" type="Sprite2D" parent="."]
@@ -27,6 +33,16 @@ position = Vector2(22.5, 0)
 texture = ExtResource("1_hybc7")
 region_enabled = true
 region_rect = Rect2(105, 0, 45, 165)
+
+[node name="UnderOver" type="Area2D" parent="."]
+
+[node name="Under" type="CollisionShape2D" parent="UnderOver"]
+position = Vector2(0, -80)
+shape = SubResource("SegmentShape2D_lefqb")
+
+[node name="Over" type="CollisionShape2D" parent="UnderOver"]
+position = Vector2(0, 80)
+shape = SubResource("SegmentShape2D_owivs")
 
 [node name="Middle" type="Area2D" parent="."]
 
@@ -63,4 +79,5 @@ text = "200"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="body_entered" from="UnderOver" to="." method="_on_under_over_body_entered"]
 [connection signal="body_entered" from="Middle" to="." method="_on_in_loop"]

@@ -1,13 +1,12 @@
 extends Node2D
 
 signal in_hoop
+signal out_hoop
 
 var x_margin_size = 100
 var y_margin_size = 10
 
 var is_on_screen
-
-
 
 @onready var indicator = $CanvasLayer/RingIndicator
 @onready var indicator_label = $CanvasLayer/RingIndicator/RingDistance
@@ -16,7 +15,18 @@ var is_on_screen
 func _on_in_loop(body):
 	in_hoop.emit()
 
+func _on_under_over_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		out_hoop.emit()
+
+func unset_indicator():
+	indicator.visible = false
+
 func set_indicator(glider_global_position):
+	'''
+	sets the indicator of the ring to clamp to screen in the direction of the ring,
+	with the distance of the glider from the ring
+	'''
 	var origin_position = get_global_transform_with_canvas().origin
 	var vp_size = get_viewport_rect().size
 	

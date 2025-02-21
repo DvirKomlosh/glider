@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlue7lxuy1gh8"]
+[gd_scene load_steps=6 format=3 uid="uid://dlue7lxuy1gh8"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
 [ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
+[ext_resource type="Script" path="res://Scences/environment.gd" id="3_deydf"]
 [ext_resource type="Script" path="res://Scripts/Rings.gd" id="3_n4ehn"]
+[ext_resource type="Script" path="res://Scences/walls.gd" id="4_m5oe5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_2ayxk")
 
 [node name="Glider" parent="." instance=ExtResource("1_mtst1")]
-position = Vector2(670, 398)
 
 [node name="Camera2D" type="Camera2D" parent="Glider"]
 position = Vector2(-658, -1681)
@@ -17,19 +18,6 @@ zoom = Vector2(0.1, 0.1)
 position_smoothing_speed = 20.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="x" type="Label" parent="CanvasLayer"]
-offset_right = 740.0
-offset_bottom = 396.0
-text = "number
-"
-
-[node name="y" type="Label" parent="CanvasLayer"]
-offset_right = 740.0
-offset_bottom = 396.0
-text = "number
-"
-horizontal_alignment = 2
 
 [node name="Controller" type="VSlider" parent="CanvasLayer"]
 anchors_preset = 11
@@ -46,21 +34,41 @@ scale = Vector2(2, 2)
 min_value = -90.0
 max_value = 90.0
 
-[node name="RingIndicator" type="ColorRect" parent="CanvasLayer"]
-visible = false
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -97.0
-offset_top = -21.0
-offset_right = -57.0
-offset_bottom = 19.0
-grow_horizontal = 0
-grow_vertical = 2
-color = Color(1, 0.18, 0.18, 1)
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
 
-[node name="Rings" type="Node2D" parent="."]
-scale = Vector2(3, 3)
+[node name="x" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = -287.5
+offset_right = 452.5
+offset_bottom = 396.0
+text = "number
+"
+
+[node name="y" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 2
+offset_left = -287.5
+offset_right = 452.5
+offset_bottom = 396.0
+text = "number
+"
+horizontal_alignment = 2
+
+[node name="Environment" type="Node2D" parent="."]
+script = ExtResource("3_deydf")
+
+[node name="Walls" type="Node2D" parent="Environment"]
+script = ExtResource("4_m5oe5")
+
+[node name="Rings" type="Node2D" parent="Environment"]
 script = ExtResource("3_n4ehn")
+
+[connection signal="wall_entred" from="Environment/Walls" to="Environment" method="on_wall_entred"]
+[connection signal="in_hoop" from="Environment/Rings" to="." method="_in_hoop"]

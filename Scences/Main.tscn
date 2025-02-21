@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
 [ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
-[ext_resource type="Script" path="res://Scences/environment.gd" id="3_deydf"]
+[ext_resource type="Script" path="res://Scripts/environment.gd" id="3_deydf"]
 [ext_resource type="Script" path="res://Scripts/Rings.gd" id="3_n4ehn"]
-[ext_resource type="Script" path="res://Scences/walls.gd" id="4_m5oe5"]
+[ext_resource type="Script" path="res://Scripts/walls.gd" id="4_m5oe5"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_2ayxk")

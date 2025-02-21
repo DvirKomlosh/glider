@@ -1,17 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://ryby62sdmkgt"]
+[gd_scene load_steps=7 format=3 uid="uid://ryby62sdmkgt"]
 
 [ext_resource type="Texture2D" uid="uid://cjps34wyoyujf" path="res://Assets/hoop.png" id="1_hybc7"]
 [ext_resource type="Script" path="res://Scripts/Ring.gd" id="1_sas4b"]
-[ext_resource type="Script" path="res://Scences/ring_indicator.gd" id="3_07uct"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_lefqb"]
-b = Vector2(0, -10000)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l1oph"]
+size = Vector2(50, 10000)
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_owivs"]
-b = Vector2(0, 10000)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukfnb"]
+size = Vector2(50, 10000)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8l7c"]
-size = Vector2(8, 142)
+size = Vector2(25, 142)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4shaa"]
 size = Vector2(30.3425, 7)
@@ -37,16 +36,17 @@ region_rect = Rect2(105, 0, 45, 165)
 [node name="UnderOver" type="Area2D" parent="."]
 
 [node name="Under" type="CollisionShape2D" parent="UnderOver"]
-position = Vector2(0, -80)
-shape = SubResource("SegmentShape2D_lefqb")
+position = Vector2(0, -5080)
+shape = SubResource("RectangleShape2D_l1oph")
 
 [node name="Over" type="CollisionShape2D" parent="UnderOver"]
-position = Vector2(0, 80)
-shape = SubResource("SegmentShape2D_owivs")
+position = Vector2(0, 5080)
+shape = SubResource("RectangleShape2D_ukfnb")
 
 [node name="Middle" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Middle"]
+position = Vector2(0, -0.333333)
 shape = SubResource("RectangleShape2D_s8l7c")
 
 [node name="RingCollidors" type="StaticBody2D" parent="."]
@@ -67,7 +67,6 @@ offset_top = -25.0
 offset_right = -173.0
 offset_bottom = 13.0
 color = Color(1, 0.25, 0.25, 1)
-script = ExtResource("3_07uct")
 
 [node name="RingDistance" type="Label" parent="CanvasLayer/RingIndicator"]
 layout_mode = 0

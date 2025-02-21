@@ -44,8 +44,8 @@ func set_indicator(glider_global_position):
 	indicator.size.y = int(base_size.y * scalar)
 
 	
-	if distance > 100 or distance < 0:
-		indicator.visible = false
+	#if distance > 100 or distance < 0:
+		#indicator.visible = false
 		
 	indicator_label.text = str(distance)
 	

@@ -9,8 +9,9 @@ var noise_down = FastNoiseLite.new()
 var noise_up = FastNoiseLite.new()
 var noise_path = FastNoiseLite.new()
 
+
 var next_ring_position = 6000
-var ring_distance = 15000
+var ring_distance = 20000
 var ring_distance_distance = 1000
 
 var y_values = Vector2(0, 10000)
@@ -78,6 +79,11 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float):
 		var slope_down = atanh(noise_down.get_noise_1d(x * 0.001)) + 0.01
 		var slope_up = atanh(noise_up.get_noise_1d(x * 0.001)) - 0.01
 		var path = 1500 * noise_path.get_noise_1d(x * 0.001)
+		
+		if x < 10000:
+			slope_down += 0.4
+			slope_up += 0.4
+		
 		y_down = y_down + slope_down * subsection_length + path
 		y_up = y_up + slope_up * subsection_length + path
 		
@@ -102,6 +108,5 @@ func _generate_next_ring_position():
 	returns the next ring position
 	'''
 	next_ring_position += ring_distance
-	ring_distance += ring_distance_distance
 	
 	return next_ring_position

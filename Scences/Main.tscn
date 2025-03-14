@@ -34,6 +34,16 @@ scale = Vector2(2, 2)
 min_value = -90.0
 max_value = 90.0
 
+[node name="Final Score" type="Label" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 620.0
+offset_right = 620.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 350
+
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 5
@@ -49,6 +59,7 @@ layout_mode = 2
 offset_left = -287.5
 offset_right = 452.5
 offset_bottom = 396.0
+theme_override_font_sizes/font_size = 30
 text = "number
 "
 
@@ -57,6 +68,7 @@ layout_mode = 2
 offset_left = -287.5
 offset_right = 452.5
 offset_bottom = 396.0
+theme_override_font_sizes/font_size = 30
 text = "number
 "
 horizontal_alignment = 2
@@ -72,3 +84,4 @@ script = ExtResource("3_n4ehn")
 
 [connection signal="wall_entred" from="Environment/Walls" to="Environment" method="on_wall_entred"]
 [connection signal="in_hoop" from="Environment/Rings" to="." method="_in_hoop"]
+[connection signal="out_hoop" from="Environment/Rings" to="." method="_out_hoop"]

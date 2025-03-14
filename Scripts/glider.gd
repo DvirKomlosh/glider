@@ -7,16 +7,42 @@ var forward_dir: Vector2
 var acc
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-
+@onready var wind_player = $WindPlayer
 var is_alive = true
 var debug_mode = false
 
+func _show_points(combo):
+	var points = $Points
+	
+	points.scale = Vector2(0.6, 0.6)
+	points.text = "+" + str(combo)
+	var points_tween = create_tween()
+	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.1)
+	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.3)
+	points_tween.tween_property(points, "scale", Vector2(0,0),0.1)	
 
 func _ready():
 	rotation = 0
 
+func sigmoid(x: float) -> float:
+	return 1 / (1.0 + exp(10 * (-x+0.5)))
+
+
+func _play_sound(delta):
+	var speed = velocity.length()
+	var halflife = 0.05
+	var base_volume = 6.3
+	var target_volume = base_volume + linear_to_db(sigmoid(speed/30000.0))
+
+	var new_volume = lerp(wind_player.volume_db,target_volume, (1 - 2 ** (-delta / halflife)))
+	
+	
+	wind_player.volume_db = new_volume
+	
+
 func _process(delta):
-		
+	
+	$Points.rotation = -rotation
 	var screen_height = 5040.0
 	if is_alive:
 		rotation = asin( - $"../CanvasLayer/Controller".value/90)
@@ -25,6 +51,7 @@ func _process(delta):
 	rotation = max(rotation,-PI/2)
 	rotation = min(rotation, PI/2)
 	
+	_play_sound(delta)
 
 func _physics_process(delta):
 
@@ -94,7 +121,8 @@ func _draw():
 		draw_line(velocity.rotated(-rotation), velocity.rotated(-rotation)+acc.rotated(-rotation) ,Color.GREEN, 10)
 		#draw_line(Vector2(0,0), acc.rotated(-rotation) ,Color.GREEN, 10)
 
-func in_hoop():
+func in_hoop(combo):
+	_show_points(combo)
 	velocity += forward_dir * 3000
 	
 	

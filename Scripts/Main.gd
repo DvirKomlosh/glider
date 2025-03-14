@@ -1,22 +1,40 @@
 extends Node2D
 
+var score = 0
+var combo = 1
+
 
 func _in_hoop():
-	$Glider.in_hoop()
+	$Glider.in_hoop(combo)
+	
+	
+	score += combo
+	combo += 1
+	
 	var camera_tween = create_tween()
-	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.11,0.11) , 0.6)
+	
+	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.11, 0.11), 0.6)
 	camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.1,0.1) , 1)
 	
-	
+func _out_hoop():
+	combo = 1
+
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
 	# set glider UI position
 	$CanvasLayer/Control/x.text = str(int($Glider.position.x/1000))
-	$CanvasLayer/Control/y.text = str(int($Glider.position.y/1000))
+	$CanvasLayer/Control/y.text = str(score)
+
 	
 	if not $Glider.is_alive:
 		var current_scene = get_tree().current_scene.scene_file_path
+		$"CanvasLayer/Final Score".text = str(score)
+		$CanvasLayer/Control/y.text = ""
+		$CanvasLayer/Control/x.text = ""
+		await get_tree().create_timer(4).timeout
 		get_tree().change_scene_to_file(current_scene)
 		
 

@@ -1,6 +1,7 @@
 extends Node2D
 
 signal in_hoop
+signal out_hoop
 
 var ring_scene = preload("res://Scences/Ring.tscn")
 
@@ -13,26 +14,17 @@ func _ready():
 	for ring in get_children():
 		ring.in_hoop.connect(send_in_hoop)
 
-func print_rings_poses(rings):
-	var posits = []
-	for ring in rings:
-		posits.append(ring.position.x)
-	print(posits)
 
 func send_in_hoop():
 	active_rings[0].unset_indicator()
 	active_rings.remove_at(0)
 	in_hoop.emit()
-	print("[in ]: active rings")
-	print_rings_poses(active_rings)
-	print("[in ]: glider", $"../../Glider".global_position)
+
 	
 func send_out_hoop():
 	active_rings[0].unset_indicator()
 	active_rings.remove_at(0)
-	print("[out]: active rings")
-	print_rings_poses(active_rings)
-	print("[out]: glider", $"../../Glider".global_position)
+	out_hoop.emit()
 
 	
 	
@@ -58,9 +50,7 @@ func instentiate_ring(new_pos: Vector2):
 	new_ring.out_hoop.connect(send_out_hoop)
 	rings.append(new_ring)
 	active_rings.append(new_ring)
-	
-	print("[add]: active rings")
-	print_rings_poses(active_rings)
+
 
 	
 func remove_rings(x_position):

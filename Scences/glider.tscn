@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dosackr3aogrr"]
+[gd_scene load_steps=5 format=3 uid="uid://dosackr3aogrr"]
 
 [ext_resource type="Script" path="res://Scripts/glider.gd" id="1_353v6"]
 [ext_resource type="Texture2D" uid="uid://dfpil2uoav4u6" path="res://Assets/glider.png" id="1_wdr1r"]
+[ext_resource type="AudioStream" uid="uid://c2g0aiv8rtc3s" path="res://Assets/Audio/Effects/wind-2.mp3" id="3_u2eg4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjbsd"]
 size = Vector2(190, 73)
@@ -19,3 +20,16 @@ region_rect = Rect2(118.865, 0, 222.34, 80)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 2.5)
 shape = SubResource("RectangleShape2D_cjbsd")
+
+[node name="Points" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 70)
+offset_left = -175.0
+offset_top = -528.0
+offset_right = 510.0
+offset_bottom = -119.0
+theme_override_font_sizes/font_size = 300
+horizontal_alignment = 1
+
+[node name="WindPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_u2eg4")
+autoplay = true

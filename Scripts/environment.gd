@@ -10,8 +10,8 @@ var noise_up = FastNoiseLite.new()
 var noise_path = FastNoiseLite.new()
 
 var next_ring_position = 6000
-var ring_distance = 10000
-var ring_distance_distance = 2000
+var ring_distance = 15000
+var ring_distance_distance = 1000
 
 var y_values = Vector2(0, 10000)
 var x_value = -section_length * 2

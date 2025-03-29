@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ryby62sdmkgt"]
 
-[ext_resource type="Texture2D" uid="uid://cjps34wyoyujf" path="res://Assets/hoop.png" id="1_hybc7"]
 [ext_resource type="Script" path="res://Scripts/Ring.gd" id="1_sas4b"]
+[ext_resource type="Texture2D" uid="uid://c1yq33lh1r8sp" path="res://Assets/ring2.png" id="2_a7b7y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1oph"]
 size = Vector2(50, 10000)
@@ -10,70 +10,70 @@ size = Vector2(50, 10000)
 size = Vector2(50, 10000)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8l7c"]
-size = Vector2(25, 142)
+size = Vector2(25, 708.245)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4shaa"]
-size = Vector2(30.3425, 7)
+size = Vector2(65, 34)
 
 [node name="Ring" type="Node2D"]
-scale = Vector2(6, 6)
+scale = Vector2(2, 2)
 script = ExtResource("1_sas4b")
 
 [node name="Back" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(-22.5, 0)
-texture = ExtResource("1_hybc7")
+position = Vector2(-200, 0)
+texture = ExtResource("2_a7b7y")
 region_enabled = true
-region_rect = Rect2(60, 0, 45, 165)
+region_rect = Rect2(0, 0, 400, 800)
 
 [node name="Front" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(22.5, 0)
-texture = ExtResource("1_hybc7")
+position = Vector2(200, 0)
+texture = ExtResource("2_a7b7y")
 region_enabled = true
-region_rect = Rect2(105, 0, 45, 165)
+region_rect = Rect2(400, 0, 400, 800)
 
 [node name="UnderOver" type="Area2D" parent="."]
 
 [node name="Under" type="CollisionShape2D" parent="UnderOver"]
-position = Vector2(0, -5080)
+position = Vector2(0, -5391)
 shape = SubResource("RectangleShape2D_l1oph")
 
 [node name="Over" type="CollisionShape2D" parent="UnderOver"]
-position = Vector2(0, 5080)
+position = Vector2(0, 5387)
 shape = SubResource("RectangleShape2D_ukfnb")
 
 [node name="Middle" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Middle"]
-position = Vector2(0, -0.333333)
+position = Vector2(0, -2.3775)
 shape = SubResource("RectangleShape2D_s8l7c")
 
 [node name="RingCollidors" type="StaticBody2D" parent="."]
 
 [node name="Top" type="CollisionShape2D" parent="RingCollidors"]
-position = Vector2(0, -75)
+position = Vector2(0, -374)
 shape = SubResource("RectangleShape2D_4shaa")
 
 [node name="Bottom" type="CollisionShape2D" parent="RingCollidors"]
-position = Vector2(0, 75)
+position = Vector2(0, 370)
 shape = SubResource("RectangleShape2D_4shaa")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="RingIndicator" type="ColorRect" parent="CanvasLayer"]
-offset_left = -233.0
-offset_top = -25.0
-offset_right = -173.0
-offset_bottom = 13.0
+offset_left = -1000.0
+offset_top = -100.0
+offset_right = -700.0
+offset_bottom = 90.0
 color = Color(1, 0.25, 0.25, 1)
 
 [node name="RingDistance" type="Label" parent="CanvasLayer/RingIndicator"]
 layout_mode = 0
-offset_left = 11.5
-offset_top = 6.5
-offset_right = 51.5
-offset_bottom = 29.5
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 50.0
+offset_bottom = 31.0
 text = "200"
 horizontal_alignment = 1
 vertical_alignment = 1

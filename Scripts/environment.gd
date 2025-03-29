@@ -81,8 +81,8 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float):
 		var path = 1500 * noise_path.get_noise_1d(x * 0.001)
 		
 		if x < 10000:
-			slope_down += 0.4
-			slope_up += 0.4
+			slope_down += 0.6
+			slope_up += 0.6
 		
 		y_down = y_down + slope_down * subsection_length + path
 		y_up = y_up + slope_up * subsection_length + path

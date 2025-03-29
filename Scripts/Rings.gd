@@ -8,6 +8,9 @@ var ring_scene = preload("res://Scences/Ring.tscn")
 var active_rings = []
 var rings = []
 
+func unset_all_indicators():
+	for ring in rings:
+		ring.unset_indicator()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

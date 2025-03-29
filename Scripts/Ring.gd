@@ -7,17 +7,24 @@ var x_margin_size = 100
 var y_margin_size = 10
 
 var is_on_screen
+var has_passed = false
 
 @onready var indicator = $CanvasLayer/RingIndicator
 @onready var indicator_label = $CanvasLayer/RingIndicator/RingDistance
 @onready var indicator_size = indicator.size
 
 func _on_in_loop(body):
-	in_hoop.emit()
+	if not has_passed:
+		if body.is_in_group("player"):
+			has_passed = true
+			in_hoop.emit()
 
 func _on_under_over_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		out_hoop.emit()
+	if not has_passed:
+
+		if body.is_in_group("player"):
+			out_hoop.emit()
+			has_passed = true	
 
 func unset_indicator():
 	indicator.visible = false

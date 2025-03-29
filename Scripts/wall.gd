@@ -2,6 +2,7 @@ extends Node2D
 
 signal wall_entred
 
+var WALL_COLOR = Color("#191726")
 
 var up_wall_points 
 var down_wall_points
@@ -24,7 +25,7 @@ func _set_up_polygons() -> void:
 	var down_static = StaticBody2D.new()
 	var down_collision = CollisionPolygon2D.new()
 	var down_polygon = Polygon2D.new()
-	down_polygon.color = Color.BLACK
+	down_polygon.color = WALL_COLOR
 	
 	down_collision.polygon = PackedVector2Array(down_points_polygon)
 	down_static.add_child(down_collision)
@@ -36,7 +37,7 @@ func _set_up_polygons() -> void:
 	var up_static = StaticBody2D.new()
 	var up_collision = CollisionPolygon2D.new()	
 	var up_polygon = Polygon2D.new()
-	up_polygon.color = Color.BLACK
+	up_polygon.color = WALL_COLOR
 	
 	up_collision.polygon = PackedVector2Array(up_points_polygon)
 	up_static.add_child(up_collision)

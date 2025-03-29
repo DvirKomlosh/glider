@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal dead
+signal add_trail(position, speed)
 
 var ACC_MULT = 2.0
 
@@ -8,6 +10,7 @@ var acc
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var wind_player = $WindPlayer
+
 var is_alive = true
 var debug_mode = false
 
@@ -23,6 +26,7 @@ func _show_points(combo):
 
 func _ready():
 	rotation = 0
+	wind_player.volume_db = -50
 
 func sigmoid(x: float) -> float:
 	return 1 / (1.0 + exp(10 * (-x+0.5)))
@@ -31,7 +35,7 @@ func sigmoid(x: float) -> float:
 func _play_sound(delta):
 	var speed = velocity.length()
 	var halflife = 0.05
-	var base_volume = 6.3
+	var base_volume = -10
 	var target_volume = base_volume + linear_to_db(sigmoid(speed/30000.0))
 
 	var new_volume = lerp(wind_player.volume_db,target_volume, (1 - 2 ** (-delta / halflife)))
@@ -47,6 +51,14 @@ func _process(delta):
 	if is_alive:
 		rotation = asin( - $"../CanvasLayer/Controller".value/90)
 	
+	# if alive, size = 0
+	# if speed < x -> size = 0
+	# if speed > x, size = clamp(0.5,1, speed/2 / x) color = ??? based on speed tho
+	var speed = 0
+	if is_alive:
+		speed = velocity.length()
+
+	add_trail.emit($TrailPosition.global_position, speed)
 	# clamp rotation:
 	rotation = max(rotation,-PI/2)
 	rotation = min(rotation, PI/2)
@@ -108,8 +120,9 @@ func _physics_process(delta):
 	var collided = move_and_slide()
 	if collided:
 		is_alive = false
+		dead.emit()
 		create_tween().tween_property($".", "rotation", -PI/2, 1)
-		
+	
 		
 	queue_redraw()
 
@@ -124,6 +137,3 @@ func _draw():
 func in_hoop(combo):
 	_show_points(combo)
 	velocity += forward_dir * 3000
-	
-	
-	

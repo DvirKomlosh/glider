@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c1tlevkc8eva4"]
 
-[ext_resource type="Script" path="res://Scences/end_screen.gd" id="1_dxnh8"]
+[ext_resource type="Script" path="res://Scripts/end_screen.gd" id="1_vfvr6"]
 [ext_resource type="Shader" path="res://end_screen.gdshader" id="2_ojk7s"]
 
 [sub_resource type="Animation" id="Animation_af0tx"]
@@ -77,7 +77,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_dxnh8")
+script = ExtResource("1_vfvr6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/environment.gd" id="3_deydf"]
 [ext_resource type="Script" path="res://Scripts/Rings.gd" id="3_n4ehn"]
 [ext_resource type="Script" path="res://Scripts/walls.gd" id="4_m5oe5"]
-[ext_resource type="Script" path="res://Scences/glider_trail.gd" id="6_tx5mk"]
+[ext_resource type="Script" path="res://Scripts/glider_trail.gd" id="7_36mon"]
 
 [sub_resource type="Curve" id="Curve_0g3sn"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
@@ -212,7 +212,7 @@ gradient = SubResource("Gradient_v1064")
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
-script = ExtResource("6_tx5mk")
+script = ExtResource("7_36mon")
 start_color = Color(0.337255, 0.654902, 0.713726, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -29,15 +29,12 @@ func send_out_hoop():
 	active_rings.remove_at(0)
 	out_hoop.emit()
 
-	
-	
-func _process(delta):
-	var glider_position = $"../../Glider".global_position
-
+func update_indicator(glider_position):
 	if len(active_rings) > 0:
 		active_rings[0].set_indicator(glider_position)
-		
-		
+	
+func _process(delta):
+	pass
 
 
 func instentiate_ring(new_pos: Vector2):

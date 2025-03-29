@@ -16,21 +16,6 @@ point_count = 2
 offsets = PackedFloat32Array(0, 0.490323)
 colors = PackedColorArray(0.96704, 0.202136, 0.844069, 1, 0.337255, 0.654902, 0.713726, 1)
 
-[sub_resource type="Animation" id="Animation_lur6t"]
-resource_name = "in_hoop"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GliderTrail:start_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.133333),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.726647, 0.464192, 0.91102, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_etpxp"]
 length = 0.001
 tracks/0/type = "value"
@@ -56,6 +41,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Glider/Camera2D:zoom")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
 }
 
 [sub_resource type="Animation" id="Animation_hkra6"]
@@ -99,6 +96,34 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_lur6t"]
+resource_name = "in_hoop"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GliderTrail:start_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.133333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.726647, 0.464192, 0.91102, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Glider/Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.633333, 1.96667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.13, 0.13), Vector2(0.1, 0.1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6ebp"]
@@ -188,14 +213,17 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("6_tx5mk")
+start_color = Color(0.337255, 0.654902, 0.713726, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_o6ebp")
 }
 
+[connection signal="add_trail" from="Glider" to="." method="update_glider_position"]
 [connection signal="add_trail" from="Glider" to="." method="_send_add_trail"]
 [connection signal="dead" from="Glider" to="." method="_set_game_over"]
+[connection signal="ready_to_set_glider_position" from="Environment" to="." method="_on_ready_to_set_glider_position"]
 [connection signal="wall_entred" from="Environment/Walls" to="Environment" method="on_wall_entred"]
 [connection signal="in_hoop" from="Environment/Rings" to="." method="_in_hoop"]
 [connection signal="out_hoop" from="Environment/Rings" to="." method="_out_hoop"]

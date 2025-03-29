@@ -1,5 +1,8 @@
 extends Node2D
 
+
+signal ready_to_set_glider_position(pos_x, pos_y)
+
 var min_passage_width: float= 200.0
 var section_length: float = 10000.0
 var section_size: int = 10
@@ -40,7 +43,7 @@ func _ready() -> void:
 		
 		# Set the glider slightly below the celing, at the start
 		if abs(x_value) < subsection_length:
-			$"../Glider".position = Vector2(x_value, y_values[0] + 300)
+			ready_to_set_glider_position.emit(x_value, y_values[0])
 		
 		
 

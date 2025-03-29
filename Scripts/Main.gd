@@ -1,6 +1,15 @@
 extends Node2D
 
 var save_path = "user://scores.save"
+var starting_glider_position
+
+@onready var glider: CharacterBody2D = $Glider
+@onready var controller: VSlider = $CanvasLayer/Controller
+@onready var rings: Node2D = $Environment/Rings
+@onready var glider_trail: Line2D = $GliderTrail
+@onready var end_screen: Control = $CanvasLayer/EndScreen
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var camera: Camera2D = $Glider/Camera2D
 
 
 var score = 0
@@ -33,39 +42,41 @@ func _save_score():
 	file.store_var(best_score)
 	
 
-func _send_add_trail(pos, speed):
-	$GliderTrail.add_trail_point(pos, speed)
+func update_glider_position(pos, speed):
+	glider_trail.add_trail_point(pos, speed)
+	rings.update_indicator(pos)
+	
 
 func _set_game_over():
 	_save_score()
-	$AnimationPlayer.play("death")
-	$CanvasLayer/EndScreen.set_scores(score, best_score, distance, best_distance)
+	animation_player.play("death")
+	end_screen.set_scores(score, best_score, distance, best_distance)
 	is_game_over = true
 
 func _in_hoop():
 	if not is_game_over:
-		$Glider.in_hoop(combo)
-		
+		glider.in_hoop(combo)
 		score += combo
 		combo += 1
 		
-		$AnimationPlayer.play("in_hoop")
-		var camera_tween = create_tween()
-		
-		camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.11, 0.11), 0.6)
-		camera_tween.tween_property($Glider/Camera2D, "zoom", Vector2(0.1,0.1) , 1)
-		
-		#$GliderTrail.add_color()
-	
+		animation_player.play("in_hoop")
+					
 func _out_hoop():
 	combo = 1
 
 func _ready() -> void:
 	_load_score()
+	glider.position = starting_glider_position
 
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	distance = int($Glider.position.x/1000)
+	glider.set_glider_rotation(controller.value)
+	distance = int(glider.position.x/1000)
 	# set glider UI position
 	$CanvasLayer/Control/x.text = str(distance)
 	$CanvasLayer/Control/y.text = str(score)
+
+
+func _on_ready_to_set_glider_position(pos_x: float, pos_y: float) -> void:
+	starting_glider_position = Vector2(pos_x, pos_y + 500)

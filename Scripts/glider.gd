@@ -10,12 +10,14 @@ var acc
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var wind_player = $WindPlayer
+@onready var points: Label = $Points
+@onready var trail_position: Marker2D = $TrailPosition
+
 
 var is_alive = true
 var debug_mode = false
 
 func _show_points(combo):
-	var points = $Points
 	
 	points.scale = Vector2(0.6, 0.6)
 	points.text = "+" + str(combo)
@@ -43,22 +45,20 @@ func _play_sound(delta):
 	
 	wind_player.volume_db = new_volume
 	
+func set_glider_rotation(controller_value: float):
+	if is_alive:
+		rotation = asin( - controller_value/90)
 
 func _process(delta):
 	
-	$Points.rotation = -rotation
+	points.rotation = -rotation
 	var screen_height = 5040.0
-	if is_alive:
-		rotation = asin( - $"../CanvasLayer/Controller".value/90)
-	
-	# if alive, size = 0
-	# if speed < x -> size = 0
-	# if speed > x, size = clamp(0.5,1, speed/2 / x) color = ??? based on speed tho
+
 	var speed = 0
 	if is_alive:
 		speed = velocity.length()
 
-	add_trail.emit($TrailPosition.global_position, speed)
+	add_trail.emit(trail_position.global_position, speed)
 	# clamp rotation:
 	rotation = max(rotation,-PI/2)
 	rotation = min(rotation, PI/2)
@@ -87,14 +87,8 @@ func _physics_process(delta):
 
 	var normal_dir = Vector2(cos(pitch - PI/2),sin(pitch - PI/2))
 	
-	# force is proportional to the amount of air heating the plane
-	# TODO: check if i playing with the coeficiants may work in my favor, setting the influence of the horizontal surface lower should combat parachuting
 	var force =  1 * abs(vertical_surface * forward_speed) + 1 * abs(horizontal_surface * down_speed)
 	
-	# first coof - gives you the ability to "go up" when fast - _____/
-	# second coof - gives the ability to "go forward" when falling quickly - \___
-	# too much of second coof - parachuting	
-	# too much first coof - like parachuting but first get speed by diving, then go up?
 
 	
 	
@@ -121,18 +115,18 @@ func _physics_process(delta):
 	if collided:
 		is_alive = false
 		dead.emit()
-		create_tween().tween_property($".", "rotation", -PI/2, 1)
+		create_tween().tween_property(self, "rotation", -PI/2, 1)
 	
 		
 	queue_redraw()
 
 func _draw():
 	if debug_mode:
-		#draw_line(Vector2(0,0),Vector2(1,0) * 500,Color.AQUA, 10)
-		#draw_line(Vector2(0,0),Vector2(0,-1) * 500,Color.AQUA, 10)
+		draw_line(Vector2(0,0),Vector2(1,0) * 500,Color.AQUA, 10)
+		draw_line(Vector2(0,0),Vector2(0,-1) * 500,Color.AQUA, 10)
 		draw_line(Vector2(0,0), velocity.rotated(-rotation) ,Color.RED, 10)
 		draw_line(velocity.rotated(-rotation), velocity.rotated(-rotation)+acc.rotated(-rotation) ,Color.GREEN, 10)
-		#draw_line(Vector2(0,0), acc.rotated(-rotation) ,Color.GREEN, 10)
+		draw_line(Vector2(0,0), acc.rotated(-rotation) ,Color.GREEN, 10)
 
 func in_hoop(combo):
 	_show_points(combo)

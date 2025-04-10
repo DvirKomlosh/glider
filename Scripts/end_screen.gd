@@ -11,14 +11,14 @@ extends Control
 @onready var panel_container: PanelContainer = $PanelContainer
 
 
-func set_scores(score, best_score, distance, best_distance):
+func set_scores(score: int, best_score: int, distance: int, best_distance: int) -> void:
 	score_label.text = "score\n" + str(score)
 	best_score_label.text = "highscore\n" + str(best_score)
 	distance_label.text = "distance\n" + str(distance)
 	best_distance_label.text = "best distance\n" + str(best_distance)
 	
 
-func end():
+func end() -> void:
 	get_tree().paused = true
 	animation_player.play("blur")
 

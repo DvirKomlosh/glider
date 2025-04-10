@@ -13,23 +13,29 @@ var has_passed = false
 @onready var indicator_label = $CanvasLayer/RingIndicator/RingDistance
 @onready var indicator_size = indicator.size
 
-func _on_in_loop(body):
+func _on_in_loop(body: Node2D) -> void:
+	'''
+	triggers if a body goes inside the ring
+	'''
 	if not has_passed:
 		if body.is_in_group("player"):
 			has_passed = true
 			in_hoop.emit()
 
 func _on_under_over_body_entered(body: Node2D) -> void:
+	'''
+	triggers if a body goes above or below the ring
+	'''
 	if not has_passed:
 
 		if body.is_in_group("player"):
 			out_hoop.emit()
 			has_passed = true	
 
-func unset_indicator():
+func unset_indicator() -> void:
 	indicator.visible = false
 
-func set_indicator(glider_global_position):
+func set_indicator(glider_global_position: Vector2) -> void:
 	'''
 	sets the indicator of the ring to clamp to screen in the direction of the ring,
 	with the distance of the glider from the ring

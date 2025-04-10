@@ -5,10 +5,10 @@ signal wall_entred
 var wall_scene = preload("res://Scences/Wall.tscn")
 var walls = []
 
-func _wall_entred():
+func _wall_entred() -> void:
 	wall_entred.emit()
 	
-func destroy_last():
+func destroy_last() -> void:
 	'''
 	destroys the last wall, and removes it from the tree
 	'''

@@ -16,6 +16,9 @@ func _ready() -> void:
 	
 
 func get_default_curve() -> Curve:
+	'''
+	makes a default linear curve for the trail, with enough points.
+	'''
 	var distance = 1.0 / MAX_TRAIL_POINTS
 	var curve = Curve.new()
 	for i in range(MAX_TRAIL_POINTS):
@@ -23,7 +26,10 @@ func get_default_curve() -> Curve:
 
 	return curve
 
-func propegate_curve(size):
+func propegate_curve(size: float) -> void:
+	'''
+	changes the curve of the trail, makes sure that zeros stay zeros, and that other points are kept linear.
+	'''
 	var distance = 1.0 / MAX_TRAIL_POINTS
 	var new_curve = Curve.new()
 	new_curve.add_point(Vector2(0,size))
@@ -51,7 +57,10 @@ func _process(delta: float) -> void:
 		add_point(point)
 
 	
-func add_trail_point(trail_position, speed):
+func add_trail_point(trail_position: Vector2, speed: float) -> void:
+	'''
+	adds the new point to the trail.
+	'''
 	queue.push_front(trail_position)
 	var size = 0
 	if speed > 4000:

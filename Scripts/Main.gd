@@ -10,6 +10,7 @@ var starting_glider_position
 @onready var end_screen: Control = $CanvasLayer/EndScreen
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera: Camera2D = $Glider/Camera2D
+@onready var heads_up_display: Control = $CanvasLayer/HeadsUpDisplay
 
 
 var score = 0
@@ -22,7 +23,10 @@ var is_game_over = false
 
 
 
-func _load_score():
+func _load_score() -> void:
+	'''
+	loads best scores from savefile
+	'''
 	if FileAccess.file_exists(save_path):
 		var file = FileAccess.open(save_path, FileAccess.READ)
 		best_distance = file.get_var(best_distance)
@@ -32,7 +36,10 @@ func _load_score():
 		best_distance = 0
 		best_score = 0
 
-func _save_score():
+func _save_score() -> void:
+	'''
+	saves best scores to savefile
+	'''
 	best_distance = max(distance, best_distance)
 	best_score = max(score, best_score)
 	
@@ -42,18 +49,21 @@ func _save_score():
 	file.store_var(best_score)
 	
 
-func update_glider_position(pos, speed):
+func update_glider_position(pos: Vector2, speed: float) -> void:
+	'''
+	updates relavent functions of the glider position
+	'''
 	glider_trail.add_trail_point(pos, speed)
 	rings.update_indicator(pos)
 	
 
-func _set_game_over():
+func _set_game_over() -> void:
 	_save_score()
 	animation_player.play("death")
 	end_screen.set_scores(score, best_score, distance, best_distance)
 	is_game_over = true
 
-func _in_hoop():
+func _in_hoop() -> void:
 	if not is_game_over:
 		glider.in_hoop(combo)
 		score += combo
@@ -61,7 +71,7 @@ func _in_hoop():
 		
 		animation_player.play("in_hoop")
 					
-func _out_hoop():
+func _out_hoop() -> void:
 	combo = 1
 
 func _ready() -> void:
@@ -70,13 +80,14 @@ func _ready() -> void:
 
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	glider.set_glider_rotation(controller.value)
 	distance = int(glider.position.x/1000)
 	# set glider UI position
-	$CanvasLayer/Control/x.text = str(distance)
-	$CanvasLayer/Control/y.text = str(score)
-
-
+	
+	heads_up_display.update_score(score)
+	heads_up_display.update_distance(distance)
+	
+	
 func _on_ready_to_set_glider_position(pos_x: float, pos_y: float) -> void:
 	starting_glider_position = Vector2(pos_x, pos_y + 500)

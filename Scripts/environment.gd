@@ -26,6 +26,9 @@ var x_value = -section_length * 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	'''
+	sets up the path's noise
+	'''
 	noise_down.seed = randi()
 	noise_down.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise_down.frequency = 0.1
@@ -47,7 +50,7 @@ func _ready() -> void:
 		
 		
 
-func _generate_ring(x_pos, down1, down2, up1, up2):
+func _generate_ring(x_pos: float, down1: Vector2, down2: Vector2, up1: Vector2, up2: Vector2) -> void:
 	'''
 	generates a ring at the next ring position, at the middle of the tunnel
 	'''
@@ -58,18 +61,19 @@ func _generate_ring(x_pos, down1, down2, up1, up2):
 	
 	var y_pos = (y_up + y_down) / 2
 	
+	# generates the next position
 	_generate_next_ring_position()
 	rings.call_deferred("instentiate_ring",(Vector2(x_pos, y_pos)))
 	
-func on_wall_entred():
+func on_wall_entred() -> void:
 	_generate_walls(x_value, y_values[0], y_values[1])
 	walls.call_deferred("destroy_last")
 	rings.remove_rings(x_value - section_length * 5)
 	
 	
-func _generate_walls(starting_x: float, y_down: float, y_up: float):
+func _generate_walls(starting_x: float, y_down: float, y_up: float) -> void:
 	'''
-	generates 2 lists of a points to make walls out of.
+	generates walls for the next section, and calls _generate_ring if there is a ring in the walls range.
 	'''
 	var up_points = []
 	var down_points = []
@@ -83,6 +87,7 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float):
 		var slope_up = atanh(noise_up.get_noise_1d(x * 0.001)) - 0.01
 		var path = 1500 * noise_path.get_noise_1d(x * 0.001)
 		
+		# makes it so the start is on an decline:
 		if x < 10000:
 			slope_down += 0.6
 			slope_up += 0.6
@@ -90,6 +95,7 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float):
 		y_down = y_down + slope_down * subsection_length + path
 		y_up = y_up + slope_up * subsection_length + path
 		
+		# if the tunnel is to narrow, makes the bottom wall lower:
 		if y_up - y_down < 4000:
 			y_up = y_down + 8000
 			
@@ -106,7 +112,7 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float):
 	x_value += section_length
 	y_values = Vector2(y_down, y_up)  
 	
-func _generate_next_ring_position():
+func _generate_next_ring_position() -> float:
 	'''
 	returns the next ring position
 	'''

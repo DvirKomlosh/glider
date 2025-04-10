@@ -9,6 +9,7 @@ var forward_dir: Vector2
 var acc
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 @onready var wind_player = $WindPlayer
 @onready var points: Label = $Points
 @onready var trail_position: Marker2D = $TrailPosition
@@ -17,8 +18,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_alive = true
 var debug_mode = false
 
-func _show_points(combo):
-	
+func _show_points(combo: int) -> void:
+	'''
+	shows an animation of the added score to the scree
+	'''
 	points.scale = Vector2(0.6, 0.6)
 	points.text = "+" + str(combo)
 	var points_tween = create_tween()
@@ -26,7 +29,7 @@ func _show_points(combo):
 	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.3)
 	points_tween.tween_property(points, "scale", Vector2(0,0),0.1)	
 
-func _ready():
+func _ready() -> void:
 	rotation = 0
 	wind_player.volume_db = -50
 
@@ -34,7 +37,10 @@ func sigmoid(x: float) -> float:
 	return 1 / (1.0 + exp(10 * (-x+0.5)))
 
 
-func _play_sound(delta):
+func _play_sound(delta: float) -> void:
+	'''
+	plays the wind sound with relation to the gliders speed.
+	'''
 	var speed = velocity.length()
 	var halflife = 0.05
 	var base_volume = -10
@@ -45,11 +51,11 @@ func _play_sound(delta):
 	
 	wind_player.volume_db = new_volume
 	
-func set_glider_rotation(controller_value: float):
+func set_glider_rotation(controller_value: float) -> void:
 	if is_alive:
 		rotation = asin( - controller_value/90)
 
-func _process(delta):
+func _process(delta) -> void:
 	
 	points.rotation = -rotation
 	var screen_height = 5040.0
@@ -65,8 +71,8 @@ func _process(delta):
 	
 	_play_sound(delta)
 
-func _physics_process(delta):
 
+func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * 5 * delta
@@ -120,7 +126,10 @@ func _physics_process(delta):
 		
 	queue_redraw()
 
-func _draw():
+func _draw() -> void:
+	'''
+	shows vectors of accslaration and velocity on debug mode.
+	'''
 	if debug_mode:
 		draw_line(Vector2(0,0),Vector2(1,0) * 500,Color.AQUA, 10)
 		draw_line(Vector2(0,0),Vector2(0,-1) * 500,Color.AQUA, 10)
@@ -128,6 +137,6 @@ func _draw():
 		draw_line(velocity.rotated(-rotation), velocity.rotated(-rotation)+acc.rotated(-rotation) ,Color.GREEN, 10)
 		draw_line(Vector2(0,0), acc.rotated(-rotation) ,Color.GREEN, 10)
 
-func in_hoop(combo):
+func in_hoop(combo: int) -> void:
 	_show_points(combo)
 	velocity += forward_dir * 3000

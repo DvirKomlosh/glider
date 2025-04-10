@@ -10,6 +10,10 @@ var wall_size = 10000
 var entrance_thickness = 1000
 
 func _set_up_polygons() -> void:
+	'''
+		sets up the polygons of the walls, with a StaticBody2D, a CollisionPolygon2D and a Polygon2D
+		#TODO: lots of code duplication in this function, fix it.
+	'''
 	var extreme_x = Vector2(down_wall_points[0].x, down_wall_points[-1].x)
 	
 	# create down polygon points to close the shape
@@ -48,6 +52,9 @@ func _set_up_polygons() -> void:
 
 
 func _set_up_entrance() -> void:
+	'''
+	sets up an imaginary "enterance" Collision shape for the wall to detect the glider getting into the section
+	'''
 	var entrance_shape = Vector2(entrance_thickness, up_wall_points[0].y  - down_wall_points[0].y)
 	var entrance_position =  Vector2(up_wall_points[0].x, (up_wall_points[0].y + down_wall_points[0].y) / 2)
 	var area = Area2D.new()
@@ -63,7 +70,7 @@ func _set_up_entrance() -> void:
 	
 	area.connect("body_entered", Callable(self,"_on_body_entred"))
 
-func _on_body_entred(body):
+func _on_body_entred(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		wall_entred.emit()
 	

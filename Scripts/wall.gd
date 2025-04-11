@@ -6,8 +6,22 @@ var WALL_COLOR = Color("#191726")
 
 var up_wall_points 
 var down_wall_points
-var wall_size = 10000
-var entrance_thickness = 1000
+var WALL_SIZE = 20000
+var ENTERANCE_THICKNESS = 1000
+
+func _set_up_wall_object(points: Array) -> void:
+	var static_body = StaticBody2D.new()
+	var collision_polygon = CollisionPolygon2D.new()
+	var polygon = Polygon2D.new()
+	polygon.color = WALL_COLOR
+	
+	collision_polygon.polygon = PackedVector2Array(points)
+	static_body.add_child(collision_polygon)
+	add_child(static_body)
+	
+	polygon.polygon = PackedVector2Array(points)
+	add_child(polygon)
+	
 
 func _set_up_polygons() -> void:
 	'''
@@ -18,44 +32,24 @@ func _set_up_polygons() -> void:
 	
 	# create down polygon points to close the shape
 	var down_points_polygon = down_wall_points
-	down_points_polygon.append(Vector2(extreme_x[1] ,down_wall_points[-1].y - wall_size))
-	down_points_polygon.append(Vector2(extreme_x[0] ,down_wall_points[0].y - wall_size))
+	down_points_polygon.append(Vector2(extreme_x[1] ,down_wall_points[-1].y - WALL_SIZE))
+	down_points_polygon.append(Vector2(extreme_x[0] ,down_wall_points[0].y - WALL_SIZE))
 	
 	# create up polygon points to close the shape
 	var up_points_polygon = up_wall_points
-	up_points_polygon.append(Vector2(extreme_x[1] ,up_wall_points[-1].y + wall_size))
-	up_points_polygon.append(Vector2(extreme_x[0] ,up_wall_points[0].y + wall_size))
+	up_points_polygon.append(Vector2(extreme_x[1] ,up_wall_points[-1].y + WALL_SIZE))
+	up_points_polygon.append(Vector2(extreme_x[0] ,up_wall_points[0].y + WALL_SIZE))
 	
-	var down_static = StaticBody2D.new()
-	var down_collision = CollisionPolygon2D.new()
-	var down_polygon = Polygon2D.new()
-	down_polygon.color = WALL_COLOR
+	_set_up_wall_object(up_points_polygon)
+	_set_up_wall_object(down_points_polygon)
 	
-	down_collision.polygon = PackedVector2Array(down_points_polygon)
-	down_static.add_child(down_collision)
-	add_child(down_static)
-	
-	down_polygon.polygon = PackedVector2Array(down_points_polygon)
-	add_child(down_polygon)
-	
-	var up_static = StaticBody2D.new()
-	var up_collision = CollisionPolygon2D.new()	
-	var up_polygon = Polygon2D.new()
-	up_polygon.color = WALL_COLOR
-	
-	up_collision.polygon = PackedVector2Array(up_points_polygon)
-	up_static.add_child(up_collision)
-	add_child(up_static)
-	
-	up_polygon.polygon = PackedVector2Array(up_points_polygon)
-	add_child(up_polygon)
 
 
 func _set_up_entrance() -> void:
 	'''
 	sets up an imaginary "enterance" Collision shape for the wall to detect the glider getting into the section
 	'''
-	var entrance_shape = Vector2(entrance_thickness, up_wall_points[0].y  - down_wall_points[0].y)
+	var entrance_shape = Vector2(ENTERANCE_THICKNESS, up_wall_points[0].y  - down_wall_points[0].y)
 	var entrance_position =  Vector2(up_wall_points[0].x, (up_wall_points[0].y + down_wall_points[0].y) / 2)
 	var area = Area2D.new()
 	var collision = CollisionShape2D.new()

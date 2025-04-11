@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://c1yq33lh1r8sp" path="res://Assets/ring2.png" id="2_a7b7y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1oph"]
-size = Vector2(50, 10000)
+size = Vector2(50, 5000)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukfnb"]
-size = Vector2(50, 10000)
+size = Vector2(50, 5000)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s8l7c"]
 size = Vector2(25, 708.245)
@@ -36,11 +36,11 @@ region_rect = Rect2(400, 0, 400, 800)
 [node name="UnderOver" type="Area2D" parent="."]
 
 [node name="Under" type="CollisionShape2D" parent="UnderOver"]
-position = Vector2(0, -5391)
+position = Vector2(0, -2892)
 shape = SubResource("RectangleShape2D_l1oph")
 
 [node name="Over" type="CollisionShape2D" parent="UnderOver"]
-position = Vector2(0, 5387)
+position = Vector2(0, 2888)
 shape = SubResource("RectangleShape2D_ukfnb")
 
 [node name="Middle" type="Area2D" parent="."]

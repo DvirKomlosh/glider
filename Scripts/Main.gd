@@ -32,7 +32,6 @@ func _load_score() -> void:
 		best_distance = file.get_var(best_distance)
 		best_score = file.get_var(best_score)
 	else:
-		print("no data saved...")
 		best_distance = 0
 		best_score = 0
 
@@ -68,7 +67,7 @@ func _in_hoop() -> void:
 		glider.in_hoop(combo)
 		score += combo
 		combo += 1
-		
+		animation_player.seek(0, true)
 		animation_player.play("in_hoop")
 					
 func _out_hoop() -> void:
@@ -91,3 +90,7 @@ func _process(delta: float) -> void:
 	
 func _on_ready_to_set_glider_position(pos_x: float, pos_y: float) -> void:
 	starting_glider_position = Vector2(pos_x, pos_y + 500)
+
+func _vibrate_screen(millieseconds: int):
+	Input.vibrate_handheld(millieseconds)
+	

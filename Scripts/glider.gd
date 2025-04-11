@@ -44,7 +44,7 @@ func _play_sound(delta: float) -> void:
 	'''
 	var speed = velocity.length()
 	var halflife = 0.05
-	var base_volume = -10
+	var base_volume = 0
 	var target_volume = base_volume + linear_to_db(sigmoid(speed/30000.0))
 
 	var new_volume = lerp(wind_player.volume_db,target_volume, (1 - 2 ** (-delta / halflife)))

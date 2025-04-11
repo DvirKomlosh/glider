@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dlue7lxuy1gh8"]
+[gd_scene load_steps=16 format=3 uid="uid://dlue7lxuy1gh8"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
 [ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
 [ext_resource type="PackedScene" uid="uid://c1tlevkc8eva4" path="res://Scences/end_screen.tscn" id="3_c6iph"]
 [ext_resource type="Script" path="res://Scripts/environment.gd" id="3_deydf"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="3_eorxt"]
 [ext_resource type="Script" path="res://Scripts/Rings.gd" id="3_n4ehn"]
 [ext_resource type="PackedScene" uid="uid://dbjvyjhln6fb1" path="res://Scences/HeadsUpDisplay.tscn" id="4_8k3tv"]
 [ext_resource type="Script" path="res://Scripts/walls.gd" id="4_m5oe5"]
@@ -34,7 +35,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Glider/Camera2D:zoom")
+tracks/1/path = NodePath("Glider/Camera:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -47,6 +48,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_hkra6"]
 resource_name = "death"
 length = 1.5
+step = 0.0
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -68,11 +70,39 @@ tracks/1/path = NodePath("Environment/Rings")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0666667),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"unset_all_indicators"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Glider/Camera")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [100.0],
+"method": &"start_screen_shake"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.00999999),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [600],
+"method": &"_vibrate_screen"
 }]
 }
 
@@ -94,7 +124,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Glider/Camera2D:zoom")
+tracks/1/path = NodePath("Glider/Camera:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -102,6 +132,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0.1, 0.1), Vector2(0.13, 0.13), Vector2(0.1, 0.1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Glider/Camera")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.01),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [15.0],
+"method": &"start_screen_shake"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.02),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [250],
+"method": &"_vibrate_screen"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6ebp"]
@@ -117,11 +175,12 @@ script = ExtResource("1_2ayxk")
 [node name="Glider" parent="." instance=ExtResource("1_mtst1")]
 z_index = 1
 
-[node name="Camera2D" type="Camera2D" parent="Glider"]
+[node name="Camera" type="Camera2D" parent="Glider"]
 position = Vector2(-658, -1681)
 offset = Vector2(2000, 2000)
 zoom = Vector2(0.1, 0.1)
 position_smoothing_speed = 20.0
+script = ExtResource("3_eorxt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -169,8 +228,8 @@ libraries = {
 "": SubResource("AnimationLibrary_o6ebp")
 }
 
-[connection signal="add_trail" from="Glider" to="." method="_send_add_trail"]
 [connection signal="add_trail" from="Glider" to="." method="update_glider_position"]
+[connection signal="add_trail" from="Glider" to="." method="_send_add_trail"]
 [connection signal="dead" from="Glider" to="." method="_set_game_over"]
 [connection signal="ready_to_set_glider_position" from="Environment" to="." method="_on_ready_to_set_glider_position"]
 [connection signal="wall_entred" from="Environment/Walls" to="Environment" method="on_wall_entred"]

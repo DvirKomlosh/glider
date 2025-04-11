@@ -13,6 +13,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var wind_player = $WindPlayer
 @onready var points: Label = $Points
 @onready var trail_position: Marker2D = $TrailPosition
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var is_alive = true
@@ -121,8 +122,9 @@ func _physics_process(delta: float) -> void:
 	if collided:
 		is_alive = false
 		dead.emit()
-		create_tween().tween_property(self, "rotation", -PI/2, 1)
-	
+		animation_player.play("Explode")
+		create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
+
 		
 	queue_redraw()
 

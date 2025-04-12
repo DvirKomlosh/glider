@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dlue7lxuy1gh8"]
+[gd_scene load_steps=17 format=3 uid="uid://dlue7lxuy1gh8"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
 [ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dbjvyjhln6fb1" path="res://Scences/HeadsUpDisplay.tscn" id="4_8k3tv"]
 [ext_resource type="Script" path="res://Scripts/walls.gd" id="4_m5oe5"]
 [ext_resource type="Script" path="res://Scripts/glider_trail.gd" id="7_36mon"]
+[ext_resource type="AudioStream" uid="uid://5h1iu0sxhkkc" path="res://Assets/Audio/Effects/sonic_boom.mp3" id="10_1iu5a"]
 
 [sub_resource type="Curve" id="Curve_0g3sn"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
@@ -161,6 +162,21 @@ tracks/3/keys = {
 "method": &"_vibrate_screen"
 }]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BoostPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_1iu5a")
+}],
+"times": PackedFloat32Array(0.0333333)
+}
+tracks/4/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6ebp"]
 _data = {
@@ -222,6 +238,8 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("7_36mon")
 start_color = Color(0.337255, 0.654902, 0.713726, 1)
+
+[node name="BoostPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

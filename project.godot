@@ -13,7 +13,7 @@ config_version=5
 config/name="Glider"
 run/main_scene="res://Scences/Main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://Assets/icon.svg"
+config/icon="res://Movie/icon.svg"
 
 [display]
 
@@ -22,9 +22,14 @@ window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="C:/Users/dvirk/Documents/Projects/glider/Movie/movie.avi"
+
 [rendering]
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.881283, 0.81053, 0.722556, 1)
+anti_aliasing/quality/msaa_2d=1
 environment/custom_font=""

@@ -270,8 +270,8 @@ libraries = {
 "": SubResource("AnimationLibrary_o6ebp")
 }
 
-[connection signal="add_trail" from="Glider" to="." method="update_glider_position"]
 [connection signal="add_trail" from="Glider" to="." method="_send_add_trail"]
+[connection signal="add_trail" from="Glider" to="." method="update_glider_position"]
 [connection signal="dead" from="Glider" to="." method="_set_game_over"]
 [connection signal="ready_to_set_glider_position" from="Environment" to="." method="_on_ready_to_set_glider_position"]
 [connection signal="wall_entred" from="Environment/Walls" to="Environment" method="on_wall_entred"]

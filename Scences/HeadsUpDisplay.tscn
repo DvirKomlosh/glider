@@ -29,10 +29,10 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.258824, 0.505882, 0.643137, 1)
 theme_override_font_sizes/font_size = 30
-text = "Distance"
+text = "0"
 
 [node name="Score" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.258824, 0.505882, 0.643137, 1)
 theme_override_font_sizes/font_size = 30
-text = "Score"
+text = "0"

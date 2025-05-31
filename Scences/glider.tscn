@@ -271,6 +271,7 @@ stream = ExtResource("2_rygos")
 volume_db = 8.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(0, -27)
 scale = Vector2(3, 3)
 polygon = PackedVector2Array(40, -6, 68, -1, 89, 10, 54, 24, -57, 24, -100, 0, -82, -1, -97, -21, -61, 0)

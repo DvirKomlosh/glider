@@ -7,6 +7,7 @@ extends Control
 @onready var best_distance_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/best_distance
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var restart: Button = $PanelContainer/MarginContainer/VBoxContainer/restart
 
 @onready var panel_container: PanelContainer = $PanelContainer
 
@@ -21,10 +22,11 @@ func set_scores(score: int, best_score: int, distance: int, best_distance: int) 
 func end() -> void:
 	get_tree().paused = true
 	animation_player.play("blur")
+	restart.disabled = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	panel_container.modulate.a = 0	
+	panel_container.modulate.a = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

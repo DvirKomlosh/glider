@@ -20,7 +20,7 @@ func set_scores(score: int, best_score: int, distance: int, best_distance: int) 
 	
 
 func end() -> void:
-	get_tree().paused = true
+	get_tree().paused = true	
 	animation_player.play("blur")
 	restart.disabled = false
 

@@ -1,0 +1,222 @@
+[gd_scene load_steps=7 format=3 uid="uid://buwuuc2mnjioe"]
+
+[ext_resource type="Script" path="res://Scripts/settings_screen.gd" id="1_atlmk"]
+[ext_resource type="Shader" path="res://end_screen.gdshader" id="2_0rfml"]
+
+[sub_resource type="Animation" id="Animation_af0tx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blur:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_hbdfn"]
+resource_name = "blur"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Blur:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gpxaq"]
+_data = {
+"RESET": SubResource("Animation_af0tx"),
+"blur": SubResource("Animation_hbdfn")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5voxd"]
+resource_local_to_scene = true
+shader = ExtResource("2_0rfml")
+shader_parameter/lod = 0.0
+
+[node name="settings" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_atlmk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gpxaq")
+}
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_5voxd")
+layout_mode = 0
+offset_right = 1281.0
+offset_bottom = 720.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -327.5
+offset_top = -214.5
+offset_right = 327.5
+offset_bottom = 214.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="Sliders" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SFXLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Sound Effects Volume"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
+layout_mode = 2
+value = 50.0
+
+[node name="MusicLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Music Volume"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
+layout_mode = 2
+value = 50.0
+
+[node name="Checkboxes" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Mute" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="MuteCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute"]
+layout_mode = 2
+
+[node name="MuteLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute"]
+layout_mode = 2
+text = "Mute"
+
+[node name="Vibrations" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="VibrationsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations"]
+layout_mode = 2
+button_pressed = true
+
+[node name="VibrationsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations"]
+layout_mode = 2
+text = "Vibrations"
+
+[node name="ScreenShake" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ScreenShakeCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake"]
+layout_mode = 2
+button_pressed = true
+
+[node name="ScreenShakeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake"]
+layout_mode = 2
+text = "Screen Shake"
+
+[node name="resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+disabled = true
+text = "Resume"
+
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Sliders/SFXVolumeSlider" to="." method="_update_settings"]
+[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Sliders/MusicVolumeSlider" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute/MuteCheckBox" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations/VibrationsCheckBox" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake/ScreenShakeCheckBox" to="." method="_update_settings"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/resume" to="." method="close_settings"]

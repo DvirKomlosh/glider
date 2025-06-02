@@ -2,16 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4q7gstedd4jh"
-path="res://.godot/imported/ring.png-677993a95c2eb923e9692603c08925bb.ctex"
-metadata={
-"vram_texture": false
-}
+uid="uid://cjtjj3fo5tnd"
+valid=false
 
 [deps]
 
-source_file="res://Assets/ring.png"
-dest_files=["res://.godot/imported/ring.png-677993a95c2eb923e9692603c08925bb.ctex"]
+source_file="res://Assets/Art/Cog-01.svg"
 
 [params]
 
@@ -32,3 +28,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

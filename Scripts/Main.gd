@@ -1,7 +1,17 @@
 extends Node2D
 
 var save_path = "user://scores.save"
+var settings_path = "user://settings.save"
+
+var settings
 var starting_glider_position
+
+var vibrations
+var screenshake
+
+@onready var MASTER_BUS_ID = AudioServer.get_bus_index("Master")
+@onready var SFX_BUS_ID = AudioServer.get_bus_index("SFX")
+@onready var MUSIC_BUS_ID = AudioServer.get_bus_index("Music")
 
 @onready var glider: CharacterBody2D = $Glider
 @onready var controller: VSlider = $CanvasLayer/Controller
@@ -9,9 +19,12 @@ var starting_glider_position
 @onready var glider_trail: Line2D = $GliderTrail
 @onready var end_screen: Control = $CanvasLayer/EndScreen
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var camera: Camera2D = $Glider/Camera2D
+@onready var camera: Camera2D = $Glider/Camera
 @onready var heads_up_display: Control = $CanvasLayer/HeadsUpDisplay
+@onready var settings_screen: Control = $CanvasLayer/settings
+@onready var settings_button: Button = $CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton
 
+@onready var music: AudioStreamPlayer = $Music
 
 var score = 0
 var best_score = 0
@@ -29,8 +42,8 @@ func _load_score() -> void:
 	'''
 	if FileAccess.file_exists(save_path):
 		var file = FileAccess.open(save_path, FileAccess.READ)
-		best_distance = file.get_var(best_distance)
-		best_score = file.get_var(best_score)
+		best_distance = file.get_var()
+		best_score = file.get_var()
 	else:
 		best_distance = 0
 		best_score = 0
@@ -75,6 +88,8 @@ func _out_hoop() -> void:
 
 func _ready() -> void:
 	_load_score()
+	load_settings()
+	music.playing = true
 	glider.position = starting_glider_position
 
 	
@@ -92,5 +107,44 @@ func _on_ready_to_set_glider_position(pos_x: float, pos_y: float) -> void:
 	starting_glider_position = Vector2(pos_x, pos_y + 500)
 
 func _vibrate_screen(millieseconds: int):
-	Input.vibrate_handheld(millieseconds)
+	if vibrations:
+		Input.vibrate_handheld(millieseconds)
+
+func _on_update_settings(new_settings: Settings) -> void:
+	settings = new_settings
+	apply_settings()
 	
+func apply_settings():
+	AudioServer.set_bus_volume_db(SFX_BUS_ID, linear_to_db(settings.sfx_volume/100))
+	AudioServer.set_bus_volume_db(MUSIC_BUS_ID, linear_to_db(settings.music_volume/100))
+	AudioServer.set_bus_mute(MASTER_BUS_ID, settings.mute)
+	vibrations = settings.vibrations
+	screenshake = settings.screenshake
+	camera.set_screenshake(screenshake)
+	
+func load_settings():
+	if FileAccess.file_exists(settings_path):
+		var file = FileAccess.open(settings_path, FileAccess.READ)
+		settings = file.get_var(true)
+	else:
+		settings = Settings.new()
+	settings_screen.set_settings(settings)
+	
+func save_settings():
+	print("saving")
+	print(settings.sfx_volume)
+	var file = FileAccess.open(settings_path, FileAccess.WRITE)
+	file.store_var(settings, true)
+	
+
+func _on_settings_button_pressed() -> void:
+	animation_player.play("hide_settings_button")
+	await $AnimationPlayer.animation_finished
+	rings.unset_all_indicators()
+	
+	settings_screen.open_settings()
+	
+
+func _on_resume() -> void:
+	rings.set_all_indicators()
+	animation_player.play_backwards("hide_settings_button")

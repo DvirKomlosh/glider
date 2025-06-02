@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjps34wyoyujf"
-path="res://.godot/imported/hoop.png-269c639c2804389a93a1e82f4150dd85.ctex"
+uid="uid://b4q7gstedd4jh"
+path="res://.godot/imported/ring.png-e99880172d05928f0e8df2d9ae51a368.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/hoop.png"
-dest_files=["res://.godot/imported/hoop.png-269c639c2804389a93a1e82f4150dd85.ctex"]
+source_file="res://Assets/Art/ring.png"
+dest_files=["res://.godot/imported/ring.png-e99880172d05928f0e8df2d9ae51a368.ctex"]
 
 [params]
 

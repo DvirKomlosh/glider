@@ -265,10 +265,12 @@ horizontal_alignment = 1
 [node name="WindPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_u2eg4")
 autoplay = true
+bus = &"SFX"
 
 [node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_rygos")
 volume_db = 8.0
+bus = &"SFX"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false

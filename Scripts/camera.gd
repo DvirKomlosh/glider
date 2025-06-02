@@ -3,7 +3,7 @@ extends Camera2D
 
 var shake_amount = 0.0
 var default_offset = Vector2(2000,2000)
-
+var screenshake
 
 func _process(delta):
 	if shake_amount > 0:
@@ -12,7 +12,10 @@ func _process(delta):
 	else:
 		offset = default_offset
 
-
+func set_screenshake(is_screenshake: bool):
+	screenshake = is_screenshake
 
 func start_screen_shake(amount: float):
+	if not screenshake:
+		return
 	shake_amount = amount

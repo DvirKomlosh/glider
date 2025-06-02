@@ -12,6 +12,10 @@ func unset_all_indicators() -> void:
 	for ring in rings:
 		ring.unset_indicator()
 
+func set_all_indicators() -> void:
+	active_rings[0].reset_indicator()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for ring in get_children():

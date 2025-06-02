@@ -10,3 +10,7 @@ func update_distance(new_distance: int) -> void:
 func update_score(new_score: int) -> void:
 	score.text = str(new_score)
 	
+
+
+func _on_settings_button_pressed() -> void:
+	print("hay!!")

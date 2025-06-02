@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bjymy274l1p3p"
-path="res://.godot/imported/Whispering Breeze.wav-64ccda2e07aef524f58b3e64a39e5381.sample"
+path="res://.godot/imported/Whispering Breeze.wav-9d3133d47e86d5a81a8f48ce43475e61.sample"
 
 [deps]
 
-source_file="res://Music/Whispering Breeze.wav"
-dest_files=["res://.godot/imported/Whispering Breeze.wav-64ccda2e07aef524f58b3e64a39e5381.sample"]
+source_file="res://Assets/Music/Whispering Breeze.wav"
+dest_files=["res://.godot/imported/Whispering Breeze.wav-9d3133d47e86d5a81a8f48ce43475e61.sample"]
 
 [params]
 

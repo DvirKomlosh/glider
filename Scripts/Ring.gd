@@ -34,6 +34,9 @@ func _on_under_over_body_entered(body: Node2D) -> void:
 
 func unset_indicator() -> void:
 	indicator.visible = false
+	
+func reset_indicator() -> void:
+	indicator.visible = true
 
 func set_indicator(glider_global_position: Vector2) -> void:
 	'''

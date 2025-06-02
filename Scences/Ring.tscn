@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ryby62sdmkgt"]
 
 [ext_resource type="Script" path="res://Scripts/Ring.gd" id="1_sas4b"]
-[ext_resource type="Texture2D" uid="uid://c1yq33lh1r8sp" path="res://Assets/ring2.png" id="2_a7b7y"]
+[ext_resource type="Texture2D" uid="uid://c1yq33lh1r8sp" path="res://Assets/Art/ring2.png" id="2_a7b7y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l1oph"]
 size = Vector2(50, 5000)

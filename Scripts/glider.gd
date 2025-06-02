@@ -111,6 +111,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_SPACE):
 		velocity += forward_dir * 100
 	
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().paused = !get_tree().paused
+	
 	acc *= ACC_MULT
 	velocity += acc 
 	

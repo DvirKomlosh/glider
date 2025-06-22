@@ -123,10 +123,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -327.5
-offset_top = -214.5
-offset_right = 327.5
-offset_bottom = 214.5
+offset_left = -340.0
+offset_top = -250.0
+offset_right = 380.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -155,7 +155,7 @@ layout_mode = 2
 [node name="SFXLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Sound Effects Volume"
+text = "Sound Effects Volume        "
 
 [node name="SFXVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
 layout_mode = 2

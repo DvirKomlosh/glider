@@ -38,7 +38,7 @@ func update_indicator(glider_position: Vector2) -> void:
 		active_rings[0].set_indicator(glider_position)
 	
 
-func instentiate_ring(new_pos: Vector2) -> void:
+func instentiate_ring(new_pos: Vector2, ring_scale) -> void:
 	'''
 	generates a new ring
 	'''
@@ -46,6 +46,7 @@ func instentiate_ring(new_pos: Vector2) -> void:
 	var new_ring = ring_scene.instantiate()
 	new_ring.global_position.x = new_pos.x
 	new_ring.global_position.y = new_pos.y
+	new_ring.scale = Vector2(ring_scale, ring_scale)
 	add_child(new_ring)
 	new_ring.in_hoop.connect(send_in_hoop)
 	new_ring.out_hoop.connect(send_out_hoop)

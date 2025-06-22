@@ -3,6 +3,9 @@ extends Node2D
 
 signal ready_to_set_glider_position(pos_x, pos_y)
 
+var MAX_RING_SIZE = 3.2
+var MIN_RING_SIZE = 1.8
+
 var min_passage_width: float= 200.0
 var section_length: float = 10000.0
 var section_size: int = 10
@@ -14,11 +17,15 @@ var noise_path = FastNoiseLite.new()
 
 
 var next_ring_position = 6000
-var ring_distance = 20000
+
+var MAX_RING_DISTANCE = 23000
+var MIN_RING_DISTANCE = 17000
 var ring_distance_distance = 1000
 
 var y_values = Vector2(0, 10000)
 var x_value = -section_length * 2
+
+var difficulty_level = 0
 
 @onready var rings = $Rings
 @onready var walls = $Walls
@@ -50,6 +57,13 @@ func _ready() -> void:
 		
 		
 
+func set_difficulty(difficulty: float) -> void:
+	difficulty_level = difficulty
+
+func _get_ring_scale() -> float:
+	return lerp(MAX_RING_SIZE, MIN_RING_SIZE, difficulty_level)
+	
+
 func _generate_ring(x_pos: float, down1: Vector2, down2: Vector2, up1: Vector2, up2: Vector2) -> void:
 	'''
 	generates a ring at the next ring position, at the middle of the tunnel
@@ -60,10 +74,10 @@ func _generate_ring(x_pos: float, down1: Vector2, down2: Vector2, up1: Vector2, 
 	var y_up = up1.y * (1 - ratio_x) + up2.y * ratio_x
 	
 	var y_pos = (y_up + y_down) / 2
-	
+	var ring_scale = _get_ring_scale()
 	# generates the next position
 	_generate_next_ring_position()
-	rings.call_deferred("instentiate_ring",(Vector2(x_pos, y_pos)))
+	rings.call_deferred("instentiate_ring",Vector2(x_pos, y_pos), ring_scale)
 	
 func on_wall_entred() -> void:
 	_generate_walls(x_value, y_values[0], y_values[1])
@@ -88,7 +102,7 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float) -> void:
 		var path = 1500 * noise_path.get_noise_1d(x * 0.001)
 		
 		# makes it so the start is on an decline:
-		if x < 10000:
+		if x < 20000:
 			slope_down += 0.6
 			slope_up += 0.6
 		
@@ -112,10 +126,13 @@ func _generate_walls(starting_x: float, y_down: float, y_up: float) -> void:
 	x_value += section_length
 	y_values = Vector2(y_down, y_up)  
 	
+func _get_ring_distance() -> float:
+	return lerp(MAX_RING_DISTANCE, MIN_RING_DISTANCE, difficulty_level)		
+
 func _generate_next_ring_position() -> float:
 	'''
 	returns the next ring position
 	'''
-	next_ring_position += ring_distance
+	next_ring_position += _get_ring_distance()
 	
 	return next_ring_position

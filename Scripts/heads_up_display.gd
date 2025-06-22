@@ -13,4 +13,4 @@ func update_score(new_score: int) -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	print("hay!!")
+	pass

@@ -9,10 +9,14 @@ var starting_glider_position
 var vibrations
 var screenshake
 
+var difficulty_level = 0
+
 @onready var MASTER_BUS_ID = AudioServer.get_bus_index("Master")
 @onready var SFX_BUS_ID = AudioServer.get_bus_index("SFX")
 @onready var MUSIC_BUS_ID = AudioServer.get_bus_index("Music")
 
+
+@onready var environment: Node2D = $Environment
 @onready var glider: CharacterBody2D = $Glider
 @onready var controller: VSlider = $CanvasLayer/Controller
 @onready var rings: Node2D = $Environment/Rings
@@ -33,7 +37,6 @@ var best_distance = 0
 
 var combo = 1
 var is_game_over = false
-
 
 
 func _load_score() -> void:
@@ -92,11 +95,20 @@ func _ready() -> void:
 	music.playing = true
 	glider.position = starting_glider_position
 
+func _calculate_difficulty() -> float:
+	'''
+	difficulty starts at 0 and reaches slowly to 1 (is 1 at infinity)
+	at distance = 500 it difficulty is 1/2
+	'''
+	
+	return 1 - (1 / (1 + (distance / 500.0)))
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	glider.set_glider_rotation(controller.value)
-	distance = int(glider.position.x/1000)
+	distance = int(glider.position.x / 1000)
+	difficulty_level = _calculate_difficulty()
+	environment.set_difficulty(difficulty_level)
 	# set glider UI position
 	
 	heads_up_display.update_score(score)
@@ -131,8 +143,6 @@ func load_settings():
 	settings_screen.set_settings(settings)
 	
 func save_settings():
-	print("saving")
-	print(settings.sfx_volume)
 	var file = FileAccess.open(settings_path, FileAccess.WRITE)
 	file.store_var(settings, true)
 	

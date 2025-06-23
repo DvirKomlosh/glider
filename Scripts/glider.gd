@@ -30,9 +30,24 @@ func _show_points(combo: int) -> void:
 	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.3)
 	points_tween.tween_property(points, "scale", Vector2(0,0),0.1)	
 
+
+
+
+func _unhandled_input(event):
+	if event is InputEventScreenTouch or event is InputEventScreenDrag:
+		
+		var touch_y = event.position.y
+		var screen_height = get_viewport().size.y
+		var normalized_y = (touch_y) / screen_height
+		var mapped_y = lerp(90, -90, normalized_y)
+		set_glider_rotation(mapped_y)
+	
+
 func _ready() -> void:
 	rotation = 0
 	wind_player.volume_db = -50
+	set_process_unhandled_input(true)
+
 
 func sigmoid(x: float) -> float:
 	return 1 / (1.0 + exp(10 * (-x+0.5)))
@@ -69,7 +84,6 @@ func _process(delta) -> void:
 	# clamp rotation:
 	rotation = max(rotation,-PI/2)
 	rotation = min(rotation, PI/2)
-	
 	_play_sound(delta)
 
 

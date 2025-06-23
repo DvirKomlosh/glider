@@ -13,7 +13,8 @@ func unset_all_indicators() -> void:
 		ring.unset_indicator()
 
 func set_all_indicators() -> void:
-	active_rings[0].reset_indicator()
+	if len(active_rings) > 0:
+		active_rings[0].reset_indicator()
 
 
 # Called when the node enters the scene tree for the first time.

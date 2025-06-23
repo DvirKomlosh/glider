@@ -15,6 +15,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var trail_position: Marker2D = $TrailPosition
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var glider_wanted_rotation = 0.0
 
 var is_alive = true
 var debug_mode = false
@@ -69,7 +70,7 @@ func _play_sound(delta: float) -> void:
 	
 func set_glider_rotation(controller_value: float) -> void:
 	if is_alive:
-		rotation = asin( - controller_value/90)
+		glider_wanted_rotation = asin( - controller_value/90)
 
 func _process(delta) -> void:
 	
@@ -82,8 +83,9 @@ func _process(delta) -> void:
 
 	add_trail.emit(trail_position.global_position, speed)
 	# clamp rotation:
-	rotation = max(rotation,-PI/2)
-	rotation = min(rotation, PI/2)
+	glider_wanted_rotation = max(glider_wanted_rotation,-PI/2)
+	glider_wanted_rotation = min(glider_wanted_rotation, PI/2)
+	rotation = lerp(rotation, glider_wanted_rotation, 0.2)
 	_play_sound(delta)
 
 

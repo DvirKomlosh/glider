@@ -66,6 +66,7 @@ offset_left = -1000.0
 offset_top = -100.0
 offset_right = -700.0
 offset_bottom = 90.0
+mouse_filter = 2
 color = Color(1, 0.25, 0.25, 1)
 
 [node name="RingDistance" type="Label" parent="CanvasLayer/RingIndicator"]

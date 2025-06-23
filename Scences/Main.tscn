@@ -57,7 +57,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [true]
 }
 tracks/3/type = "value"
@@ -75,38 +75,38 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Music:volume_db")
+tracks/4/path = NodePath("CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-10.0]
+"values": [true]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton:visible")
+tracks/5/path = NodePath("CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton:disabled")
+tracks/6/path = NodePath("Music:volume_db")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [-10.0]
 }
 
 [sub_resource type="Animation" id="Animation_hkra6"]
@@ -155,13 +155,37 @@ tracks/2/keys = {
 "method": &"start_screen_shake"
 }]
 }
-tracks/3/type = "method"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath(".")
+tracks/3/path = NodePath("CanvasLayer/HeadsUpDisplay:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.50987),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0.00999999),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -169,41 +193,17 @@ tracks/3/keys = {
 "method": &"_vibrate_screen"
 }]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CanvasLayer/HeadsUpDisplay:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Music:volume_db")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Music:volume_db")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 1.47),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-10.0, -20.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(1.50987),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_pubyg"]
@@ -219,7 +219,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0.0213518, 0.1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [true, false]
 }
 tracks/1/type = "value"
@@ -231,7 +231,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.00506036, 0.1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [false, true]
 }
 
@@ -330,8 +330,10 @@ script = ExtResource("3_eorxt")
 mouse_filter = 2
 
 [node name="settings" parent="CanvasLayer" instance=ExtResource("4_gkwxg")]
+mouse_filter = 2
 
 [node name="EndScreen" parent="CanvasLayer" instance=ExtResource("3_c6iph")]
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 offset_right = 158.0
@@ -357,21 +359,6 @@ theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0.815686)
 theme_override_constants/icon_max_width = 50
 icon = ExtResource("7_dpby8")
 flat = true
-
-[node name="Controller" type="VSlider" parent="CanvasLayer"]
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -57.0
-offset_top = 27.0
-offset_right = -35.0
-offset_bottom = -357.0
-grow_horizontal = 0
-grow_vertical = 2
-scale = Vector2(2, 2)
-min_value = -90.0
-max_value = 90.0
 
 [node name="Environment" type="Node2D" parent="."]
 script = ExtResource("3_deydf")

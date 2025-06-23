@@ -18,7 +18,6 @@ var difficulty_level = 0
 
 @onready var environment: Node2D = $Environment
 @onready var glider: CharacterBody2D = $Glider
-@onready var controller: VSlider = $CanvasLayer/Controller
 @onready var rings: Node2D = $Environment/Rings
 @onready var glider_trail: Line2D = $GliderTrail
 @onready var end_screen: Control = $CanvasLayer/EndScreen
@@ -105,7 +104,6 @@ func _calculate_difficulty() -> float:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	glider.set_glider_rotation(controller.value)
 	distance = int(glider.position.x / 1000)
 	difficulty_level = _calculate_difficulty()
 	environment.set_difficulty(difficulty_level)

@@ -8,6 +8,8 @@ var up_wall_points
 var down_wall_points
 var WALL_SIZE = 20000
 var ENTERANCE_THICKNESS = 1000
+var already_entred = false
+
 
 func _set_up_wall_object(points: Array) -> void:
 	var static_body = StaticBody2D.new()
@@ -66,7 +68,9 @@ func _set_up_entrance() -> void:
 
 func _on_body_entred(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		wall_entred.emit()
+		if not already_entred:
+			already_entred = true
+			wall_entred.emit()
 	
 func _ready() -> void:
 	call_deferred("_set_up_polygons")

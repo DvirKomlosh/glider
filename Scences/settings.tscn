@@ -115,6 +115,7 @@ material = SubResource("ShaderMaterial_5voxd")
 layout_mode = 0
 offset_right = 1281.0
 offset_bottom = 720.0
+mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -129,6 +130,7 @@ offset_right = 380.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2

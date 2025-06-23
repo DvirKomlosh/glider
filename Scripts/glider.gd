@@ -36,11 +36,9 @@ func _show_points(combo: int) -> void:
 
 func _unhandled_input(event):
 	if event is InputEventScreenTouch or event is InputEventScreenDrag:
-		
-		var touch_y = event.position.y
-		var screen_height = get_viewport().size.y
-		var normalized_y = (touch_y) / screen_height
-		var mapped_y = lerp(90, -90, normalized_y)
+		var vp_rect = get_viewport().get_visible_rect()
+		var normalized_y = (event.position.y - vp_rect.position.y) / vp_rect.size.y
+		var mapped_y = clamp(lerp(90, -90, normalized_y), -90, 90)
 		set_glider_rotation(mapped_y)
 	
 

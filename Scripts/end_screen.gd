@@ -1,5 +1,7 @@
 extends Control
 
+signal retry
+
 @onready var score_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/score
 @onready var best_score_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/best_score
 
@@ -11,16 +13,32 @@ extends Control
 
 @onready var panel_container: PanelContainer = $PanelContainer
 
+var ad_seen = false
 
 func set_scores(score: int, best_score: int, distance: int, best_distance: int) -> void:
 	score_label.text = "score\n" + str(score)
 	best_score_label.text = "highscore\n" + str(best_score)
 	distance_label.text = "distance\n" + str(distance)
 	best_distance_label.text = "best distance\n" + str(best_distance)
-	
+
+func _can_show_ad() -> bool:
+	if ad_seen:
+		return false	
+	return true
+
+func _suggest_ad() -> bool:
+	""" returns true if ad was watched fully """
+	ad_seen = true
+	return true
 
 func end() -> void:
-	get_tree().paused = true	
+	get_tree().paused = true
+	if _can_show_ad():
+		if _suggest_ad():
+			print("saw ad, reseting!")
+			get_tree().paused = false
+			retry.emit()
+			return
 	animation_player.play("blur")
 	restart.disabled = false
 

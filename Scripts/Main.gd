@@ -59,19 +59,17 @@ func reload_state() -> void:
 	score = commited_state.score
 	combo = commited_state.combo
 	glider.reset_state()
+	glider_trail.reset_trail()
+	_process(0)
+	
+	await get_tree().process_frame
+	rings.reset_rings(glider.position)
+	
 	animation_player.play("RESET")
 
 	get_tree().paused = true
 	await heads_up_display.countdown()
 	get_tree().paused = false
-	var time_tween = create_tween()
-	time_tween.tween_property(Engine, "time_scale", 1, 2).from(0.5)
-	#time_tween.tween_property(Engine, "time_scale", 1, 10).from(0.8)
-
-
-
-	
-	
 
 func _load_score() -> void:
 	'''

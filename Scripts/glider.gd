@@ -136,14 +136,21 @@ func _physics_process(delta: float) -> void:
 
 	
 	var collided = move_and_slide()
-	if collided:
+	if collided and is_alive:
 		is_alive = false
-		dead.emit()
 		animation_player.play("Explode")
 		create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
+		dead.emit()
 
 		
 	queue_redraw()
+
+func reset_state() -> void:
+	is_alive = true
+	animation_player.stop()
+	animation_player.seek(0.0, true)
+	glider_wanted_rotation = rotation
+	
 
 func _draw() -> void:
 	'''

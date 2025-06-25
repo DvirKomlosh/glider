@@ -1,6 +1,6 @@
 extends Node2D
 
-
+signal save_state
 signal ready_to_set_glider_position(pos_x, pos_y)
 
 var MAX_RING_SIZE = 3.2
@@ -23,9 +23,10 @@ var MIN_RING_DISTANCE = 17000
 var ring_distance_distance = 1000
 
 var y_values = Vector2(0, 10000)
-var x_value = -section_length * 2
+var x_value = -section_length * 4
 
 var difficulty_level = 0
+var PRE_EXISTING_WALLS = 9
 
 @onready var rings = $Rings
 @onready var walls = $Walls
@@ -48,7 +49,7 @@ func _ready() -> void:
 	noise_path.noise_type = FastNoiseLite.TYPE_PERLIN
 	noise_path.frequency = 0.03
 	
-	for i in range(5):
+	for i in range(PRE_EXISTING_WALLS):
 		_generate_walls(x_value, y_values[0], y_values[1])
 		
 		# Set the glider slightly below the celing, at the start
@@ -82,7 +83,8 @@ func _generate_ring(x_pos: float, down1: Vector2, down2: Vector2, up1: Vector2, 
 func on_wall_entred() -> void:
 	_generate_walls(x_value, y_values[0], y_values[1])
 	walls.call_deferred("destroy_last")
-	rings.remove_rings(x_value - section_length * 5)
+	rings.remove_rings(x_value - section_length * PRE_EXISTING_WALLS)
+	save_state.emit()
 	
 	
 func _generate_walls(starting_x: float, y_down: float, y_up: float) -> void:

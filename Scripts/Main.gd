@@ -3,6 +3,9 @@ extends Node2D
 var save_path = "user://scores.save"
 var settings_path = "user://settings.save"
 
+var saved_state: SavedState
+var commited_state: SavedState
+
 var settings
 var starting_glider_position
 
@@ -37,6 +40,38 @@ var best_distance = 0
 var combo = 1
 var is_game_over = false
 
+func _get_current_state() -> SavedState:
+	return SavedState.new(glider.position, glider.velocity, glider.rotation, score, combo)
+
+func commit_state(state: SavedState) -> void:
+	commited_state = state
+
+func save_state() -> void:
+	commit_state(saved_state)
+	saved_state = _get_current_state()
+
+	
+func reload_state() -> void:
+	is_game_over = false
+	glider.position = commited_state.position
+	glider.velocity = commited_state.velocity
+	glider.rotation = commited_state.rotation
+	score = commited_state.score
+	combo = commited_state.combo
+	glider.reset_state()
+	animation_player.play("RESET")
+
+	get_tree().paused = true
+	await heads_up_display.countdown()
+	get_tree().paused = false
+	var time_tween = create_tween()
+	time_tween.tween_property(Engine, "time_scale", 1, 2).from(0.5)
+	#time_tween.tween_property(Engine, "time_scale", 1, 10).from(0.8)
+
+
+
+	
+	
 
 func _load_score() -> void:
 	'''
@@ -72,10 +107,12 @@ func update_glider_position(pos: Vector2, speed: float) -> void:
 	
 
 func _set_game_over() -> void:
+	if is_game_over:
+		return
+	is_game_over = true
 	_save_score()
 	animation_player.play("death")
 	end_screen.set_scores(score, best_score, distance, best_distance)
-	is_game_over = true
 
 func _in_hoop() -> void:
 	if not is_game_over:
@@ -146,13 +183,10 @@ func save_settings():
 	
 
 func _on_settings_button_pressed() -> void:
-	animation_player.play("hide_settings_button")
-	await $AnimationPlayer.animation_finished
 	rings.unset_all_indicators()
-	
 	settings_screen.open_settings()
 	
 
 func _on_resume() -> void:
 	rings.set_all_indicators()
-	animation_player.play_backwards("hide_settings_button")
+	heads_up_display.show_settings_button()

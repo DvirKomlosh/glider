@@ -56,6 +56,8 @@ func _process(delta: float) -> void:
 	for point in queue:
 		add_point(point)
 
+func reset_trail() -> void:
+	queue.clear()
 	
 func add_trail_point(trail_position: Vector2, speed: float) -> void:
 	'''

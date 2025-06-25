@@ -109,7 +109,7 @@ tracks/1/path = NodePath("Environment/Rings")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -324,7 +324,6 @@ libraries = {
 }
 
 [connection signal="add_trail" from="Glider" to="." method="update_glider_position"]
-[connection signal="add_trail" from="Glider" to="." method="_send_add_trail"]
 [connection signal="dead" from="Glider" to="." method="_set_game_over"]
 [connection signal="settings_button_pressed" from="CanvasLayer/HeadsUpDisplay" to="." method="_on_settings_button_pressed"]
 [connection signal="resume_game" from="CanvasLayer/settings" to="." method="_on_resume"]

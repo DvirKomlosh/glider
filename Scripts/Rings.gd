@@ -8,6 +8,17 @@ var ring_scene = preload("res://Scences/Ring.tscn")
 var active_rings = []
 var rings = []
 
+func reset_rings(glider_position: Vector2):
+	active_rings = []
+	for ring in rings:
+		ring.unset_indicator()
+		if ring.is_active(glider_position.x):
+			ring.has_passed = false
+			active_rings.append(ring)
+	set_all_indicators()
+	update_indicator(glider_position)
+	
+
 func unset_all_indicators() -> void:
 	for ring in rings:
 		ring.unset_indicator()
@@ -24,20 +35,24 @@ func _ready() -> void:
 
 
 func send_in_hoop() -> void:
-	active_rings[0].unset_indicator()
-	active_rings.remove_at(0)
+	passed_hoop()
 	in_hoop.emit()
 
-	
+
 func send_out_hoop() -> void:
+	passed_hoop()
+	out_hoop.emit()
+
+func passed_hoop() -> void:
 	active_rings[0].unset_indicator()
 	active_rings.remove_at(0)
-	out_hoop.emit()
+	set_all_indicators()
+	
 
 func update_indicator(glider_position: Vector2) -> void:
 	if len(active_rings) > 0:
 		active_rings[0].set_indicator(glider_position)
-	
+
 
 func instentiate_ring(new_pos: Vector2, ring_scale) -> void:
 	'''

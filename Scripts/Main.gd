@@ -28,7 +28,6 @@ var difficulty_level = 0
 @onready var camera: Camera2D = $Glider/Camera
 @onready var heads_up_display: Control = $CanvasLayer/HeadsUpDisplay
 @onready var settings_screen: Control = $CanvasLayer/settings
-@onready var settings_button: Button = $CanvasLayer/MarginContainer/SettingsButtonContainer/SettingsButton
 
 @onready var music: AudioStreamPlayer = $Music
 

@@ -14,6 +14,8 @@ var screenshake
 
 var difficulty_level = 0
 
+var can_revive: bool = true
+
 @onready var MASTER_BUS_ID = AudioServer.get_bus_index("Master")
 @onready var SFX_BUS_ID = AudioServer.get_bus_index("SFX")
 @onready var MUSIC_BUS_ID = AudioServer.get_bus_index("Music")
@@ -23,13 +25,17 @@ var difficulty_level = 0
 @onready var glider: CharacterBody2D = $Glider
 @onready var rings: Node2D = $Environment/Rings
 @onready var glider_trail: Line2D = $GliderTrail
-@onready var end_screen: Control = $CanvasLayer/EndScreen
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera: Camera2D = $Glider/Camera
+
 @onready var heads_up_display: Control = $CanvasLayer/HeadsUpDisplay
 @onready var settings_screen: Control = $CanvasLayer/settings
+@onready var end_screen: Control = $CanvasLayer/EndScreen
+@onready var revive: Control = $CanvasLayer/Revive
+
 
 @onready var music: AudioStreamPlayer = $Music
+@onready var ad_manager: Node = $AdManager
 
 var score = 0
 var best_score = 0
@@ -50,7 +56,7 @@ func save_state() -> void:
 	saved_state = _get_current_state()
 
 	
-func reload_state() -> void:
+func _reload_state() -> void:
 	is_game_over = false
 	glider.position = commited_state.position
 	glider.velocity = commited_state.velocity
@@ -109,7 +115,26 @@ func _set_game_over() -> void:
 	is_game_over = true
 	_save_score()
 	animation_player.play("death")
+	await animation_player.animation_finished
 	end_screen.set_scores(score, best_score, distance, best_distance)
+	_end_game()
+
+func _end_game() -> void:
+	if can_revive and ad_manager.is_ad_loaded():
+		revive.show_menu()
+		return
+	end_screen.end()
+		
+func _on_revive_request(is_requested: bool) -> void:
+	if is_requested and await ad_manager.try_get_reward():
+		await revive.clean()
+		can_revive = false
+		_reload_state()
+		return
+	else:
+		await revive.clean()
+		end_screen.end()
+
 
 func _in_hoop() -> void:
 	if not is_game_over:

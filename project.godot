@@ -26,6 +26,10 @@ window/stretch/aspect="expand"
 
 movie_writer/movie_file="C:/Users/dvirk/Documents/Projects/glider/Movie/movie.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AdmobPlugin/plugin.cfg")
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true

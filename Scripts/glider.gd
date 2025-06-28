@@ -130,17 +130,17 @@ func _physics_process(delta: float) -> void:
 	
 	acc *= ACC_MULT
 	velocity += acc 
-	
+
 	# always going forward:
 	velocity.x = max(0, velocity.x)
 
-	
-	var collided = move_and_slide()
-	if collided and is_alive:
-		is_alive = false
-		animation_player.play("Explode")
-		create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
-		dead.emit()
+	if is_alive:	
+		var collided = move_and_slide()
+		if collided:
+			is_alive = false
+			animation_player.play("Explode")
+			create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
+			dead.emit()
 
 		
 	queue_redraw()

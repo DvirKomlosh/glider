@@ -12,6 +12,7 @@ signal retry
 @onready var restart: Button = $PanelContainer/MarginContainer/VBoxContainer/restart
 
 @onready var panel_container: PanelContainer = $PanelContainer
+#@onready var ad_manager: Node = $AdManager
 
 var ad_seen = false
 
@@ -21,26 +22,9 @@ func set_scores(score: int, best_score: int, distance: int, best_distance: int) 
 	distance_label.text = "distance\n" + str(distance)
 	best_distance_label.text = "best distance\n" + str(best_distance)
 
-func _can_show_ad() -> bool:
-	if ad_seen:
-		return false	
-	return true
-
-func _suggest_ad() -> bool:
-	""" returns true if ad was watched fully """
-	ad_seen = true
-	return true
 
 func end() -> void:
-	get_tree().paused = true
-	if _can_show_ad():
-		if _suggest_ad():
-			print("saw ad, reseting!")
-			get_tree().paused = false
-			retry.emit()
-			return
 	animation_player.play("blur")
-	restart.disabled = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

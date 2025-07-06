@@ -1,6 +1,6 @@
 extends Control
 
-signal retry
+signal request_reload
 
 @onready var score_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/score
 @onready var best_score_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/best_score
@@ -36,6 +36,6 @@ func _process(delta: float) -> void:
 
 
 func _on_restart_pressed() -> void:
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	request_reload.emit()
+
 	

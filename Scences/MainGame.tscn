@@ -1,9 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://dlue7lxuy1gh8"]
+[gd_scene load_steps=21 format=3 uid="uid://dlue7lxuy1gh8"]
 
 [ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
 [ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
-[ext_resource type="Script" path="res://addons/AdmobPlugin/Admob.gd" id="2_n546m"]
-[ext_resource type="Script" path="res://Scripts/ad_manager.gd" id="3_ash2c"]
 [ext_resource type="PackedScene" uid="uid://c1tlevkc8eva4" path="res://Scences/end_screen.tscn" id="3_c6iph"]
 [ext_resource type="Script" path="res://Scripts/environment.gd" id="3_deydf"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="3_eorxt"]
@@ -261,18 +259,6 @@ libraries = {
 "": SubResource("AnimationLibrary_o6ebp")
 }
 
-[node name="Admob" type="Node" parent="."]
-script = ExtResource("2_n546m")
-child_directed = 1
-under_age_of_consent = 1
-debug_application_id = "ca-app-pub-3940256099942544~3347511713"
-debug_rewarded_id = "ca-app-pub-3940256099942544/5224354917"
-real_application_id = "ca-app-pub-3480986691890197~6997657142"
-real_rewarded_id = "ca-app-pub-3480986691890197/8072201137"
-
-[node name="AdManager" type="Node" parent="."]
-script = ExtResource("3_ash2c")
-
 [node name="Glider" parent="." instance=ExtResource("1_mtst1")]
 z_index = 1
 
@@ -343,20 +329,13 @@ stream = ExtResource("11_ejmt8")
 volume_db = -10.0
 bus = &"Music"
 
-[connection signal="initialization_completed" from="Admob" to="AdManager" method="_on_admob_initialization_completed"]
-[connection signal="rewarded_ad_dismissed_full_screen_content" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_dismissed_full_screen_content"]
-[connection signal="rewarded_ad_failed_to_load" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_failed_to_load"]
-[connection signal="rewarded_ad_failed_to_show_full_screen_content" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_failed_to_show_full_screen_content"]
-[connection signal="rewarded_ad_loaded" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_loaded"]
-[connection signal="rewarded_ad_showed_full_screen_content" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_showed_full_screen_content"]
-[connection signal="rewarded_ad_user_earned_reward" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_user_earned_reward"]
 [connection signal="add_trail" from="Glider" to="." method="update_glider_position"]
 [connection signal="dead" from="Glider" to="." method="_set_game_over"]
 [connection signal="settings_button_pressed" from="CanvasLayer/HeadsUpDisplay" to="." method="_on_settings_button_pressed"]
 [connection signal="resume_game" from="CanvasLayer/settings" to="." method="_on_resume"]
 [connection signal="save_settings" from="CanvasLayer/settings" to="." method="save_settings"]
 [connection signal="update_settings" from="CanvasLayer/settings" to="." method="_on_update_settings"]
-[connection signal="retry" from="CanvasLayer/EndScreen" to="." method="reload_state"]
+[connection signal="request_reload" from="CanvasLayer/EndScreen" to="." method="_on_request_reload"]
 [connection signal="is_revive_requested" from="CanvasLayer/Revive" to="." method="_on_revive_request"]
 [connection signal="ready_to_set_glider_position" from="Environment" to="." method="_on_ready_to_set_glider_position"]
 [connection signal="save_state" from="Environment" to="." method="save_state"]

@@ -1,10 +1,10 @@
-# Godot 4+ specific ignores
+
 .godot/
 
-Scences/*.gd
-Scripts/*.tscn
 
 *.apk
 *.tmp
 *.idsig
 keystore/
+
+android/build/

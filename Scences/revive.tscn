@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://lku8vhavxhrm"]
 
 [ext_resource type="Texture2D" uid="uid://dkqk3amx5v08e" path="res://Assets/Art/white-broken-heart-icon.png" id="1_pujmw"]
-[ext_resource type="Script" path="res://Scences/revive.gd" id="1_x1vc0"]
+[ext_resource type="Script" path="res://Scripts/revive.gd" id="1_x1vc0"]
 [ext_resource type="Texture2D" uid="uid://6d7wnum75n6s" path="res://Assets/Art/animation/new_animated_texture.tres" id="2_uofsy"]
 [ext_resource type="Texture2D" uid="uid://b1avf1xeh7cns" path="res://Assets/Art/white-video.png" id="2_ypfim"]
 [ext_resource type="Shader" path="res://end_screen.gdshader" id="4_usosq"]

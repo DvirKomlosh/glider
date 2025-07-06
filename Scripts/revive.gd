@@ -19,12 +19,3 @@ func _on_revive_button_pressed() -> void:
 	emit_signal("is_revive_requested", true)
 	revive_button.disabled = true
 	animation_player.play("loading")
-	
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

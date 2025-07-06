@@ -1,10 +1,12 @@
 extends Node2D
 
+signal request_reload
+
 var save_path = "user://scores.save"
 var settings_path = "user://settings.save"
 
 var saved_state: SavedState
-var commited_state: SavedState
+var commited_state: SavedState = null
 
 var settings
 var starting_glider_position
@@ -35,7 +37,7 @@ var can_revive: bool = true
 
 
 @onready var music: AudioStreamPlayer = $Music
-@onready var ad_manager: Node = $AdManager
+@onready var ad_manager: Node = $"../AdManager"
 
 var score = 0
 var best_score = 0
@@ -48,11 +50,11 @@ var is_game_over = false
 func _get_current_state() -> SavedState:
 	return SavedState.new(glider.position, glider.velocity, glider.rotation, score, combo)
 
-func commit_state(state: SavedState) -> void:
+func _commit_state(state: SavedState) -> void:
 	commited_state = state
 
 func save_state() -> void:
-	commit_state(saved_state)
+	_commit_state(saved_state)
 	saved_state = _get_current_state()
 
 	
@@ -120,7 +122,7 @@ func _set_game_over() -> void:
 	_end_game()
 
 func _end_game() -> void:
-	if can_revive and ad_manager.is_ad_loaded():
+	if can_revive and commited_state and ad_manager.is_ad_loaded():
 		revive.show_menu()
 		return
 	end_screen.end()
@@ -152,6 +154,7 @@ func _ready() -> void:
 	load_settings()
 	music.playing = true
 	glider.position = starting_glider_position
+
 
 func _calculate_difficulty() -> float:
 	'''
@@ -212,3 +215,7 @@ func _on_settings_button_pressed() -> void:
 func _on_resume() -> void:
 	rings.set_all_indicators()
 	heads_up_display.show_settings_button()
+
+
+func _on_request_reload() -> void:
+	request_reload.emit()

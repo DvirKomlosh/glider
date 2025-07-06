@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbjvyjhln6fb1"]
+[gd_scene load_steps=9 format=3 uid="uid://dbjvyjhln6fb1"]
 
 [ext_resource type="Script" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
 [ext_resource type="Texture2D" uid="uid://cmhrkgax64dtu" path="res://Assets/Art/cog_3.svg" id="2_pu3i4"]
+[ext_resource type="AudioStream" uid="uid://ddoh3y2y55g4u" path="res://Assets/Audio/Effects/beep.wav" id="2_sb5fs"]
+[ext_resource type="AudioStream" uid="uid://c1se6x81as8mh" path="res://Assets/Audio/Effects/final_beep.wav" id="3_p3opk"]
 
 [sub_resource type="Animation" id="Animation_v3413"]
 length = 0.001
@@ -88,10 +90,10 @@ tracks/1/path = NodePath("../../../ReviveCountdownContainer/CountDown:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.93333),
+"times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.63333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.583408, 0.19589, 1, 1), Color(0.256, 0.5056, 0.64, 0), Color(0.584314, 0.196078, 1, 1), Color(0.256, 0.5056, 0.64, 0), Color(0.584314, 0.196078, 1, 1), Color(0.254902, 0.505882, 0.639216, 0)]
+"values": [Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.256, 0.5056, 0.64, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -100,11 +102,34 @@ tracks/2/path = NodePath("../../../ReviveCountdownContainer/CountDown:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.93333),
+"times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.63333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true, false]
 }
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../../ReviveCountdownContainer/CountdownPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_sb5fs")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_sb5fs")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_p3opk")
+}],
+"times": PackedFloat32Array(0, 0.933333, 1.93333)
+}
+tracks/3/use_blend = true
 
 [sub_resource type="Animation" id="Animation_r3kk2"]
 resource_name = "hide_settings_button"
@@ -167,6 +192,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CountdownPlayer" type="AudioStreamPlayer" parent="ReviveCountdownContainer"]
+volume_db = -20.0
+bus = &"SFX"
 
 [node name="CountDown" type="Label" parent="ReviveCountdownContainer"]
 process_mode = 3

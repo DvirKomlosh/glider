@@ -160,6 +160,7 @@ theme_override_font_sizes/font_size = 40
 text = "Sound Effects Volume        "
 
 [node name="SFXVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 value = 50.0
 
@@ -169,6 +170,7 @@ theme_override_font_sizes/font_size = 40
 text = "Music Volume"
 
 [node name="MusicVolumeSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/Sliders"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 value = 50.0
 
@@ -181,9 +183,9 @@ theme_override_constants/separation = 5
 
 [node name="MuteCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute"]
 layout_mode = 2
-
-[node name="MuteLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute"]
-layout_mode = 2
+focus_mode = 0
+theme_override_constants/h_separation = 30
+theme_override_font_sizes/font_size = 40
 text = "Mute"
 
 [node name="Vibrations" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
@@ -192,10 +194,10 @@ theme_override_constants/separation = 5
 
 [node name="VibrationsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations"]
 layout_mode = 2
+focus_mode = 0
+theme_override_constants/h_separation = 30
+theme_override_font_sizes/font_size = 40
 button_pressed = true
-
-[node name="VibrationsLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations"]
-layout_mode = 2
 text = "Vibrations"
 
 [node name="ScreenShake" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
@@ -204,11 +206,11 @@ theme_override_constants/separation = 5
 
 [node name="ScreenShakeCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake"]
 layout_mode = 2
+focus_mode = 0
+theme_override_constants/h_separation = 30
+theme_override_font_sizes/font_size = 40
 button_pressed = true
-
-[node name="ScreenShakeLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake"]
-layout_mode = 2
-text = "Screen Shake"
+text = "Screen shake"
 
 [node name="resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

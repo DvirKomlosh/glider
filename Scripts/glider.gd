@@ -134,7 +134,7 @@ func _physics_process(delta: float) -> void:
 	# always going forward:
 	velocity.x = max(0, velocity.x)
 
-	if is_alive:	
+	if is_alive:
 		var collided = move_and_slide()
 		if collided:
 			is_alive = false

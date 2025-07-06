@@ -75,4 +75,3 @@ func _on_body_entred(body: Node2D) -> void:
 func _ready() -> void:
 	call_deferred("_set_up_polygons")
 	call_deferred("_set_up_entrance")
-	

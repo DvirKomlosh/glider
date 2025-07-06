@@ -6,12 +6,17 @@ var is_initialized: bool = false
 var ad_loaded: bool = false
 var should_be_rewarded: bool = false
 
-
 signal watched_fully(earned_reward :bool)
 
 
 func _ready():
-	admob.initialize()
+	call_deferred("init_admob")
+	
+func init_admob():
+	if Engine.has_singleton("AdmobPlugin"):
+		admob.initialize()
+	else:
+		push_error("AdMob singleton not found!")
 
 func _load_rewarded_ad():
 	if is_initialized:
@@ -24,8 +29,6 @@ func _show_reward_ad():
 		ad_loaded = false
 		_load_rewarded_ad()
 		
-func _on_admob_rewarded_ad_loaded(ad_id: String) -> void:
-	ad_loaded = true
 
 func is_ad_loaded() -> bool:
 	if not ad_loaded:
@@ -43,6 +46,8 @@ func try_get_reward() -> bool:
 		return true
 	return false
 
+func _on_admob_rewarded_ad_loaded(ad_id: String) -> void:
+	ad_loaded = true
 
 func _on_admob_rewarded_ad_user_earned_reward(ad_id: String, reward_data: RewardItem) -> void:
 	should_be_rewarded = true

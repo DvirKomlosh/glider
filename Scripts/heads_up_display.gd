@@ -7,14 +7,24 @@ extends Control
 @onready var needle: TextureRect = $Speedometer/Needle
 @onready var speedometer: Control = $Speedometer
 
+var curr_distance = 0
+var curr_score = 0
+var presented_score = 0.0
+
 signal settings_button_pressed
 
 func update_distance(new_distance: int) -> void:
-	distance.text = str(new_distance)
+	curr_distance = new_distance
+	
 	
 func update_score(new_score: int) -> void:
-	score.text = str(new_score)
+	curr_score = new_score
 	
+func _process(delta: float) -> void:
+	presented_score = lerp(presented_score, float(curr_score), 0.1)
+	score.text = str(int(ceil(presented_score)))
+	distance.text = str(curr_distance)
+
 
 
 func _on_settings_button_pressed() -> void:

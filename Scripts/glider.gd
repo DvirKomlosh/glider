@@ -87,6 +87,7 @@ func _process(delta) -> void:
 	_play_sound(delta)
 
 
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -133,7 +134,8 @@ func _physics_process(delta: float) -> void:
 
 	# always going forward:
 	velocity.x = max(0, velocity.x)
-
+	
+	
 	if is_alive:
 		var collided = move_and_slide()
 		if collided:
@@ -141,7 +143,9 @@ func _physics_process(delta: float) -> void:
 			animation_player.play("Explode")
 			create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
 			dead.emit()
-
+	else:
+		velocity = Vector2(0, 0)
+	
 		
 	queue_redraw()
 

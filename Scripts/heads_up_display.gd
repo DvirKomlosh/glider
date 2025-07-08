@@ -4,6 +4,8 @@ extends Control
 @onready var distance: Label = $MarginContainer/HBoxContainer/Distance
 @onready var score: Label = $MarginContainer/HBoxContainer/Score
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var needle: TextureRect = $Speedometer/Needle
+@onready var speedometer: Control = $Speedometer
 
 signal settings_button_pressed
 
@@ -27,3 +29,13 @@ func show_settings_button() -> void:
 func countdown() -> void:
 	animation_player.play("countdown")
 	await animation_player.animation_finished
+
+func update_speed(speed: float) -> void:
+	speed = speed / 1000.0
+	if speed < 15:
+		needle.rotation = deg_to_rad(speed * 8)
+	else:
+		needle.rotation = deg_to_rad(speed * 3 + 75)
+
+func display_speedometer(display: bool) -> void:
+	speedometer.visible = display

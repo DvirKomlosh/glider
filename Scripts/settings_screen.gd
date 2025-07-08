@@ -12,10 +12,10 @@ signal update_settings(settings: Settings)
 @onready var sfx_volume_slider: HSlider = $PanelContainer/MarginContainer/VBoxContainer/Sliders/SFXVolumeSlider
 @onready var music_volume_slider: HSlider = $PanelContainer/MarginContainer/VBoxContainer/Sliders/MusicVolumeSlider
 
-@onready var screen_shake_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake/ScreenShakeCheckBox
-@onready var vibrations_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations/VibrationsCheckBox
-@onready var mute_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute/MuteCheckBox
-
+@onready var mute: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Columns/Row1/Mute
+@onready var screen_shake: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Columns/Row1/ScreenShake
+@onready var vibrations: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Columns/Row2/Vibrations
+@onready var speedometer: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Columns/Row2/Speedometer
 
 func _update_settings(value) -> void:
 	var settings = _get_current_settings()
@@ -26,17 +26,19 @@ func _get_current_settings() -> Settings:
 	var settings = Settings.new()
 	settings.sfx_volume = sfx_volume_slider.value
 	settings.music_volume = music_volume_slider.value
-	settings.vibrations = vibrations_check_box.button_pressed
-	settings.screenshake = screen_shake_check_box.button_pressed
-	settings.mute = mute_check_box.button_pressed
+	settings.vibrations = vibrations.button_pressed
+	settings.screenshake = screen_shake.button_pressed
+	settings.mute = mute.button_pressed
+	settings.speedometer = speedometer.button_pressed
 	return settings
 
 func set_settings(settings: Settings):
 	sfx_volume_slider.value = settings.sfx_volume
 	music_volume_slider.value = settings.music_volume
-	vibrations_check_box.button_pressed = settings.vibrations
-	screen_shake_check_box.button_pressed = settings.screenshake
-	mute_check_box.button_pressed = settings.mute
+	vibrations.button_pressed = settings.vibrations
+	screen_shake.button_pressed = settings.screenshake
+	mute.button_pressed = settings.mute
+	speedometer.button_pressed = settings.speedometer
 
 
 func open_settings() -> void:

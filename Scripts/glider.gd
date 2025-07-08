@@ -34,7 +34,7 @@ func _show_points(combo: int) -> void:
 
 
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch or event is InputEventScreenDrag:
 		var vp_rect = get_viewport().get_visible_rect()
 		var normalized_y = (event.position.y - vp_rect.position.y) / vp_rect.size.y
@@ -70,7 +70,7 @@ func set_glider_rotation(controller_value: float) -> void:
 	if is_alive:
 		glider_wanted_rotation = asin( - controller_value/90)
 
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	
 	points.rotation = -rotation
 	var screen_height = 5040.0

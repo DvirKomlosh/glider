@@ -14,7 +14,7 @@ func _init(
 	rotation: float,
 	score: int,
 	combo: int
-):
+) -> void:
 	self.position = position
 	self.rotation = rotation
 	self.velocity = velocity

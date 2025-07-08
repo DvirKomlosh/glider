@@ -32,7 +32,7 @@ func _get_current_settings() -> Settings:
 	settings.speedometer = speedometer.button_pressed
 	return settings
 
-func set_settings(settings: Settings):
+func set_settings(settings: Settings) -> void:
 	sfx_volume_slider.value = settings.sfx_volume
 	music_volume_slider.value = settings.music_volume
 	vibrations.button_pressed = settings.vibrations

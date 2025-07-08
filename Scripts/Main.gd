@@ -180,7 +180,7 @@ func _process(delta: float) -> void:
 func _on_ready_to_set_glider_position(pos_x: float, pos_y: float) -> void:
 	starting_glider_position = Vector2(pos_x, pos_y + 500)
 
-func _vibrate_screen(millieseconds: int):
+func _vibrate_screen(millieseconds: int) -> void:
 	if vibrations:
 		Input.vibrate_handheld(millieseconds)
 
@@ -188,7 +188,7 @@ func _on_update_settings(new_settings: Settings) -> void:
 	settings = new_settings
 	apply_settings()
 	
-func apply_settings():
+func apply_settings() -> void:
 	AudioServer.set_bus_volume_db(SFX_BUS_ID, linear_to_db(settings.sfx_volume/100))
 	AudioServer.set_bus_volume_db(MUSIC_BUS_ID, linear_to_db(settings.music_volume/100))
 	AudioServer.set_bus_mute(MASTER_BUS_ID, settings.mute)
@@ -197,7 +197,7 @@ func apply_settings():
 	heads_up_display.display_speedometer(settings.speedometer)
 	camera.set_screenshake(screenshake)
 	
-func load_settings():
+func load_settings() -> void:
 	if FileAccess.file_exists(settings_path):
 		var file = FileAccess.open(settings_path, FileAccess.READ)
 		settings = file.get_var(true)
@@ -205,7 +205,7 @@ func load_settings():
 		settings = Settings.new()
 	settings_screen.set_settings(settings)
 	
-func save_settings():
+func save_settings() -> void:
 	var file = FileAccess.open(settings_path, FileAccess.WRITE)
 	file.store_var(settings, true)
 	

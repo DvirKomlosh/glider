@@ -9,21 +9,21 @@ var should_be_rewarded: bool = false
 signal watched_fully(earned_reward :bool)
 
 
-func _ready():
+func _ready() -> void:
 	call_deferred("init_admob")
 	
-func init_admob():
+func init_admob() -> void:
 	if Engine.has_singleton("AdmobPlugin"):
 		admob.initialize()
 	else:
 		push_error("AdMob singleton not found!")
 
-func _load_rewarded_ad():
+func _load_rewarded_ad() -> void:
 	if is_initialized:
 		admob.load_rewarded_ad()
 		
 
-func _show_reward_ad():
+func _show_reward_ad() -> void:
 	if is_initialized and ad_loaded:
 		admob.show_rewarded_ad()
 		ad_loaded = false

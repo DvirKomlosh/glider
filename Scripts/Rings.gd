@@ -8,7 +8,7 @@ var ring_scene = preload("res://Scences/Ring.tscn")
 var active_rings = []
 var rings = []
 
-func reset_rings(glider_position: Vector2):
+func reset_rings(glider_position: Vector2) -> void:
 	active_rings = []
 	for ring in rings:
 		ring.unset_indicator()

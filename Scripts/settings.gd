@@ -7,3 +7,4 @@ class_name Settings
 @export var mute: bool = false
 @export var vibrations: bool = true
 @export var screenshake: bool = true
+@export var speedometer: bool = true

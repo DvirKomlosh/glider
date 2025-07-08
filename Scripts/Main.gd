@@ -170,9 +170,11 @@ func _process(delta: float) -> void:
 	difficulty_level = _calculate_difficulty()
 	environment.set_difficulty(difficulty_level)
 	# set glider UI position
+	var speed = glider.velocity.length()
 	
 	heads_up_display.update_score(score)
 	heads_up_display.update_distance(distance)
+	heads_up_display.update_speed(speed)
 	
 	
 func _on_ready_to_set_glider_position(pos_x: float, pos_y: float) -> void:
@@ -192,6 +194,7 @@ func apply_settings():
 	AudioServer.set_bus_mute(MASTER_BUS_ID, settings.mute)
 	vibrations = settings.vibrations
 	screenshake = settings.screenshake
+	heads_up_display.display_speedometer(settings.speedometer)
 	camera.set_screenshake(screenshake)
 	
 func load_settings():

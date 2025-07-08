@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbjvyjhln6fb1"]
+[gd_scene load_steps=11 format=3 uid="uid://dbjvyjhln6fb1"]
 
 [ext_resource type="Script" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
 [ext_resource type="Texture2D" uid="uid://cmhrkgax64dtu" path="res://Assets/Art/cog_3.svg" id="2_pu3i4"]
 [ext_resource type="AudioStream" uid="uid://ddoh3y2y55g4u" path="res://Assets/Audio/Effects/beep.wav" id="2_sb5fs"]
 [ext_resource type="AudioStream" uid="uid://c1se6x81as8mh" path="res://Assets/Audio/Effects/final_beep.wav" id="3_p3opk"]
+[ext_resource type="Texture2D" uid="uid://bpl1kghhdqry0" path="res://Assets/Art/dial.png" id="5_6prld"]
+[ext_resource type="Texture2D" uid="uid://bne8gdbwlcvpd" path="res://Assets/Art/white_needle.png" id="6_snqcp"]
 
 [sub_resource type="Animation" id="Animation_v3413"]
 length = 0.001
@@ -255,5 +257,46 @@ theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0.815686)
 theme_override_constants/icon_max_width = 50
 icon = ExtResource("2_pu3i4")
 flat = true
+
+[node name="Speedometer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dial" type="TextureRect" parent="Speedometer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -110.0
+offset_right = 412.0
+offset_bottom = 402.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_6prld")
+
+[node name="Needle" type="TextureRect" parent="Speedometer"]
+self_modulate = Color(0.258824, 0.505882, 0.643137, 1)
+layout_mode = 1
+anchors_preset = -1
+offset_left = -254.0
+offset_top = -264.0
+offset_right = 258.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(256, 256)
+texture = ExtResource("6_snqcp")
 
 [connection signal="pressed" from="MarginContainer2/SettingsButtonContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

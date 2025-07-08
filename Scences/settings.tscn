@@ -174,43 +174,44 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 value = 50.0
 
-[node name="Checkboxes" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Columns" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Mute" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
+[node name="Row1" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Columns"]
 layout_mode = 2
-theme_override_constants/separation = 5
 
-[node name="MuteCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute"]
+[node name="Mute" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Columns/Row1"]
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/h_separation = 30
 theme_override_font_sizes/font_size = 40
 text = "Mute"
 
-[node name="Vibrations" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="VibrationsCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations"]
-layout_mode = 2
-focus_mode = 0
-theme_override_constants/h_separation = 30
-theme_override_font_sizes/font_size = 40
-button_pressed = true
-text = "Vibrations"
-
-[node name="ScreenShake" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="ScreenShakeCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake"]
+[node name="ScreenShake" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Columns/Row1"]
 layout_mode = 2
 focus_mode = 0
 theme_override_constants/h_separation = 30
 theme_override_font_sizes/font_size = 40
 button_pressed = true
 text = "Screen shake"
+
+[node name="Row2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/Columns"]
+layout_mode = 2
+
+[node name="Vibrations" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_constants/h_separation = 30
+theme_override_font_sizes/font_size = 40
+text = "Vibrations"
+
+[node name="Speedometer" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2"]
+layout_mode = 2
+focus_mode = 0
+theme_override_constants/h_separation = 30
+theme_override_font_sizes/font_size = 40
+button_pressed = true
+text = "Speedometer"
 
 [node name="resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -220,7 +221,8 @@ text = "Resume"
 
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Sliders/SFXVolumeSlider" to="." method="_update_settings"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Sliders/MusicVolumeSlider" to="." method="_update_settings"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute/MuteCheckBox" to="." method="_update_settings"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations/VibrationsCheckBox" to="." method="_update_settings"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake/ScreenShakeCheckBox" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row1/Mute" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row1/ScreenShake" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2/Vibrations" to="." method="_update_settings"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2/Speedometer" to="." method="_update_settings"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/resume" to="." method="close_settings"]

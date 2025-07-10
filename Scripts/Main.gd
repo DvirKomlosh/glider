@@ -2,7 +2,6 @@ extends Node2D
 
 signal request_reload
 
-var save_path = "user://scores.save"
 var settings_path = "user://settings.save"
 
 var saved_state: SavedState
@@ -38,6 +37,9 @@ var can_revive: bool = true
 
 @onready var music: AudioStreamPlayer = $Music
 @onready var ad_manager: Node = $"../AdManager"
+
+@onready var statistics: Statistics = Statistics.load_from_file()
+@onready var start_time = Time.get_unix_time_from_system()
 
 var score = 0
 var best_score = 0
@@ -78,29 +80,7 @@ func _reload_state() -> void:
 	await heads_up_display.countdown()
 	get_tree().paused = false
 
-func _load_score() -> void:
-	'''
-	loads best scores from savefile
-	'''
-	if FileAccess.file_exists(save_path):
-		var file = FileAccess.open(save_path, FileAccess.READ)
-		best_distance = file.get_var()
-		best_score = file.get_var()
-	else:
-		best_distance = 0
-		best_score = 0
 
-func _save_score() -> void:
-	'''
-	saves best scores to savefile
-	'''
-	best_distance = max(distance, best_distance)
-	best_score = max(score, best_score)
-	
-	var file = FileAccess.open(save_path, FileAccess.WRITE)
-	
-	file.store_var(best_distance)
-	file.store_var(best_score)
 	
 
 func update_glider_position(pos: Vector2, speed: float) -> void:
@@ -110,12 +90,35 @@ func update_glider_position(pos: Vector2, speed: float) -> void:
 	glider_trail.add_trail_point(pos, speed)
 	rings.update_indicator(pos)
 	
+	
+func save_statistics():
+	"""
+	saves all statistics from the end of the game
+	
+	the setters and getters of the statistics fields change only for a bigger value, 
+	so we can just try to set instead of checking for max
+	"""
+	statistics.best_score = max(statistics.best_score, score)
+	statistics.best_distance = max(statistics.best_distance, distance)
+	statistics.games_played += 1
+	statistics.time_played += Time.get_unix_time_from_system() - start_time
+	statistics.total_distance_traveled += distance
+	statistics.acumulated_score += score
+	
+	print("game done, statistics:")
+	print(statistics)
+
+	
 
 func _set_game_over() -> void:
 	if is_game_over:
 		return
-	is_game_over = true
-	_save_score()
+	save_statistics()
+
+	is_game_over = true	
+	best_score = statistics.best_score
+	best_distance = statistics.best_distance
+	
 	animation_player.play("death")
 	await animation_player.animation_finished
 	end_screen.set_scores(score, best_score, distance, best_distance)
@@ -131,6 +134,7 @@ func _on_revive_request(is_requested: bool) -> void:
 	if is_requested and await ad_manager.try_get_reward():
 		await revive.clean()
 		can_revive = false
+		statistics.revives += 1
 		_reload_state()
 		return
 	else:
@@ -140,6 +144,8 @@ func _on_revive_request(is_requested: bool) -> void:
 
 func _in_hoop() -> void:
 	if not is_game_over:
+		statistics.total_rings_gone_through += 1
+		statistics.best_combo = max(statistics.best_combo, combo)
 		glider.in_hoop(combo)
 		score += combo
 		combo += 1
@@ -150,7 +156,6 @@ func _out_hoop() -> void:
 	combo = 1
 
 func _ready() -> void:
-	_load_score()
 	load_settings()
 	music.playing = true
 	glider.position = starting_glider_position
@@ -171,6 +176,7 @@ func _process(delta: float) -> void:
 	environment.set_difficulty(difficulty_level)
 	# set glider UI position
 	var speed = glider.velocity.length()
+	statistics.max_speed = max(statistics.max_speed, int(speed/1000))
 	
 	heads_up_display.update_score(score)
 	heads_up_display.update_distance(distance)

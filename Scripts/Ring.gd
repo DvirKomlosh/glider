@@ -16,7 +16,7 @@ func is_active(x_position: float) -> bool:
 	"""returns true if ring should be active- if the glider is before it"""
 	return x_position < global_position.x
 
-func _on_in_loop(body: Node2D) -> void:
+func _on_in_ring(body: Node2D) -> void:
 	'''
 	triggers if a body goes inside the ring
 	'''

@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://digraf1a1dts0"]
+
+[ext_resource type="Script" path="res://Scences/leaderboard_entry.gd" id="1_13q7q"]
+
+[node name="LeaderboardEntry" type="MarginContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+script = ExtResource("1_13q7q")
+
+[node name="Row" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Rank" type="Label" parent="Row"]
+custom_minimum_size = Vector2(92, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Rank"
+
+[node name="PlayerName" type="Label" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "Player"
+
+[node name="Value" type="Label" parent="Row"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 20
+text = "Value"

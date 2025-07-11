@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://njpgp1lv56qc"]
+[gd_scene load_steps=8 format=3 uid="uid://njpgp1lv56qc"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_my7lj"]
+[ext_resource type="Script" path="res://Scripts/db_manager.gd" id="2_lxu30"]
 [ext_resource type="Script" path="res://Scripts/ad_manager.gd" id="3_misdx"]
 [ext_resource type="Script" path="res://addons/AdmobPlugin/Admob.gd" id="4_wq4r8"]
+[ext_resource type="PackedScene" uid="uid://c2tgmbnlyaied" path="res://Scences/Leaderboard.tscn" id="5_7qu4w"]
 [ext_resource type="PackedScene" uid="uid://cntnmolkrjxrv" path="res://Scences/MainMenu.tscn" id="5_qrpdj"]
+[ext_resource type="PackedScene" uid="uid://dj3fcyjoyffsf" path="res://Scences/NamePicker.tscn" id="7_d0jkc"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -14,6 +17,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_my7lj")
 
+[node name="DBManager" type="Node" parent="."]
+script = ExtResource("2_lxu30")
+
+[node name="PutLeaderboard" type="HTTPRequest" parent="DBManager"]
+
+[node name="PutStatistics" type="HTTPRequest" parent="DBManager"]
+
+[node name="GetLeaderboard" type="HTTPRequest" parent="DBManager"]
+
+[node name="GetPlayerExists" type="HTTPRequest" parent="DBManager"]
+
 [node name="AdManager" type="Node" parent="."]
 script = ExtResource("3_misdx")
 
@@ -23,12 +37,25 @@ child_directed = 1
 under_age_of_consent = 1
 debug_application_id = "ca-app-pub-3940256099942544~3347511713"
 debug_rewarded_id = "ca-app-pub-3940256099942544/5224354917"
+real_application_id = "ca-app-pub-3480986691890197~6997657142"
+real_rewarded_id = "ca-app-pub-3480986691890197/8072201137"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MainMenu" parent="CanvasLayer" instance=ExtResource("5_qrpdj")]
 metadata/_edit_use_anchors_ = true
 
+[node name="Leaderboard" parent="CanvasLayer" instance=ExtResource("5_7qu4w")]
+visible = false
+
+[node name="NamePicker" parent="CanvasLayer" instance=ExtResource("7_d0jkc")]
+visible = false
+
+[connection signal="new_data" from="DBManager" to="." method="_on_db_new_data"]
+[connection signal="request_completed" from="DBManager/PutLeaderboard" to="DBManager" method="_on_put_leaderboard_request_completed"]
+[connection signal="request_completed" from="DBManager/PutStatistics" to="DBManager" method="_on_put_statistics_request_completed"]
+[connection signal="request_completed" from="DBManager/GetLeaderboard" to="DBManager" method="_on_get_leaderboard_request_completed"]
+[connection signal="request_completed" from="DBManager/GetPlayerExists" to="DBManager" method="_on_get_player_exists_request_completed"]
 [connection signal="initialization_completed" from="Admob" to="AdManager" method="_on_admob_initialization_completed"]
 [connection signal="rewarded_ad_dismissed_full_screen_content" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_dismissed_full_screen_content"]
 [connection signal="rewarded_ad_failed_to_load" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_failed_to_load"]
@@ -37,3 +64,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="rewarded_ad_showed_full_screen_content" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_showed_full_screen_content"]
 [connection signal="rewarded_ad_user_earned_reward" from="Admob" to="AdManager" method="_on_admob_rewarded_ad_user_earned_reward"]
 [connection signal="play" from="CanvasLayer/MainMenu" to="." method="_on_main_menu_play"]
+[connection signal="show_leaderboard" from="CanvasLayer/MainMenu" to="." method="_on_main_menu_show_leaderboard"]
+[connection signal="back_to_menu" from="CanvasLayer/Leaderboard" to="." method="_on_show_menu"]
+[connection signal="request_data" from="CanvasLayer/Leaderboard" to="." method="_on_leaderboard_request_data"]
+[connection signal="name_submitted" from="CanvasLayer/NamePicker" to="." method="_on_try_pick_name"]

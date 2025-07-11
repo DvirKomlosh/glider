@@ -335,6 +335,7 @@ bus = &"Music"
 [connection signal="resume_game" from="CanvasLayer/settings" to="." method="_on_resume"]
 [connection signal="save_settings" from="CanvasLayer/settings" to="." method="save_settings"]
 [connection signal="update_settings" from="CanvasLayer/settings" to="." method="_on_update_settings"]
+[connection signal="request_main_menu" from="CanvasLayer/EndScreen" to="." method="_on_request_main_menu"]
 [connection signal="request_reload" from="CanvasLayer/EndScreen" to="." method="_on_request_reload"]
 [connection signal="is_revive_requested" from="CanvasLayer/Revive" to="." method="_on_revive_request"]
 [connection signal="ready_to_set_glider_position" from="Environment" to="." method="_on_ready_to_set_glider_position"]

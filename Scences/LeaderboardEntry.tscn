@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://digraf1a1dts0"]
 
-[ext_resource type="Script" path="res://Scences/leaderboard_entry.gd" id="1_13q7q"]
+[ext_resource type="Script" path="res://Scripts/leaderboard_entry.gd" id="1_13q7q"]
 
 [node name="LeaderboardEntry" type="MarginContainer"]
 anchors_preset = 14

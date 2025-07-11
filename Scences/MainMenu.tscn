@@ -33,10 +33,22 @@ theme_override_font_sizes/font_size = 120
 text = "GLIDER"
 horizontal_alignment = 1
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="Buttons" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 focus_mode = 0
 theme_override_font_sizes/font_size = 90
 text = "Play"
 
-[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[node name="LeaderboardButton" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 90
+text = "Leaderboard
+"
+
+[connection signal="pressed" from="VBoxContainer/Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]

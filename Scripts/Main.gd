@@ -1,6 +1,7 @@
 extends Node2D
 
 signal request_reload
+signal request_main_menu
 
 var settings_path = "user://settings.save"
 
@@ -39,7 +40,7 @@ var can_revive: bool = true
 @onready var ad_manager: Node = $"../AdManager"
 
 @onready var statistics: Statistics = Statistics.load_from_file()
-@onready var start_time = Time.get_unix_time_from_system()
+@onready var start_time: int = int(Time.get_unix_time_from_system())
 
 var score = 0
 var best_score = 0
@@ -101,27 +102,22 @@ func save_statistics():
 	statistics.best_score = max(statistics.best_score, score)
 	statistics.best_distance = max(statistics.best_distance, distance)
 	statistics.games_played += 1
-	statistics.time_played += Time.get_unix_time_from_system() - start_time
+	statistics.time_played += int(Time.get_unix_time_from_system()) - start_time
 	statistics.total_distance_traveled += distance
 	statistics.acumulated_score += score
 	
 	print("game done, statistics:")
 	print(statistics)
-
 	
 
 func _set_game_over() -> void:
 	if is_game_over:
 		return
 	save_statistics()
-
-	is_game_over = true	
-	best_score = statistics.best_score
-	best_distance = statistics.best_distance
-	
+	is_game_over = true
 	animation_player.play("death")
 	await animation_player.animation_finished
-	end_screen.set_scores(score, best_score, distance, best_distance)
+	end_screen.set_scores(score, statistics.best_score, distance, statistics.best_distance)
 	_end_game()
 
 func _end_game() -> void:
@@ -228,3 +224,7 @@ func _on_resume() -> void:
 
 func _on_request_reload() -> void:
 	request_reload.emit()
+
+
+func _on_request_main_menu() -> void:
+	request_main_menu.emit()

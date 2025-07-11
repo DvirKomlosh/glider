@@ -1,6 +1,7 @@
 extends Control
 
 signal request_reload
+signal request_main_menu
 
 @onready var score_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/score
 @onready var best_score_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/best_score
@@ -9,10 +10,10 @@ signal request_reload
 @onready var best_distance_label = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/best_distance
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var restart: Button = $PanelContainer/MarginContainer/VBoxContainer/restart
+@onready var restart: Button = $PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/restart
+
 
 @onready var panel_container: PanelContainer = $PanelContainer
-#@onready var ad_manager: Node = $AdManager
 
 var ad_seen = false
 
@@ -38,4 +39,5 @@ func _process(delta: float) -> void:
 func _on_restart_pressed() -> void:
 	request_reload.emit()
 
-	
+func _on_back_button_pressed() -> void:
+	request_main_menu.emit()

@@ -35,6 +35,7 @@ func _ready() -> void:
 	wind_player.volume_db = -50
 	set_process_unhandled_input(true)
 	glider_trail.trail_speed = 400
+	glider_trail.set_max_trail_points(50)
 	velocity = Vector2(3000, 0)
 
 

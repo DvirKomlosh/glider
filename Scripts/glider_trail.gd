@@ -4,8 +4,14 @@ var trail_offset = Vector2(200, 0)
 var queue : Array
 var MAX_TRAIL_POINTS = 30
 
+var position_diff = Vector2(0, 0)
+var glider_last_position
+
 @export var default_start_color = Color("56a7b6")
 @export var start_color = Color("56a7b6")
+@export var trail_speed = 4000
+var glider_position
+
 
 func _ready() -> void:
 	width_curve.point_count = MAX_TRAIL_POINTS
@@ -49,24 +55,25 @@ func propegate_curve(size: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	start_color = start_color.lerp(default_start_color, 0.02)
-	
+	start_color = start_color.lerp(default_start_color, 0.01)
+	var rotated_trail_offset = trail_offset.rotated(-rotation)
 	gradient.set_color(0, start_color)
 	clear_points()
 	for point in queue:
-		add_point(point)
+		add_point(point - glider_position - rotated_trail_offset)
 
 func reset_trail() -> void:
 	queue.clear()
 	
-func add_trail_point(trail_position: Vector2, speed: float) -> void:
+func add_trail_point(trail_position: Vector2, speed: float, delta: float) -> void:
 	'''
 	adds the new point to the trail.
-	'''
+	'''			
+	glider_position = trail_position
 	queue.push_front(trail_position)
 	var size = 0
-	if speed > 4000:
-		size = clamp(speed / (2 * 4000), 0.5, 2.5)
+	if speed > trail_speed:
+		size = clamp(speed / (2 * trail_speed), 0.5, 2.5)
 	propegate_curve(size)
 		
 	if len(queue) > MAX_TRAIL_POINTS:

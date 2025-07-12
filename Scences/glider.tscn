@@ -320,6 +320,7 @@ horizontal_alignment = 1
 stream = ExtResource("3_u2eg4")
 autoplay = true
 bus = &"SFX"
+parameters/looping = true
 
 [node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_rygos")

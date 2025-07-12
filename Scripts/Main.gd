@@ -2,26 +2,19 @@ extends Node2D
 
 signal request_reload
 signal request_main_menu
-
-var settings_path = "user://settings.save"
+signal request_hide_overlay
+signal request_show_overlay
 
 var saved_state: SavedState
 var commited_state: SavedState = null
 
-var settings
 var starting_glider_position
 
 var vibrations
-var screenshake
 
 var difficulty_level = 0
 
 var can_revive: bool = true
-
-@onready var MASTER_BUS_ID = AudioServer.get_bus_index("Master")
-@onready var SFX_BUS_ID = AudioServer.get_bus_index("SFX")
-@onready var MUSIC_BUS_ID = AudioServer.get_bus_index("Music")
-
 
 @onready var environment: Node2D = $Environment
 @onready var glider: CharacterBody2D = $Glider
@@ -30,14 +23,13 @@ var can_revive: bool = true
 @onready var camera: Camera2D = $Glider/Camera
 
 @onready var heads_up_display: Control = $CanvasLayer/HeadsUpDisplay
-@onready var settings_screen: Control = $CanvasLayer/settings
 @onready var end_screen: Control = $CanvasLayer/EndScreen
 @onready var revive: Control = $CanvasLayer/Revive
 
 
-@onready var music: AudioStreamPlayer = $Music
 @onready var ad_manager: Node = $"../AdManager"
 
+@onready var settings: Settings = Settings.load_from_file()
 @onready var statistics: Statistics = Statistics.load_from_file()
 @onready var start_time: int = int(Time.get_unix_time_from_system())
 
@@ -68,6 +60,7 @@ func _reload_state() -> void:
 	score = commited_state.score
 	combo = commited_state.combo
 	glider.reset_state()
+	request_show_overlay.emit()
 	_process(0)
 	
 	await get_tree().process_frame
@@ -118,6 +111,7 @@ func _set_game_over() -> void:
 	_end_game()
 
 func _end_game() -> void:
+	request_hide_overlay.emit()
 	if can_revive and commited_state and ad_manager.is_ad_loaded():
 		revive.show_menu()
 		return
@@ -150,8 +144,7 @@ func _out_hoop() -> void:
 	combo = 1
 
 func _ready() -> void:
-	load_settings()
-	music.playing = true
+	apply_settings()
 	glider.position = starting_glider_position
 
 
@@ -184,40 +177,23 @@ func _vibrate_screen(millieseconds: int) -> void:
 	if vibrations:
 		Input.vibrate_handheld(millieseconds)
 
-func _on_update_settings(new_settings: Settings) -> void:
-	settings = new_settings
+func update_settings() -> void:
+	settings = Settings.load_from_file()
 	apply_settings()
 	
 func apply_settings() -> void:
-	AudioServer.set_bus_volume_db(SFX_BUS_ID, linear_to_db(settings.sfx_volume/100))
-	AudioServer.set_bus_volume_db(MUSIC_BUS_ID, linear_to_db(settings.music_volume/100))
-	AudioServer.set_bus_mute(MASTER_BUS_ID, settings.mute)
 	vibrations = settings.vibrations
-	screenshake = settings.screenshake
 	heads_up_display.display_speedometer(settings.speedometer)
-	camera.set_screenshake(screenshake)
-	
-func load_settings() -> void:
-	if FileAccess.file_exists(settings_path):
-		var file = FileAccess.open(settings_path, FileAccess.READ)
-		settings = file.get_var(true)
-	else:
-		settings = Settings.new()
-	settings_screen.set_settings(settings)
-	
-func save_settings() -> void:
-	var file = FileAccess.open(settings_path, FileAccess.WRITE)
-	file.store_var(settings, true)
+	camera.set_screenshake(settings.screenshake)
 	
 
-func _on_settings_button_pressed() -> void:
+
+func on_settings_button_pressed() -> void:
 	rings.unset_all_indicators()
-	settings_screen.open_settings()
 	
 
-func _on_resume() -> void:
+func on_settings_resume() -> void:
 	rings.set_all_indicators()
-	heads_up_display.show_settings_button()
 
 
 func _on_request_reload() -> void:

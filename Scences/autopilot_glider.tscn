@@ -318,7 +318,6 @@ horizontal_alignment = 1
 
 [node name="WindPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_x4w6r")
-autoplay = true
 bus = &"SFX"
 
 [node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]

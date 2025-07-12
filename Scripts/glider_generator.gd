@@ -8,6 +8,8 @@ const AUTOPILOT_GLIDER = preload("res://Scences/autopilot_glider.tscn")
 
 func start() -> void:
 	running = true
+	for i in range(wanted_gliders):
+		_generate_glider()
 
 func stop() -> void:
 	for child in get_children():
@@ -16,17 +18,9 @@ func stop() -> void:
 	running = false
 
 func _ready() -> void:
-	pass
+	for i in range(wanted_gliders):
+		_generate_glider()
 
-func _process(delta: float) -> void:
-	if gliders == 0 and not in_cleanup and running:
-		in_cleanup = true
-		for child in get_children():
-			child.queue_free()
-		in_cleanup = false
-		while(gliders != wanted_gliders):
-			_generate_glider()
-			
 
 func _generate_glider() -> void:
 	gliders += 1
@@ -41,7 +35,9 @@ func _generate_glider() -> void:
 
 func _on_dead_glider():
 	gliders -= 1
-
+	if gliders < wanted_gliders and running:
+		_generate_glider()
+	
 func _get_random_position() -> Vector2:
 	var x = randi_range(-4000,-500)
 	var y = randi_range(-1000,1000)

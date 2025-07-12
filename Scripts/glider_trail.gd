@@ -19,7 +19,11 @@ func _ready() -> void:
 	width_curve.bake()
 	
 	var distance = 1.0 / MAX_TRAIL_POINTS
-	
+
+func set_max_trail_points(new_max: int) -> void:
+	MAX_TRAIL_POINTS = new_max
+	_ready()
+
 
 func get_default_curve() -> Curve:
 	'''

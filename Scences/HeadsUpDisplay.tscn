@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dbjvyjhln6fb1"]
+[gd_scene load_steps=9 format=3 uid="uid://dbjvyjhln6fb1"]
 
 [ext_resource type="Script" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
-[ext_resource type="Texture2D" uid="uid://cmhrkgax64dtu" path="res://Assets/Art/cog_3.svg" id="2_pu3i4"]
 [ext_resource type="AudioStream" uid="uid://ddoh3y2y55g4u" path="res://Assets/Audio/Effects/beep.wav" id="2_sb5fs"]
 [ext_resource type="AudioStream" uid="uid://c1se6x81as8mh" path="res://Assets/Audio/Effects/final_beep.wav" id="3_p3opk"]
 [ext_resource type="Texture2D" uid="uid://bpl1kghhdqry0" path="res://Assets/Art/dial.png" id="5_6prld"]
@@ -24,46 +23,34 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:disabled")
+tracks/1/path = NodePath("ReviveCountdownContainer/CountDown:text")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [""]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../../ReviveCountdownContainer/CountDown:text")
+tracks/2/path = NodePath("ReviveCountdownContainer/CountDown:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [""]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../../ReviveCountdownContainer/CountDown:modulate")
+tracks/3/path = NodePath("ReviveCountdownContainer/CountDown:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../../../ReviveCountdownContainer/CountDown:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -76,31 +63,31 @@ length = 3.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../../ReviveCountdownContainer/CountDown:text")
+tracks/0/path = NodePath("ReviveCountdownContainer/CountDown:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.01, 1, 2, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.966667, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": ["3", "2", "1", ""]
+"values": ["3", "2", "1"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../../ReviveCountdownContainer/CountDown:modulate")
+tracks/1/path = NodePath("ReviveCountdownContainer/CountDown:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.63333),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.256, 0.5056, 0.64, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0)]
+"values": [Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../../../ReviveCountdownContainer/CountDown:visible")
+tracks/2/path = NodePath("ReviveCountdownContainer/CountDown:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -112,60 +99,43 @@ tracks/2/keys = {
 tracks/3/type = "audio"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../../../ReviveCountdownContainer/CountdownPlayer")
+tracks/3/path = NodePath("ReviveCountdownContainer/CountdownPlayer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 0.1,
+"start_offset": 0.0,
 "stream": ExtResource("2_sb5fs")
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 0.1,
+"start_offset": 0.0,
 "stream": ExtResource("2_sb5fs")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
 }, {
 "end_offset": 0.0,
 "start_offset": 0.0,
 "stream": ExtResource("3_p3opk")
 }],
-"times": PackedFloat32Array(0, 0.933333, 1.93333)
+"times": PackedFloat32Array(0, 0.0333333, 0.966667, 0.966767, 2, 2.0001)
 }
 tracks/3/use_blend = true
-
-[sub_resource type="Animation" id="Animation_r3kk2"]
-resource_name = "hide_settings_button"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kelql"]
 _data = {
 "RESET": SubResource("Animation_v3413"),
-"countdown": SubResource("Animation_k6xvw"),
-"hide_settings_button": SubResource("Animation_r3kk2")
+"countdown": SubResource("Animation_k6xvw")
 }
 
 [node name="HeadsUpDisplay" type="Control"]
@@ -182,7 +152,6 @@ script = ExtResource("1_d5bej")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
-root_node = NodePath("../MarginContainer2/SettingsButtonContainer/SettingsButton")
 libraries = {
 "": SubResource("AnimationLibrary_kelql")
 }
@@ -232,32 +201,6 @@ theme_override_colors/font_color = Color(0.258824, 0.505882, 0.643137, 1)
 theme_override_font_sizes/font_size = 60
 text = "0"
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 158.0
-offset_bottom = 88.0
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 30
-
-[node name="SettingsButtonContainer" type="HBoxContainer" parent="MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="SettingsButton" type="Button" parent="MarginContainer2/SettingsButtonContainer"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 0.580392)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0.796078)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 0.784314)
-theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0.815686)
-theme_override_constants/icon_max_width = 50
-icon = ExtResource("2_pu3i4")
-flat = true
-
 [node name="Speedometer" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 7
@@ -298,5 +241,3 @@ rotation = 1.5708
 scale = Vector2(0.4, 0.4)
 pivot_offset = Vector2(256, 256)
 texture = ExtResource("6_snqcp")
-
-[connection signal="pressed" from="MarginContainer2/SettingsButtonContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

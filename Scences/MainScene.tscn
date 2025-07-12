@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://njpgp1lv56qc"]
+[gd_scene load_steps=11 format=3 uid="uid://njpgp1lv56qc"]
 
 [ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_my7lj"]
 [ext_resource type="Script" path="res://Scripts/glider_generator.gd" id="2_gow4u"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" path="res://addons/AdmobPlugin/Admob.gd" id="4_wq4r8"]
 [ext_resource type="PackedScene" uid="uid://c2tgmbnlyaied" path="res://Scences/Leaderboard.tscn" id="5_7qu4w"]
 [ext_resource type="PackedScene" uid="uid://cntnmolkrjxrv" path="res://Scences/MainMenu.tscn" id="5_qrpdj"]
+[ext_resource type="PackedScene" uid="uid://buwuuc2mnjioe" path="res://Scences/settings.tscn" id="6_3ri78"]
 [ext_resource type="PackedScene" uid="uid://dj3fcyjoyffsf" path="res://Scences/NamePicker.tscn" id="7_d0jkc"]
+[ext_resource type="AudioStream" uid="uid://ds3h2xwd2rfnx" path="res://Assets/Music/Whispering Breeze.mp3" id="10_i71f0"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -55,6 +57,18 @@ visible = false
 [node name="NamePicker" parent="CanvasLayer" instance=ExtResource("7_d0jkc")]
 visible = false
 
+[node name="Overlay" type="CanvasLayer" parent="."]
+
+[node name="SettingsScreen" parent="Overlay" instance=ExtResource("6_3ri78")]
+mouse_filter = 2
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("10_i71f0")
+volume_db = -10.0
+bus = &"Music"
+parameters/looping = true
+
 [connection signal="new_data" from="DBManager" to="." method="_on_db_new_data"]
 [connection signal="request_completed" from="DBManager/PutLeaderboard" to="DBManager" method="_on_put_leaderboard_request_completed"]
 [connection signal="request_completed" from="DBManager/PutStatistics" to="DBManager" method="_on_put_statistics_request_completed"]
@@ -72,3 +86,6 @@ visible = false
 [connection signal="back_to_menu" from="CanvasLayer/Leaderboard" to="." method="_on_show_menu"]
 [connection signal="request_data" from="CanvasLayer/Leaderboard" to="." method="_on_leaderboard_request_data"]
 [connection signal="name_submitted" from="CanvasLayer/NamePicker" to="." method="_on_try_pick_name"]
+[connection signal="request_open_settings" from="Overlay/SettingsScreen" to="." method="_on_settings_button_pressed"]
+[connection signal="resume" from="Overlay/SettingsScreen" to="." method="_on_settings_resume"]
+[connection signal="update_settings" from="Overlay/SettingsScreen" to="." method="_on_update_settings"]

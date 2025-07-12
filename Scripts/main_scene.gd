@@ -8,6 +8,9 @@ extends Control
 @onready var leaderboard: Control = $CanvasLayer/Leaderboard
 @onready var main_menu: Control = $CanvasLayer/MainMenu
 @onready var glider_generator: Node = $GliderGenerator
+@onready var settings_screen: Control = $Overlay/SettingsScreen
+@onready var overlay: CanvasLayer = $Overlay
+@onready var music: AudioStreamPlayer = $Music
 
 @onready var settings: Settings = Settings.load_from_file()
 
@@ -25,9 +28,11 @@ func _ready() -> void:
 	db_manager.get_data()
 	db_manager.send_data_to_db()
 	leaderboard._setup()
+	music.play()
 
 
 func _player_name_set() -> bool:
+	settings = Settings.load_from_file()
 	return settings.player_name != ""
 
 func _get_player_name():
@@ -80,11 +85,46 @@ func _restart_game() -> void:
 	current_game = game_scene.instantiate()
 	current_game.request_reload.connect(_restart_game)
 	current_game.request_main_menu.connect(_return_to_menu)
+	
+	current_game.request_hide_overlay.connect(_hide_overlay)
+	current_game.request_show_overlay.connect(_show_overlay)
+	current_game.request_main_menu.connect(_show_overlay)
+	current_game.request_reload.connect(_show_overlay)
+	
 	add_child(current_game)
+	move_child(current_game, 0)  # Move to index 0 (the first child)
 
+
+func _show_overlay() -> void:
+	overlay.visible = true
+
+func _hide_overlay() -> void:
+	overlay.visible = false
 
 func _on_db_new_data(data: Variant) -> void:
 	leaderboard.save_data(data)
 
 func _on_leaderboard_request_data() -> void:
 	db_manager.get_data()
+
+
+func _on_settings_button_pressed() -> void:
+	if current_game == null:
+		canvas_layer.visible = false
+	else:
+		get_tree().paused = true
+		current_game.on_settings_button_pressed()
+	
+	
+
+func _on_settings_resume() -> void:
+	if current_game == null:
+		canvas_layer.visible = true
+	else:
+		get_tree().paused = false
+		current_game.on_settings_resume()
+
+
+func _on_update_settings() -> void:
+	if current_game != null:
+		current_game.update_settings()

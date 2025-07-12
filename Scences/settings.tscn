@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://buwuuc2mnjioe"]
+[gd_scene load_steps=8 format=3 uid="uid://buwuuc2mnjioe"]
 
 [ext_resource type="Script" path="res://Scripts/settings_screen.gd" id="1_atlmk"]
 [ext_resource type="Shader" path="res://end_screen.gdshader" id="2_0rfml"]
+[ext_resource type="Texture2D" uid="uid://cmhrkgax64dtu" path="res://Assets/Art/cog_3.svg" id="3_o65w6"]
 
 [sub_resource type="Animation" id="Animation_af0tx"]
 length = 0.001
@@ -32,7 +33,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
+tracks/2/path = NodePath("PanelContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -72,10 +73,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:visible")
+tracks/2/path = NodePath("OpenButtonContainer:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PanelContainer:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.0333333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -95,7 +108,6 @@ shader_parameter/lod = 0.0
 
 [node name="settings" type="Control"]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -119,6 +131,7 @@ offset_bottom = 720.0
 mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -204,6 +217,7 @@ layout_mode = 2
 focus_mode = 0
 theme_override_constants/h_separation = 30
 theme_override_font_sizes/font_size = 40
+button_pressed = true
 text = "Vibrations"
 
 [node name="Speedometer" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2"]
@@ -214,11 +228,38 @@ theme_override_font_sizes/font_size = 40
 button_pressed = true
 text = "Speedometer"
 
-[node name="resume" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 disabled = true
 text = "Resume"
+
+[node name="OpenButtonContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 158.0
+offset_bottom = 88.0
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 30
+
+[node name="SettingsButtonContainer" type="HBoxContainer" parent="OpenButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="SettingsButton" type="Button" parent="OpenButtonContainer/SettingsButtonContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0.580392)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0.796078)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0.784314)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0.815686)
+theme_override_constants/icon_max_width = 50
+icon = ExtResource("3_o65w6")
+flat = true
 
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Sliders/SFXVolumeSlider" to="." method="_update_settings"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/Sliders/MusicVolumeSlider" to="." method="_update_settings"]
@@ -226,4 +267,5 @@ text = "Resume"
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row1/ScreenShake" to="." method="_update_settings"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2/Vibrations" to="." method="_update_settings"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/Columns/Row2/Speedometer" to="." method="_update_settings"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/resume" to="." method="close_settings"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ResumeButton" to="." method="close_settings"]
+[connection signal="pressed" from="OpenButtonContainer/SettingsButtonContainer/SettingsButton" to="." method="open_settings"]

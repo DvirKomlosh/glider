@@ -11,8 +11,6 @@ var curr_distance = 0
 var curr_score = 0
 var presented_score = 0.0
 
-signal settings_button_pressed
-
 func update_distance(new_distance: int) -> void:
 	curr_distance = new_distance
 	
@@ -25,16 +23,6 @@ func _process(delta: float) -> void:
 	score.text = str(int(ceil(presented_score)))
 	distance.text = str(curr_distance)
 
-
-
-func _on_settings_button_pressed() -> void:
-	animation_player.play("hide_settings_button")
-	await animation_player.animation_finished
-	settings_button_pressed.emit()
-
-
-func show_settings_button() -> void:
-	animation_player.play_backwards("hide_settings_button")
 
 func countdown() -> void:
 	animation_player.play("countdown")

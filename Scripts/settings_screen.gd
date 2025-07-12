@@ -51,9 +51,7 @@ func set_settings() -> void:
 	makes sure the settings screen indicate the actual saved settings.
 	"""
 	setting_settings_lock = true
-	print("loading")
 	var settings = Settings.load_from_file()
-	print(settings)
 	sfx_volume_slider.value = settings.sfx_volume
 	music_volume_slider.value = settings.music_volume
 	vibrations.button_pressed = settings.vibrations

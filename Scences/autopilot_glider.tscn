@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://dosackr3aogrr"]
+[gd_scene load_steps=21 format=3 uid="uid://b4i2j6whtx4bg"]
 
-[ext_resource type="Script" path="res://Scripts/glider.gd" id="1_353v6"]
-[ext_resource type="AudioStream" uid="uid://0mnu0aqhu85p" path="res://Assets/Audio/Effects/medium-explosion-40472.mp3" id="2_rygos"]
-[ext_resource type="AudioStream" uid="uid://c2g0aiv8rtc3s" path="res://Assets/Audio/Effects/wind-2.mp3" id="3_u2eg4"]
-[ext_resource type="Script" path="res://Scripts/glider_trail.gd" id="4_0hpm1"]
+[ext_resource type="Script" path="res://Scripts/autopilot_glider.gd" id="1_rdk63"]
+[ext_resource type="Script" path="res://Scripts/glider_trail.gd" id="2_t2gxk"]
+[ext_resource type="AudioStream" uid="uid://c2g0aiv8rtc3s" path="res://Assets/Audio/Effects/wind-2.mp3" id="3_x4w6r"]
+[ext_resource type="AudioStream" uid="uid://0mnu0aqhu85p" path="res://Assets/Audio/Effects/medium-explosion-40472.mp3" id="4_mjq6p"]
 
 [sub_resource type="Animation" id="Animation_yltgb"]
 resource_name = "Explode"
@@ -82,7 +82,7 @@ tracks/5/keys = {
 }
 tracks/6/type = "value"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("ExplosionPlayer:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
@@ -280,9 +280,9 @@ scale_max = 40.0
 scale_curve = SubResource("CurveTexture_cy1kd")
 color_ramp = SubResource("GradientTexture1D_i8qd4")
 
-[node name="Glider" type="CharacterBody2D" groups=["player"]]
-scale = Vector2(1.3, 1.3)
-script = ExtResource("1_353v6")
+[node name="AutopilotGlider" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_rdk63")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -297,7 +297,7 @@ gradient = SubResource("Gradient_jlm0s")
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
-script = ExtResource("4_0hpm1")
+script = ExtResource("2_t2gxk")
 start_color = Color(0.337255, 0.654902, 0.713726, 1)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
@@ -317,12 +317,12 @@ theme_override_font_sizes/font_size = 300
 horizontal_alignment = 1
 
 [node name="WindPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_u2eg4")
+stream = ExtResource("3_x4w6r")
 autoplay = true
 bus = &"SFX"
 
 [node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_rygos")
+stream = ExtResource("4_mjq6p")
 volume_db = 8.0
 bus = &"SFX"
 

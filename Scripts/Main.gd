@@ -26,7 +26,6 @@ var can_revive: bool = true
 @onready var environment: Node2D = $Environment
 @onready var glider: CharacterBody2D = $Glider
 @onready var rings: Node2D = $Environment/Rings
-@onready var glider_trail: Line2D = $GliderTrail
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var camera: Camera2D = $Glider/Camera
 
@@ -69,7 +68,6 @@ func _reload_state() -> void:
 	score = commited_state.score
 	combo = commited_state.combo
 	glider.reset_state()
-	glider_trail.reset_trail()
 	_process(0)
 	
 	await get_tree().process_frame
@@ -88,7 +86,6 @@ func update_glider_position(pos: Vector2, speed: float) -> void:
 	'''
 	updates relavent functions of the glider position
 	'''
-	glider_trail.add_trail_point(pos, speed)
 	rings.update_indicator(pos)
 	
 	
@@ -147,6 +144,7 @@ func _in_hoop() -> void:
 		combo += 1
 		animation_player.seek(0, true)
 		animation_player.play("in_hoop")
+		glider.boosted()
 					
 func _out_hoop() -> void:
 	combo = 1

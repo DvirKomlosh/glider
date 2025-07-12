@@ -16,28 +16,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var glider_trail: Line2D = $GliderTrail
 
+var wanted_point = Vector2(-1000, 60)
 var glider_wanted_rotation = 0.0
+var trail_color = Color("56a7b6")
 
 var is_alive = true
 var debug_mode = false
 
-func _show_points(combo: int) -> void:
-	'''
-	shows an animation of the added score to the scree
-	'''
-	points.scale = Vector2(0.6, 0.6)
-	points.text = "+" + str(combo)
-	var points_tween = create_tween()
-	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.1)
-	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.3)
-	points_tween.tween_property(points, "scale", Vector2(0,0),0.1)	
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch or event is InputEventScreenDrag:
-		var vp_rect = get_viewport().get_visible_rect()
-		var normalized_y = (event.position.y - vp_rect.position.y) / vp_rect.size.y
-		var mapped_y = clamp(lerp(90, -90, normalized_y), -90, 90)
-		set_glider_rotation(mapped_y)
+func control():
+	glider_wanted_rotation = (wanted_point - global_position).angle() #+ ((randf() * 2 - 1) * PI)
 
 func boosted():
 	animation_player.stop()
@@ -47,6 +34,8 @@ func _ready() -> void:
 	rotation = 0
 	wind_player.volume_db = -50
 	set_process_unhandled_input(true)
+	glider_trail.trail_speed = 400
+	velocity = Vector2(3000, 0)
 
 
 func sigmoid(x: float) -> float:
@@ -72,10 +61,10 @@ func set_glider_rotation(controller_value: float) -> void:
 		glider_wanted_rotation = asin( - controller_value/90)
 
 func _process(delta: float) -> void:
-	
+	control()
 	points.rotation = -rotation
 	var screen_height = 5040.0
-	
+	glider_trail.default_start_color = trail_color
 	var speed = 0
 	if is_alive:
 		speed = velocity.length()
@@ -86,7 +75,7 @@ func _process(delta: float) -> void:
 	# clamp rotation:
 	glider_wanted_rotation = max(glider_wanted_rotation,-PI/2)
 	glider_wanted_rotation = min(glider_wanted_rotation, PI/2)
-	rotation = lerp(rotation, glider_wanted_rotation, 0.2)
+	rotation = lerp(rotation, glider_wanted_rotation, 0.01)
 	glider_trail.rotation = -rotation
 	_play_sound(delta)
 
@@ -95,7 +84,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity.y += gravity * 5 * delta
+		velocity.y += gravity * 1 * delta
 	
 	var pitch = rotation
 	var pitchcos = cos(pitch)
@@ -140,11 +129,15 @@ func _physics_process(delta: float) -> void:
 	velocity.x = max(0, velocity.x)
 	
 	
+	
 	if is_alive:
 		var collided = move_and_slide()
+		if position.x > 2000 or position.y > 1200:
+			collided = true
 		if collided:
 			is_alive = false
 			animation_player.play("Explode")
+			await animation_player.animation_finished
 			create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
 			dead.emit()
 	else:
@@ -173,5 +166,4 @@ func _draw() -> void:
 		draw_line(Vector2(0,0), acc.rotated(-rotation) ,Color.GREEN, 10)
 
 func in_hoop(combo: int) -> void:
-	_show_points(combo)
 	velocity += forward_dir * 3000

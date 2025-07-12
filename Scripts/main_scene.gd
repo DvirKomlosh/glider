@@ -7,6 +7,7 @@ extends Control
 @onready var name_picker: Control = $CanvasLayer/NamePicker
 @onready var leaderboard: Control = $CanvasLayer/Leaderboard
 @onready var main_menu: Control = $CanvasLayer/MainMenu
+@onready var glider_generator: Node = $GliderGenerator
 
 @onready var settings: Settings = Settings.load_from_file()
 
@@ -49,6 +50,7 @@ func _on_try_pick_name(name: String) -> void:
 func _on_main_menu_play() -> void:
 	canvas_layer.visible = false
 	_restart_game()
+	glider_generator.stop()
 
 func _on_main_menu_show_leaderboard() -> void:
 	for child in canvas_layer.get_children():
@@ -68,6 +70,7 @@ func _return_to_menu() -> void:
 		current_game = null
 		await get_tree().process_frame #make sure the last scene is gone	
 	canvas_layer.visible = true
+	glider_generator.start()
 
 func _restart_game() -> void:
 	if current_game:

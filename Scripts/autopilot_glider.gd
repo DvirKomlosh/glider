@@ -10,7 +10,6 @@ var acc
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var wind_player = $WindPlayer
 @onready var points: Label = $Points
 @onready var trail_position: Marker2D = $TrailPosition
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -24,7 +23,7 @@ var is_alive = true
 var debug_mode = false
 
 func control():
-	glider_wanted_rotation = (wanted_point - global_position).angle() #+ ((randf() * 2 - 1) * PI)
+	glider_wanted_rotation = (wanted_point - global_position).angle()
 
 func boosted():
 	animation_player.stop()
@@ -37,25 +36,13 @@ func _ready() -> void:
 	glider_trail.trail_speed = 400
 	glider_trail.set_max_trail_points(50)
 	velocity = Vector2(3000, 0)
+	
 
 
 func sigmoid(x: float) -> float:
 	return 1 / (1.0 + exp(10 * (-x+0.5)))
 
 
-func _play_sound(delta: float) -> void:
-	'''
-	plays the wind sound with relation to the gliders speed.
-	'''
-	var speed = velocity.length()
-	var halflife = 0.05
-	var base_volume = 0
-	var target_volume = base_volume + linear_to_db(sigmoid(speed/30000.0))
-
-	var new_volume = lerp(wind_player.volume_db,target_volume, (1 - 2 ** (-delta / halflife)))
-	
-	
-	wind_player.volume_db = new_volume
 	
 func set_glider_rotation(controller_value: float) -> void:
 	if is_alive:
@@ -78,7 +65,6 @@ func _process(delta: float) -> void:
 	glider_wanted_rotation = min(glider_wanted_rotation, PI/2)
 	rotation = lerp(rotation, glider_wanted_rotation, 0.01)
 	glider_trail.rotation = -rotation
-	_play_sound(delta)
 
 
 
@@ -141,6 +127,7 @@ func _physics_process(delta: float) -> void:
 			await animation_player.animation_finished
 			create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
 			dead.emit()
+			queue_free()
 	else:
 		velocity = Vector2(0, 0)
 	

@@ -8,11 +8,15 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Glider"
 run/main_scene="res://Scences/Main.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://Movie/icon3.svg"
 
 [display]
@@ -34,6 +38,6 @@ pointing/emulate_touch_from_mouse=true
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.881283, 0.81053, 0.722556, 1)
 anti_aliasing/quality/msaa_2d=1
+environment/defaults/default_clear_color=Color(0.881283, 0.81053, 0.722556, 1)
 environment/custom_font=""

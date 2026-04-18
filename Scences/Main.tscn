@@ -1,15 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://dlue7lxuy1gh8"]
+[gd_scene format=3 uid="uid://dlue7lxuy1gh8"]
 
-[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_2ayxk"]
+[ext_resource type="Script" uid="uid://hvhca2o8sb3v" path="res://Scripts/Main.gd" id="1_2ayxk"]
 [ext_resource type="PackedScene" uid="uid://dosackr3aogrr" path="res://Scences/glider.tscn" id="1_mtst1"]
 [ext_resource type="PackedScene" uid="uid://c1tlevkc8eva4" path="res://Scences/end_screen.tscn" id="3_c6iph"]
-[ext_resource type="Script" path="res://Scripts/environment.gd" id="3_deydf"]
-[ext_resource type="Script" path="res://Scripts/camera.gd" id="3_eorxt"]
-[ext_resource type="Script" path="res://Scripts/Rings.gd" id="3_n4ehn"]
+[ext_resource type="Script" uid="uid://b8cqgwi4f825s" path="res://Scripts/environment.gd" id="3_deydf"]
+[ext_resource type="Script" uid="uid://b3fitm2ldo4q1" path="res://Scripts/camera.gd" id="3_eorxt"]
+[ext_resource type="Script" uid="uid://criw0r5cemx58" path="res://Scripts/Rings.gd" id="3_n4ehn"]
 [ext_resource type="PackedScene" uid="uid://dbjvyjhln6fb1" path="res://Scences/HeadsUpDisplay.tscn" id="4_8k3tv"]
 [ext_resource type="PackedScene" uid="uid://buwuuc2mnjioe" path="res://Scences/settings.tscn" id="4_gkwxg"]
-[ext_resource type="Script" path="res://Scripts/walls.gd" id="4_m5oe5"]
-[ext_resource type="Script" path="res://Scripts/glider_trail.gd" id="7_36mon"]
+[ext_resource type="Script" uid="uid://wvymtwseukbp" path="res://Scripts/walls.gd" id="4_m5oe5"]
+[ext_resource type="Script" uid="uid://da0xkai1ob1a0" path="res://Scripts/glider_trail.gd" id="7_36mon"]
 [ext_resource type="Texture2D" uid="uid://cmhrkgax64dtu" path="res://Assets/Art/cog_3.svg" id="7_dpby8"]
 [ext_resource type="AudioStream" uid="uid://5h1iu0sxhkkc" path="res://Assets/Audio/Effects/sonic_boom.mp3" id="10_1iu5a"]
 [ext_resource type="AudioStream" uid="uid://bjymy274l1p3p" path="res://Assets/Music/Whispering Breeze.wav" id="11_ejmt8"]
@@ -305,47 +305,60 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6ebp"]
 _data = {
-"RESET": SubResource("Animation_etpxp"),
-"death": SubResource("Animation_hkra6"),
-"hide_settings_button": SubResource("Animation_pubyg"),
-"in_hoop": SubResource("Animation_lur6t")
+&"RESET": SubResource("Animation_etpxp"),
+&"death": SubResource("Animation_hkra6"),
+&"hide_settings_button": SubResource("Animation_pubyg"),
+&"in_hoop": SubResource("Animation_lur6t")
 }
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=958007183]
 script = ExtResource("1_2ayxk")
 
-[node name="Glider" parent="." instance=ExtResource("1_mtst1")]
+[node name="Glider" parent="." unique_id=1723866800 instance=ExtResource("1_mtst1")]
 z_index = 1
 
-[node name="Camera" type="Camera2D" parent="Glider"]
+[node name="Camera" type="Camera2D" parent="Glider" unique_id=2116161309]
 position = Vector2(-658, -1681)
 offset = Vector2(2000, 2000)
 zoom = Vector2(0.1, 0.1)
 position_smoothing_speed = 20.0
 script = ExtResource("3_eorxt")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=604604257]
 
-[node name="HeadsUpDisplay" parent="CanvasLayer" instance=ExtResource("4_8k3tv")]
+[node name="HeadsUpDisplay" parent="CanvasLayer" unique_id=1157604933 instance=ExtResource("4_8k3tv")]
 mouse_filter = 2
 
-[node name="settings" parent="CanvasLayer" instance=ExtResource("4_gkwxg")]
+[node name="StreakText" type="Label" parent="CanvasLayer/HeadsUpDisplay" unique_id=45389575]
+layout_mode = 0
+offset_left = 470.0
+offset_top = 12.0
+offset_right = 824.0
+offset_bottom = 170.0
+pivot_offset = Vector2(104, 46.5)
+theme_override_colors/font_color = Color(1, 0.34901962, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0.7353949, 0.735709, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 66
+horizontal_alignment = 1
+
+[node name="settings" parent="CanvasLayer" unique_id=631364563 instance=ExtResource("4_gkwxg")]
 mouse_filter = 2
 
-[node name="EndScreen" parent="CanvasLayer" instance=ExtResource("3_c6iph")]
+[node name="EndScreen" parent="CanvasLayer" unique_id=1034106648 instance=ExtResource("3_c6iph")]
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1395670762]
 offset_right = 158.0
 offset_bottom = 88.0
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 30
 
-[node name="SettingsButtonContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="SettingsButtonContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=1074326784]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="SettingsButton" type="Button" parent="CanvasLayer/MarginContainer/SettingsButtonContainer"]
+[node name="SettingsButton" type="Button" parent="CanvasLayer/MarginContainer/SettingsButtonContainer" unique_id=224666573]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -360,16 +373,16 @@ theme_override_constants/icon_max_width = 50
 icon = ExtResource("7_dpby8")
 flat = true
 
-[node name="Environment" type="Node2D" parent="."]
+[node name="Environment" type="Node2D" parent="." unique_id=2135347133]
 script = ExtResource("3_deydf")
 
-[node name="Walls" type="Node2D" parent="Environment"]
+[node name="Walls" type="Node2D" parent="Environment" unique_id=1040400881]
 script = ExtResource("4_m5oe5")
 
-[node name="Rings" type="Node2D" parent="Environment"]
+[node name="Rings" type="Node2D" parent="Environment" unique_id=1890088068]
 script = ExtResource("3_n4ehn")
 
-[node name="GliderTrail" type="Line2D" parent="."]
+[node name="GliderTrail" type="Line2D" parent="." unique_id=2112954065]
 width = 85.0
 width_curve = SubResource("Curve_0g3sn")
 default_color = Color(0.337255, 0.654902, 0.713726, 1)
@@ -380,20 +393,18 @@ end_cap_mode = 2
 script = ExtResource("7_36mon")
 start_color = Color(0.337255, 0.654902, 0.713726, 1)
 
-[node name="BoostPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BoostPlayer" type="AudioStreamPlayer" parent="." unique_id=394388451]
 stream = ExtResource("10_1iu5a")
 bus = &"SFX"
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=63664257]
 process_mode = 3
 stream = ExtResource("11_ejmt8")
 volume_db = -10.0
 bus = &"Music"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_o6ebp")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1533993129]
+libraries/ = SubResource("AnimationLibrary_o6ebp")
 
 [connection signal="add_trail" from="Glider" to="." method="_send_add_trail"]
 [connection signal="add_trail" from="Glider" to="." method="update_glider_position"]

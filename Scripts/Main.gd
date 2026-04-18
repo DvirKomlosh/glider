@@ -82,6 +82,8 @@ func _in_hoop() -> void:
 		glider.in_hoop(combo)
 		score += combo
 		combo += 1
+		heads_up_display.show_streak_message(combo)
+		
 		animation_player.seek(0, true)
 		animation_player.play("in_hoop")
 					

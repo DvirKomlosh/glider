@@ -332,9 +332,9 @@ mouse_filter = 2
 [node name="StreakText" type="Label" parent="CanvasLayer/HeadsUpDisplay" unique_id=45389575]
 layout_mode = 0
 offset_left = 470.0
-offset_top = 12.0
+offset_top = 89.0
 offset_right = 824.0
-offset_bottom = 170.0
+offset_bottom = 247.0
 pivot_offset = Vector2(104, 46.5)
 theme_override_colors/font_color = Color(1, 0.34901962, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 0.7353949, 0.735709, 1)
@@ -343,6 +343,8 @@ theme_override_font_sizes/font_size = 66
 horizontal_alignment = 1
 
 [node name="settings" parent="CanvasLayer" unique_id=631364563 instance=ExtResource("4_gkwxg")]
+offset_top = 1.0
+offset_bottom = 1.0
 mouse_filter = 2
 
 [node name="EndScreen" parent="CanvasLayer" unique_id=1034106648 instance=ExtResource("3_c6iph")]

@@ -16,12 +16,16 @@ func update_score(new_score: int) -> void:
 func show_streak_message(combo: int) -> void:
 	if combo >= 8:
 		streak_text.text = "CRAZY STREAK!!"
+		streak_text.rotation_degrees = randf_range(-10, 10)
 	elif combo >= 6:
 		streak_text.text = "Amazing!"
+		streak_text.rotation_degrees = randf_range(-10, 10)
 	elif combo >= 4:
 		streak_text.text = "Awesome!"
+		streak_text.rotation_degrees = randf_range(-10, 10)
 	elif combo >= 2:
 		streak_text.text = "Good!"
+		streak_text.rotation_degrees = randf_range(-10, 10)
 	else:
 		return
 

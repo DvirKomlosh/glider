@@ -15,7 +15,7 @@ signal update_settings(settings: Settings)
 @onready var screen_shake_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/ScreenShake/ScreenShakeCheckBox
 @onready var vibrations_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Vibrations/VibrationsCheckBox
 @onready var mute_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/Mute/MuteCheckBox
-
+@onready var respawn_check_box: CheckBox = $PanelContainer/MarginContainer/VBoxContainer/Checkboxes/RespawnCheckBox
 
 func _update_settings(value) -> void:
 	var settings = _get_current_settings()
@@ -29,14 +29,19 @@ func _get_current_settings() -> Settings:
 	settings.vibrations = vibrations_check_box.button_pressed
 	settings.screenshake = screen_shake_check_box.button_pressed
 	settings.mute = mute_check_box.button_pressed
+	settings.respawn_after_death = respawn_check_box.button_pressed
 	return settings
 
 func set_settings(settings: Settings):
+	if not is_node_ready():
+		await ready
+	
 	sfx_volume_slider.value = settings.sfx_volume
 	music_volume_slider.value = settings.music_volume
 	vibrations_check_box.button_pressed = settings.vibrations
 	screen_shake_check_box.button_pressed = settings.screenshake
 	mute_check_box.button_pressed = settings.mute
+	respawn_check_box.button_pressed = settings.respawn_after_death
 
 
 func open_settings() -> void:
@@ -61,3 +66,7 @@ func close_settings() -> void:
 	resume_game.emit()
 
 	
+
+
+func _on_respawn_check_box_toggled(toggled_on: bool) -> void:
+	_update_settings(toggled_on)

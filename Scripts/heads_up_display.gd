@@ -44,3 +44,26 @@ func show_streak_message(combo: int) -> void:
 	_streak_tween.tween_property(streak_text, "scale", Vector2(1.2, 1.2), 0.1)
 	_streak_tween.tween_property(streak_text, "scale", Vector2(1.0, 1.0), 0.1)
 	_streak_tween.tween_property(streak_text, "modulate:a", 0.0, 0.5).set_delay(1.0)
+
+@onready var fire_label: Label = $FireLabel
+
+func update_fire_streak(current_combo: int) -> void:
+	if current_combo <= 1:
+		fire_label.text = ""
+		return
+
+	var emojis = ""
+	var streak_number = current_combo - 1
+	
+	if streak_number >= 10:
+		emojis = "🔥🔥🔥"
+	elif streak_number >= 5:
+		emojis = "🔥🔥"
+	elif streak_number >= 3:
+		emojis = "🔥"
+	
+	fire_label.text = emojis + " " + str(streak_number)
+	
+	var tween = create_tween()
+	tween.tween_property(fire_label, "scale", Vector2(1.2, 1.2), 0.05)
+	tween.tween_property(fire_label, "scale", Vector2(1.0, 1.0), 0.05)

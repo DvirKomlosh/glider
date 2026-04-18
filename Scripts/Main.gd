@@ -8,6 +8,7 @@ var starting_glider_position
 
 var vibrations
 var screenshake
+var respawn_after_death = false
 
 var difficulty_level = 0
 
@@ -72,16 +73,22 @@ func update_glider_position(pos: Vector2, speed: float) -> void:
 	
 
 func _set_game_over() -> void:
+	is_game_over = true
+	if respawn_after_death:
+		await get_tree().create_timer(2.0).timeout
+		get_tree().reload_current_scene()
+		return
+
 	_save_score()
 	animation_player.play("death")
 	end_screen.set_scores(score, best_score, distance, best_distance)
-	is_game_over = true
 
 func _in_hoop() -> void:
 	if not is_game_over:
 		glider.in_hoop(combo)
 		score += combo
 		combo += 1
+		heads_up_display.update_fire_streak(combo)
 		heads_up_display.show_streak_message(combo)
 		
 		animation_player.seek(0, true)
@@ -89,11 +96,13 @@ func _in_hoop() -> void:
 					
 func _out_hoop() -> void:
 	combo = 1
+	heads_up_display.update_fire_streak(combo)
 
 func _ready() -> void:
 	_load_score()
 	load_settings()
 	music.playing = true
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), false)
 	glider.position = starting_glider_position
 
 func _calculate_difficulty() -> float:
@@ -132,6 +141,7 @@ func apply_settings():
 	AudioServer.set_bus_mute(MASTER_BUS_ID, settings.mute)
 	vibrations = settings.vibrations
 	screenshake = settings.screenshake
+	respawn_after_death = settings.respawn_after_death
 	camera.set_screenshake(screenshake)
 	
 func load_settings():
@@ -158,3 +168,6 @@ func _on_settings_button_pressed() -> void:
 func _on_resume() -> void:
 	rings.set_all_indicators()
 	animation_player.play_backwards("hide_settings_button")
+
+func _on_settings_updated(new_settings: Settings) -> void:
+	settings = new_settings

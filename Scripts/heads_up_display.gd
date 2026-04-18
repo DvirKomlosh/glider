@@ -14,18 +14,23 @@ func update_score(new_score: int) -> void:
 
 
 func show_streak_message(combo: int) -> void:
+	
+	var low_streak_words = ["Good!", "Cool!", "Very Good!", "Awesome!"]
+	var mid_streak_words = ["Amazing!", "Great Job!", "Keep Going!", "Unstoppable!"]
+	var high_streak_words = ["CRAZY STREAK!!", "DOING AMAZINGLY GOOD!", "INSANE!!", "KING OF THE SKY!"]
+	
 	if combo >= 8:
-		streak_text.text = "CRAZY STREAK!!"
 		streak_text.rotation_degrees = randf_range(-10, 10)
+		streak_text.text = high_streak_words.pick_random()
 	elif combo >= 6:
-		streak_text.text = "Amazing!"
 		streak_text.rotation_degrees = randf_range(-10, 10)
+		streak_text.text = mid_streak_words.pick_random()
 	elif combo >= 4:
-		streak_text.text = "Awesome!"
 		streak_text.rotation_degrees = randf_range(-10, 10)
+		streak_text.text = low_streak_words.pick_random()
 	elif combo >= 2:
-		streak_text.text = "Good!"
 		streak_text.rotation_degrees = randf_range(-10, 10)
+		streak_text.text = low_streak_words.pick_random()
 	else:
 		return
 

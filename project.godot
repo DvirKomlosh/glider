@@ -19,6 +19,11 @@ run/main_scene="res://Scences/Main.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://Movie/icon3.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://7yc0t8xyva83"
+driver/enable_input=true
+
 [display]
 
 window/size/viewport_width=1280
@@ -29,6 +34,10 @@ window/stretch/aspect="expand"
 [editor]
 
 movie_writer/movie_file="C:/Users/dvirk/Documents/Projects/glider/Movie/movie.avi"
+
+[global]
+
+Record=false
 
 [input_devices]
 

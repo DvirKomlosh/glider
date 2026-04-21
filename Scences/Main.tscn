@@ -411,13 +411,11 @@ start_color = Color(0.337255, 0.654902, 0.713726, 1)
 
 [node name="BoostPlayer" type="AudioStreamPlayer" parent="." unique_id=394388451]
 stream = ExtResource("10_1iu5a")
-bus = &"SFX"
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=63664257]
 process_mode = 3
 stream = ExtResource("11_ejmt8")
 volume_db = -10.0
-bus = &"Music"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1533993129]
 libraries/ = SubResource("AnimationLibrary_o6ebp")

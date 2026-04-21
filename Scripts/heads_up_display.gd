@@ -4,6 +4,7 @@ extends Control
 @onready var score: Label = $MarginContainer/HBoxContainer/Score
 @onready var streak_text: Label = $StreakText
 
+
 var _streak_tween: Tween
 
 func update_distance(new_distance: int) -> void:
@@ -19,20 +20,19 @@ func show_streak_message(combo: int) -> void:
 	var mid_streak_words = ["Amazing!", "Great Job!", "Keep Going!", "Unstoppable!"]
 	var high_streak_words = ["CRAZY STREAK!!", "DOING AMAZINGLY GOOD!", "INSANE!!", "KING OF THE SKY!"]
 	
+	var chosen_word = ""
+	
 	if combo >= 8:
-		streak_text.rotation_degrees = randf_range(-10, 10)
-		streak_text.text = high_streak_words.pick_random()
+		chosen_word = high_streak_words.pick_random()
 	elif combo >= 6:
-		streak_text.rotation_degrees = randf_range(-10, 10)
-		streak_text.text = mid_streak_words.pick_random()
-	elif combo >= 4:
-		streak_text.rotation_degrees = randf_range(-10, 10)
-		streak_text.text = low_streak_words.pick_random()
-	elif combo >= 2:
-		streak_text.rotation_degrees = randf_range(-10, 10)
-		streak_text.text = low_streak_words.pick_random()
+		chosen_word = mid_streak_words.pick_random()
+	elif combo >= 2: 
+		chosen_word = low_streak_words.pick_random()
 	else:
 		return
+
+	streak_text.rotation_degrees = randf_range(-10, 10)
+	streak_text.text = chosen_word
 
 	if _streak_tween:
 		_streak_tween.kill()

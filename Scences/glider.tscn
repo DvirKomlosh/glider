@@ -1,6 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://dosackr3aogrr"]
+[gd_scene format=3 uid="uid://dosackr3aogrr"]
 
-[ext_resource type="Script" path="res://Scripts/glider.gd" id="1_353v6"]
+[ext_resource type="Script" uid="uid://bpylwp6guws6e" path="res://Scripts/glider.gd" id="1_353v6"]
 [ext_resource type="AudioStream" uid="uid://0mnu0aqhu85p" path="res://Assets/Audio/Effects/medium-explosion-40472.mp3" id="2_rygos"]
 [ext_resource type="AudioStream" uid="uid://c2g0aiv8rtc3s" path="res://Assets/Audio/Effects/wind-2.mp3" id="3_u2eg4"]
 
@@ -148,6 +148,18 @@ tracks/6/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Polygon2D2:polygon")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-52.211456, 2.434066, 54.711624, 2.434066, 13.429581, -29.873627, -4.859932, -35.258244, -40.916412, -44.48901, -47.187103, -46.027473, -100.48798, -41.41209, -111.46169, -18.335167, -94.21729, -2.1813202)]
+}
 
 [sub_resource type="Animation" id="Animation_mnlxp"]
 length = 0.001
@@ -235,24 +247,36 @@ tracks/6/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Polygon2D2:polygon")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [PackedVector2Array(-52.211456, 2.434066, 54.711624, 2.434066, 13.429581, -29.873627, -4.859932, -35.258244, -40.916412, -44.48901, -47.187103, -46.027473, -100.48798, -41.41209, -111.46169, -18.335167, -94.21729, -2.1813202)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fp8bb"]
 _data = {
-"Explode": SubResource("Animation_yltgb"),
-"RESET": SubResource("Animation_mnlxp")
+&"Explode": SubResource("Animation_yltgb"),
+&"RESET": SubResource("Animation_mnlxp")
 }
 
-[node name="Glider" type="CharacterBody2D" groups=["player"]]
+[node name="Glider" type="CharacterBody2D" unique_id=1771995361 groups=["player"]]
 scale = Vector2(1.3, 1.3)
 script = ExtResource("1_353v6")
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1897534910]
 position = Vector2(0, -27)
 scale = Vector2(3, 3)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-57, 24, 54, 24, 89, 10, 68, -1, 39, -6, -61, 0, -97, -21, -82, -1, -100, 0)
 
-[node name="Points" type="Label" parent="."]
+[node name="Points" type="Label" parent="." unique_id=264706291]
 custom_minimum_size = Vector2(100, 70)
 offset_left = -175.0
 offset_top = -528.0
@@ -262,41 +286,45 @@ theme_override_colors/font_color = Color(0.258824, 0.505882, 0.643137, 1)
 theme_override_font_sizes/font_size = 300
 horizontal_alignment = 1
 
-[node name="WindPlayer" type="AudioStreamPlayer" parent="."]
+[node name="WindPlayer" type="AudioStreamPlayer" parent="." unique_id=892916471]
 stream = ExtResource("3_u2eg4")
 autoplay = true
 bus = &"SFX"
 
-[node name="ExplosionPlayer" type="AudioStreamPlayer" parent="."]
+[node name="ExplosionPlayer" type="AudioStreamPlayer" parent="." unique_id=1380184181]
 stream = ExtResource("2_rygos")
 volume_db = 8.0
 bus = &"SFX"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=1564021844]
 visible = false
 position = Vector2(0, -27)
 scale = Vector2(3, 3)
 polygon = PackedVector2Array(40, -6, 68, -1, 89, 10, 54, 24, -57, 24, -100, 0, -82, -1, -97, -21, -61, 0)
 
-[node name="TrailPosition" type="Marker2D" parent="."]
+[node name="TrailPosition" type="Marker2D" parent="." unique_id=1941506993]
 position = Vector2(-255, 0)
 
-[node name="ExplosiveParticals" type="GPUParticles2D" parent="."]
+[node name="ExplosiveParticals" type="GPUParticles2D" parent="." unique_id=414008605]
 emitting = false
 amount = 20
-process_material = SubResource("ParticleProcessMaterial_yd6wt")
 explosiveness = 0.84
 visibility_rect = Rect2(-600, -300, 1200, 600)
+process_material = SubResource("ParticleProcessMaterial_yd6wt")
 
-[node name="ExplosiveLines" type="GPUParticles2D" parent="."]
+[node name="ExplosiveLines" type="GPUParticles2D" parent="." unique_id=167621128]
 visible = false
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_ft6ut")
 explosiveness = 0.84
 visibility_rect = Rect2(-600, -300, 1200, 600)
+process_material = SubResource("ParticleProcessMaterial_ft6ut")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_fp8bb")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=76722442]
+libraries/ = SubResource("AnimationLibrary_fp8bb")
+
+[node name="Polygon2D2" type="Polygon2D" parent="." unique_id=387818046]
+visible = false
+position = Vector2(186.38486, 0.6428587)
+scale = Vector2(1.4720498, 1)
+polygon = PackedVector2Array(-52.211456, 2.434066, 54.711624, 2.434066, 13.429581, -29.873627, -4.859932, -35.258244, -40.916412, -44.48901, -47.187103, -46.027473, -100.48798, -41.41209, -111.46169, -18.335167, -94.21729, -2.1813202)

@@ -13,8 +13,16 @@ var starting_glider_position
 var vibrations
 
 var difficulty_level = 0
+<<<<<<< HEAD
 
 var can_revive: bool = true
+=======
+
+@onready var MASTER_BUS_ID = AudioServer.get_bus_index("Master")
+@onready var SFX_BUS_ID = AudioServer.get_bus_index("SFX")
+@onready var MUSIC_BUS_ID = AudioServer.get_bus_index("Music")
+
+>>>>>>> main
 
 @onready var environment: Node2D = $Environment
 @onready var glider: CharacterBody2D = $Glider
@@ -44,12 +52,26 @@ var is_game_over = false
 func _get_current_state() -> SavedState:
 	return SavedState.new(glider.position, glider.velocity, glider.rotation, score, combo)
 
+<<<<<<< HEAD
 func _commit_state(state: SavedState) -> void:
 	commited_state = state
 
 func save_state() -> void:
 	_commit_state(saved_state)
 	saved_state = _get_current_state()
+=======
+func _load_score() -> void:
+	'''
+	loads best scores from savefile
+	'''
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		best_distance = file.get_var()
+		best_score = file.get_var()
+	else:
+		best_distance = 0
+		best_score = 0
+>>>>>>> main
 
 	
 func _reload_state() -> void:
@@ -147,7 +169,10 @@ func _ready() -> void:
 	apply_settings()
 	glider.position = starting_glider_position
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 func _calculate_difficulty() -> float:
 	'''
 	difficulty starts at 0 and reaches slowly to 1 (is 1 at infinity)
@@ -183,8 +208,25 @@ func update_settings() -> void:
 	
 func apply_settings() -> void:
 	vibrations = settings.vibrations
+<<<<<<< HEAD
 	heads_up_display.display_speedometer(settings.speedometer)
 	camera.set_screenshake(settings.screenshake)
+=======
+	screenshake = settings.screenshake
+	camera.set_screenshake(screenshake)
+	
+func load_settings():
+	if FileAccess.file_exists(settings_path):
+		var file = FileAccess.open(settings_path, FileAccess.READ)
+		settings = file.get_var(true)
+	else:
+		settings = Settings.new()
+	settings_screen.set_settings(settings)
+	
+func save_settings():
+	var file = FileAccess.open(settings_path, FileAccess.WRITE)
+	file.store_var(settings, true)
+>>>>>>> main
 	
 
 

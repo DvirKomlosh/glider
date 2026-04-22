@@ -53,7 +53,6 @@ func update_indicator(glider_position: Vector2) -> void:
 	if len(active_rings) > 0:
 		active_rings[0].set_indicator(glider_position)
 
-
 func instentiate_ring(new_pos: Vector2, ring_scale) -> void:
 	'''
 	generates a new ring

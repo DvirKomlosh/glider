@@ -28,6 +28,8 @@ var x_value = -section_length * 4
 var difficulty_level = 0
 var PRE_EXISTING_WALLS = 9
 
+var difficulty_level = 0
+
 @onready var rings = $Rings
 @onready var walls = $Walls
 

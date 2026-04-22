@@ -1,6 +1,142 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbjvyjhln6fb1"]
+[gd_scene load_steps=9 format=3 uid="uid://dbjvyjhln6fb1"]
 
-[ext_resource type="Script" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
+[ext_resource type="Script" uid="uid://ch4oht75e2g67" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
+[ext_resource type="AudioStream" uid="uid://ddoh3y2y55g4u" path="res://Assets/Audio/Effects/beep.wav" id="2_sb5fs"]
+[ext_resource type="AudioStream" uid="uid://c1se6x81as8mh" path="res://Assets/Audio/Effects/final_beep.wav" id="3_p3opk"]
+[ext_resource type="Texture2D" uid="uid://bpl1kghhdqry0" path="res://Assets/Art/dial.png" id="5_6prld"]
+[ext_resource type="Texture2D" uid="uid://bne8gdbwlcvpd" path="res://Assets/Art/white_needle.png" id="6_snqcp"]
+
+[sub_resource type="Animation" id="Animation_v3413"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ReviveCountdownContainer/CountDown:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [""]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ReviveCountdownContainer/CountDown:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ReviveCountdownContainer/CountDown:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_k6xvw"]
+resource_name = "countdown"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ReviveCountdownContainer/CountDown:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": ["3", "2", "1"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ReviveCountdownContainer/CountDown:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.63333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0), Color(0.258824, 0.505882, 0.643137, 1), Color(0.254902, 0.505882, 0.639216, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ReviveCountdownContainer/CountDown:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.933333, 1, 1.93333, 2, 2.63333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ReviveCountdownContainer/CountdownPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 0.1,
+"start_offset": 0.0,
+"stream": ExtResource("2_sb5fs")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 0.1,
+"start_offset": 0.0,
+"stream": ExtResource("2_sb5fs")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_p3opk")
+}],
+"times": PackedFloat32Array(0, 0.0333333, 0.966667, 0.966767, 2, 2.0001)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kelql"]
+_data = {
+&"RESET": SubResource("Animation_v3413"),
+&"countdown": SubResource("Animation_k6xvw")
+}
 
 [node name="HeadsUpDisplay" type="Control"]
 process_priority = -1
@@ -14,6 +150,30 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_d5bej")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_kelql")
+}
+
+[node name="ReviveCountdownContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CountdownPlayer" type="AudioStreamPlayer" parent="ReviveCountdownContainer"]
+volume_db = -20.0
+bus = &"SFX"
+
+[node name="CountDown" type="Label" parent="ReviveCountdownContainer"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 400
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
@@ -26,17 +186,58 @@ theme_override_constants/margin_right = 100
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 800
+theme_override_constants/separation = 700
 alignment = 1
 
 [node name="Distance" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.258824, 0.505882, 0.643137, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 60
 text = "0"
 
 [node name="Score" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.258824, 0.505882, 0.643137, 1)
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 60
 text = "0"
+
+[node name="Speedometer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Dial" type="TextureRect" parent="Speedometer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -110.0
+offset_right = 412.0
+offset_bottom = 402.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_6prld")
+
+[node name="Needle" type="TextureRect" parent="Speedometer"]
+self_modulate = Color(0.258824, 0.505882, 0.643137, 1)
+layout_mode = 1
+anchors_preset = -1
+offset_left = -254.0
+offset_top = -264.0
+offset_right = 258.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+pivot_offset = Vector2(256, 256)
+texture = ExtResource("6_snqcp")

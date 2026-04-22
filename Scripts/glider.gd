@@ -14,6 +14,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var points: Label = $Points
 @onready var trail_position: Marker2D = $TrailPosition
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var glider_trail: Line2D = $GliderTrail
 
 var glider_wanted_rotation = 0.0
 
@@ -31,16 +32,16 @@ func _show_points(combo: int) -> void:
 	points_tween.tween_property(points, "scale", Vector2(1.1,1.1),0.3)
 	points_tween.tween_property(points, "scale", Vector2(0,0),0.1)	
 
-
-
-
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch or event is InputEventScreenDrag:
 		var vp_rect = get_viewport().get_visible_rect()
 		var normalized_y = (event.position.y - vp_rect.position.y) / vp_rect.size.y
 		var mapped_y = clamp(lerp(90, -90, normalized_y), -90, 90)
 		set_glider_rotation(mapped_y)
-	
+
+func boosted():
+	animation_player.stop()
+	animation_player.play("boost")
 
 func _ready() -> void:
 	rotation = 0
@@ -70,21 +71,25 @@ func set_glider_rotation(controller_value: float) -> void:
 	if is_alive:
 		glider_wanted_rotation = asin( - controller_value/90)
 
-func _process(delta) -> void:
+func _process(delta: float) -> void:
 	
 	points.rotation = -rotation
 	var screen_height = 5040.0
-
+	
 	var speed = 0
 	if is_alive:
 		speed = velocity.length()
-
+	
 	add_trail.emit(trail_position.global_position, speed)
+	glider_trail.add_trail_point(trail_position.global_position, speed, delta)
+	
 	# clamp rotation:
 	glider_wanted_rotation = max(glider_wanted_rotation,-PI/2)
 	glider_wanted_rotation = min(glider_wanted_rotation, PI/2)
 	rotation = lerp(rotation, glider_wanted_rotation, 0.2)
+	glider_trail.rotation = -rotation
 	_play_sound(delta)
+
 
 
 func _physics_process(delta: float) -> void:
@@ -130,20 +135,31 @@ func _physics_process(delta: float) -> void:
 	
 	acc *= ACC_MULT
 	velocity += acc 
-	
+
 	# always going forward:
 	velocity.x = max(0, velocity.x)
-
 	
-	var collided = move_and_slide()
-	if collided:
-		is_alive = false
-		dead.emit()
-		animation_player.play("Explode")
-		create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
-
+	
+	if is_alive:
+		var collided = move_and_slide()
+		if collided:
+			is_alive = false
+			animation_player.play("Explode")
+			create_tween().tween_property(self, "velocity", Vector2(0,0),0.1)
+			dead.emit()
+	else:
+		velocity = Vector2(0, 0)
+	
 		
 	queue_redraw()
+
+func reset_state() -> void:
+	is_alive = true
+	animation_player.stop()
+	animation_player.seek(0.0, true)
+	glider_wanted_rotation = rotation
+	glider_trail.reset_trail()
+	
 
 func _draw() -> void:
 	'''

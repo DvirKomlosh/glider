@@ -1,0 +1,41 @@
+[gd_resource type="AnimatedTexture" load_steps=13 format=3 uid="uid://6d7wnum75n6s"]
+
+[ext_resource type="Texture2D" uid="uid://bwnqba3ykcyjh" path="res://Assets/Art/animation/throbber/throbber_00.png" id="1_lp1c0"]
+[ext_resource type="Texture2D" uid="uid://b0jn1vhih5cof" path="res://Assets/Art/animation/throbber/throbber_01.png" id="2_r2ycu"]
+[ext_resource type="Texture2D" uid="uid://wlq6ojpu045w" path="res://Assets/Art/animation/throbber/throbber_10.png" id="3_11myu"]
+[ext_resource type="Texture2D" uid="uid://bt7x45ydb41ar" path="res://Assets/Art/animation/throbber/throbber_11.png" id="4_8f3ka"]
+[ext_resource type="Texture2D" uid="uid://dchlakkhdansl" path="res://Assets/Art/animation/throbber/throbber_02.png" id="5_s2ct8"]
+[ext_resource type="Texture2D" uid="uid://cu5yaom4s8vcm" path="res://Assets/Art/animation/throbber/throbber_03.png" id="6_sur8r"]
+[ext_resource type="Texture2D" uid="uid://dhsr8ss0hsrcq" path="res://Assets/Art/animation/throbber/throbber_04.png" id="7_6wsts"]
+[ext_resource type="Texture2D" uid="uid://b8lvd15y034k2" path="res://Assets/Art/animation/throbber/throbber_05.png" id="8_711uy"]
+[ext_resource type="Texture2D" uid="uid://d85bhtfg046k" path="res://Assets/Art/animation/throbber/throbber_06.png" id="9_cmh2i"]
+[ext_resource type="Texture2D" uid="uid://fgou6n4n4fg6" path="res://Assets/Art/animation/throbber/throbber_07.png" id="10_djtim"]
+[ext_resource type="Texture2D" uid="uid://ce8ffv75kflri" path="res://Assets/Art/animation/throbber/throbber_08.png" id="11_dlrne"]
+[ext_resource type="Texture2D" uid="uid://2im0tuo72d3m" path="res://Assets/Art/animation/throbber/throbber_09.png" id="12_tsitp"]
+
+[resource]
+frames = 12
+speed_scale = 16.0
+frame_0/texture = ExtResource("1_lp1c0")
+frame_1/texture = ExtResource("2_r2ycu")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("5_s2ct8")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("6_sur8r")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("7_6wsts")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("8_711uy")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("9_cmh2i")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("10_djtim")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("11_dlrne")
+frame_8/duration = 1.0
+frame_9/texture = ExtResource("12_tsitp")
+frame_9/duration = 1.0
+frame_10/texture = ExtResource("3_11myu")
+frame_10/duration = 1.0
+frame_11/texture = ExtResource("4_8f3ka")
+frame_11/duration = 1.0

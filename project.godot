@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Glider"
-run/main_scene="res://Scences/Main.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+run/main_scene="res://Scences/MainScene.tscn"
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://Movie/icon3.svg"
 
 [display]
@@ -26,6 +26,10 @@ window/stretch/aspect="expand"
 
 movie_writer/movie_file="C:/Users/dvirk/Documents/Projects/glider/Movie/movie.avi"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AdmobPlugin/plugin.cfg")
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
@@ -34,6 +38,6 @@ pointing/emulate_touch_from_mouse=true
 
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.881283, 0.81053, 0.722556, 1)
 anti_aliasing/quality/msaa_2d=1
+environment/defaults/default_clear_color=Color(0.881283, 0.81053, 0.722556, 1)
 environment/custom_font=""

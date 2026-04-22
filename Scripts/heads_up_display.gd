@@ -2,8 +2,7 @@ extends Control
 
 @onready var distance: Label = $MarginContainer/HBoxContainer/Distance
 @onready var score: Label = $MarginContainer/HBoxContainer/Score
-@onready var streak_text: Label = $StreakText
-
+@onready var streak_text: Label = $StreakTextnow
 
 var _streak_tween: Tween
 

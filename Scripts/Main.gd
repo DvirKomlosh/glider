@@ -113,7 +113,6 @@ func _calculate_difficulty() -> float:
 	
 	return 1 - (1 / (1 + (distance / 500.0)))
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	distance = int(glider.position.x / 1000)
 	difficulty_level = _calculate_difficulty()

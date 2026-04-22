@@ -8,8 +8,8 @@ signal request_data
 
 @onready var statistics: Statistics = Statistics.load_from_file()
 
-@onready var SCORE = LeaderboardMode.new("Score", true, "pasten", "pasten", statistics.get_best_score)
-@onready var DISTANCE = LeaderboardMode.new("Distance", true, "pasten", "pasten", statistics.get_best_distance)
+@onready var SCORE = LeaderboardMode.new("Score", true, "fetch_url", "submit_url", Statistics.get_best_score)
+@onready var DISTANCE = LeaderboardMode.new("Distance", true, "fetch_url", "submit_url", Statistics.get_best_distance)
 
 
 @onready var cache_manager: Node = $CacheManager

@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://njpgp1lv56qc"]
 
-[ext_resource type="Script" path="res://Scripts/main_scene.gd" id="1_my7lj"]
-[ext_resource type="Script" path="res://Scripts/glider_generator.gd" id="2_gow4u"]
-[ext_resource type="Script" path="res://Scripts/db_manager.gd" id="2_lxu30"]
-[ext_resource type="Script" path="res://Scripts/ad_manager.gd" id="3_misdx"]
-[ext_resource type="Script" path="res://addons/AdmobPlugin/Admob.gd" id="4_wq4r8"]
+[ext_resource type="Script" uid="uid://iln5d4v6reao" path="res://Scripts/main_scene.gd" id="1_my7lj"]
+[ext_resource type="Script" uid="uid://bwdptdlwfqgug" path="res://Scripts/glider_generator.gd" id="2_gow4u"]
+[ext_resource type="Script" uid="uid://cakuurfo32cme" path="res://Scripts/db_manager.gd" id="2_lxu30"]
+[ext_resource type="Script" uid="uid://dpgmon85fv5lb" path="res://Scripts/ad_manager.gd" id="3_misdx"]
+[ext_resource type="Script" uid="uid://dlnxu3hb8ydc4" path="res://addons/AdmobPlugin/Admob.gd" id="4_wq4r8"]
 [ext_resource type="PackedScene" uid="uid://c2tgmbnlyaied" path="res://Scences/Leaderboard.tscn" id="5_7qu4w"]
 [ext_resource type="PackedScene" uid="uid://cntnmolkrjxrv" path="res://Scences/MainMenu.tscn" id="5_qrpdj"]
 [ext_resource type="PackedScene" uid="uid://buwuuc2mnjioe" path="res://Scences/settings.tscn" id="6_3ri78"]
@@ -39,6 +39,7 @@ script = ExtResource("3_misdx")
 
 [node name="Admob" type="Node" parent="."]
 script = ExtResource("4_wq4r8")
+is_real = true
 child_directed = 1
 under_age_of_consent = 1
 debug_application_id = "ca-app-pub-3940256099942544~3347511713"
@@ -61,6 +62,12 @@ visible = false
 
 [node name="SettingsScreen" parent="Overlay" instance=ExtResource("6_3ri78")]
 mouse_filter = 2
+
+[node name="debug" type="Label" parent="Overlay"]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 60
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 process_mode = 3

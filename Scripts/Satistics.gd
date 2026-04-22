@@ -9,8 +9,8 @@ extends SavedResource
 	get():
 		return best_score
 
-func get_best_score() -> int:
-	return best_score
+static func get_best_score() -> int:
+	return Statistics.load_from_file().best_score
 
 @export var best_distance: int = 0:
 	set(new_best):
@@ -20,8 +20,8 @@ func get_best_score() -> int:
 	get():
 		return best_distance
 
-func get_best_distance() -> int:
-	return best_distance
+static func get_best_distance() -> int:
+	return Statistics.load_from_file().best_distance
 
 @export var best_combo: int = 1:
 	set(new_best):

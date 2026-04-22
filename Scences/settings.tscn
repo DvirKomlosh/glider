@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://buwuuc2mnjioe"]
 
-[ext_resource type="Script" path="res://Scripts/settings_screen.gd" id="1_atlmk"]
-[ext_resource type="Shader" path="res://end_screen.gdshader" id="2_0rfml"]
+[ext_resource type="Script" uid="uid://dqhjf70ygfbhv" path="res://Scripts/settings_screen.gd" id="1_atlmk"]
+[ext_resource type="Shader" uid="uid://d17vo4qxsbo4d" path="res://end_screen.gdshader" id="2_0rfml"]
 [ext_resource type="Texture2D" uid="uid://cmhrkgax64dtu" path="res://Assets/Art/cog_3.svg" id="3_o65w6"]
 
 [sub_resource type="Animation" id="Animation_af0tx"]
@@ -97,8 +97,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gpxaq"]
 _data = {
-"RESET": SubResource("Animation_af0tx"),
-"blur": SubResource("Animation_hbdfn")
+&"RESET": SubResource("Animation_af0tx"),
+&"blur": SubResource("Animation_hbdfn")
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5voxd"]
@@ -120,7 +120,7 @@ script = ExtResource("1_atlmk")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_gpxaq")
+&"": SubResource("AnimationLibrary_gpxaq")
 }
 
 [node name="Blur" type="ColorRect" parent="."]
@@ -251,12 +251,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
-theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0, 0, 0, 0.580392)
-theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0.796078)
-theme_override_colors/icon_hover_color = Color(0, 0, 0, 0.784314)
 theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0.815686)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0.784314)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0.796078)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0.580392)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
 theme_override_constants/icon_max_width = 50
 icon = ExtResource("3_o65w6")
 flat = true

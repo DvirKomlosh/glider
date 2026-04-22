@@ -204,6 +204,7 @@ script = ExtResource("3_eorxt")
 mouse_filter = 2
 
 [node name="debug" type="Label" parent="CanvasLayer/HeadsUpDisplay"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

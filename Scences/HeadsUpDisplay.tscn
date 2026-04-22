@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dbjvyjhln6fb1"]
 
-[ext_resource type="Script" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
+[ext_resource type="Script" uid="uid://ch4oht75e2g67" path="res://Scripts/heads_up_display.gd" id="1_d5bej"]
 [ext_resource type="AudioStream" uid="uid://ddoh3y2y55g4u" path="res://Assets/Audio/Effects/beep.wav" id="2_sb5fs"]
 [ext_resource type="AudioStream" uid="uid://c1se6x81as8mh" path="res://Assets/Audio/Effects/final_beep.wav" id="3_p3opk"]
 [ext_resource type="Texture2D" uid="uid://bpl1kghhdqry0" path="res://Assets/Art/dial.png" id="5_6prld"]
@@ -134,8 +134,8 @@ tracks/3/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kelql"]
 _data = {
-"RESET": SubResource("Animation_v3413"),
-"countdown": SubResource("Animation_k6xvw")
+&"RESET": SubResource("Animation_v3413"),
+&"countdown": SubResource("Animation_k6xvw")
 }
 
 [node name="HeadsUpDisplay" type="Control"]
@@ -153,7 +153,7 @@ script = ExtResource("1_d5bej")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
 libraries = {
-"": SubResource("AnimationLibrary_kelql")
+&"": SubResource("AnimationLibrary_kelql")
 }
 
 [node name="ReviveCountdownContainer" type="MarginContainer" parent="."]

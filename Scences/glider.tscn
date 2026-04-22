@@ -1,9 +1,9 @@
 [gd_scene load_steps=21 format=3 uid="uid://dosackr3aogrr"]
 
-[ext_resource type="Script" path="res://Scripts/glider.gd" id="1_353v6"]
+[ext_resource type="Script" uid="uid://bki0k66x6y7t8" path="res://Scripts/glider.gd" id="1_353v6"]
 [ext_resource type="AudioStream" uid="uid://0mnu0aqhu85p" path="res://Assets/Audio/Effects/medium-explosion-40472.mp3" id="2_rygos"]
 [ext_resource type="AudioStream" uid="uid://c2g0aiv8rtc3s" path="res://Assets/Audio/Effects/wind-2.mp3" id="3_u2eg4"]
-[ext_resource type="Script" path="res://Scripts/glider_trail.gd" id="4_0hpm1"]
+[ext_resource type="Script" uid="uid://qmwip4acuju1" path="res://Scripts/glider_trail.gd" id="4_0hpm1"]
 
 [sub_resource type="Animation" id="Animation_yltgb"]
 resource_name = "Explode"
@@ -210,9 +210,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fp8bb"]
 _data = {
-"Explode": SubResource("Animation_yltgb"),
-"RESET": SubResource("Animation_mnlxp"),
-"boost": SubResource("Animation_40wqy")
+&"Explode": SubResource("Animation_yltgb"),
+&"RESET": SubResource("Animation_mnlxp"),
+&"boost": SubResource("Animation_40wqy")
 }
 
 [sub_resource type="Curve" id="Curve_w55b4"]
@@ -286,7 +286,7 @@ script = ExtResource("1_353v6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_fp8bb")
+&"": SubResource("AnimationLibrary_fp8bb")
 }
 
 [node name="GliderTrail" type="Line2D" parent="."]
@@ -339,14 +339,14 @@ position = Vector2(-255, 0)
 [node name="ExplosiveParticals" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 20
-process_material = SubResource("ParticleProcessMaterial_yd6wt")
 explosiveness = 0.84
 visibility_rect = Rect2(-600, -300, 1200, 600)
+process_material = SubResource("ParticleProcessMaterial_yd6wt")
 
 [node name="ExplosiveLines" type="GPUParticles2D" parent="."]
 visible = false
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_ft6ut")
 explosiveness = 0.84
 visibility_rect = Rect2(-600, -300, 1200, 600)
+process_material = SubResource("ParticleProcessMaterial_ft6ut")
